@@ -1,0 +1,6 @@
+@import '../../assets/_variables.css';
+
+.header {
+  width: 100%;
+  background-color: var(--main-background-color);
+}
