@@ -4,3 +4,98 @@
   width: 100%;
   background-color: var(--main-background-color);
 }
+
+.header__wrapper {
+  width: auto;
+  height: 56px;
+  padding-left: 20px;
+  padding-right: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header_logo {
+  background-image: url(../../images/mini_logo3.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: block;
+  width: 90px;
+  height: 31px;
+}
+
+.header_avatar {
+  background-image: url(../../images/avatar_user.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: block;
+  margin-right: 15px;
+  width: 32px;
+  height: 32px;
+}
+
+.header__button_logout {
+  display: block;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background-color: var(--main-background-color);
+  width: 16px;
+  height: 16px;
+}
+
+.header__button_logout_logo {
+  fill: #cbccd0;
+}
+
+.header__button_logout_logo:hover,
+.header__button_logout_logo:focus {
+  fill: var(--orange-background-color);
+}
+
+.header__control_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header__login_name {
+  position: relative;
+}
+
+.header__button_logout_text {
+  color: black;
+  text-decoration: underline;
+}
+
+@media (min-width: 768px) {
+  .header__wrapper {
+    padding-left: 26px;
+    padding-right: 26px;
+  }
+
+  .header__user_wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 40px;
+  }
+
+  .header__login_name::after {
+    content: url('./Vector\ 1.svg');
+    display: block;
+    position: absolute;
+    top: -10px;
+    right: -20px;
+  }
+
+  .header_avatar {
+    margin-right: 10px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .header__wrapper {
+    padding-right: 72px;
+  }
+}
