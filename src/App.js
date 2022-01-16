@@ -1,12 +1,18 @@
 import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+
+import AppBar from './components/AppBar/AppBar';
+import ReportPage from './page/ReportPage/ReportPage';
 import HomePageView from './pages/HomePageView';
-import AppBar from './components/AppBar';
 
 function App() {
   return (
     <>
       <AppBar />
-      <HomePageView />
+      <Routes>
+        <Route path="/" element={<HomePageView />} />
+        <Route path="report" element={<ReportPage />} />
+      </Routes>
     </>
   );
 }
