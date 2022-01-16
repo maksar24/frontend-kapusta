@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import s from './ReportPage.module.css';
-import DateField from '../../components/DateField/DateField';
+import DateField from '../../components/DateField';
 import { ReactComponent as GoBackArrow } from './GoBackArrow.svg';
 import { ReactComponent as LeftArrow } from './LeftArrow.svg';
 import { ReactComponent as RigthArrow } from './RigthArrow.svg';
