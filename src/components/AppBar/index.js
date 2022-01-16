@@ -1,1 +1,1 @@
-import {default} from './AppBar';
+export { default } from './AppBar';

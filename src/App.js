@@ -1,10 +1,13 @@
-import AppBar from "./components/AppBar/AppBar";
+import React from 'react';
+import HomePageView from './pages/HomePageView';
+import AppBar from './components/AppBar';
 
 function App() {
   return (
-    <div>
+    <>
       <AppBar />
-    </div>
+      <HomePageView />
+    </>
   );
 }
 
