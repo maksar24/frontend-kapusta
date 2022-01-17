@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import AppBar from './components/AppBar/AppBar';
 import ReportPage from './pages/ReportPage';
 import HomePage from './pages/HomePage';
+import ReportCoast from './components/ReportCoast/reportCoact';
 
 function App() {
   return (
