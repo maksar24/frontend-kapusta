@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 import Container from '../../components/Container';
 import LoginForm from '../../components/LogInForm';
+import RegistrationForm from '../../components/RegistrationForm';
 import s from './HomePage.module.css';
 
 const HomePageView = () => {
-  const [setLogin] = useState(true);
+  const [login, setLogin] = useState(true);
 
   const onRegisterClick = () => {
     setLogin(false);
+  };
+
+  const onComeBackClick = () => {
+    setLogin(true);
   };
 
   return (
@@ -18,7 +23,11 @@ const HomePageView = () => {
             <h1 className={s.title}>smart finance</h1>
           </div>
           <div className={s.loginWrapper}>
-            <LoginForm onClickRegister={onRegisterClick} />
+            {login ? (
+              <LoginForm onClickRegister={onRegisterClick} />
+            ) : (
+              <RegistrationForm onClickComeBack={onComeBackClick} />
+            )}
           </div>
         </div>
       </Container>
