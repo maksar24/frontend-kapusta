@@ -1,0 +1,79 @@
+.container {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.button__name {
+  display: none;
+}
+@media (max-width: 767) {
+  .container {
+    max-width: 480px;
+    padding-top: 21px;
+    padding-bottom: 51px;
+  }
+
+  .small__container {
+    margin-top: 16px;
+  }
+}
+
+.button__back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: inherit;
+}
+
+.date__description {
+  font-size: 12px;
+  line-height: 14px;
+  letter-spacing: 0.04em;
+  color: rgba(82, 85, 95, 0.7);
+  text-align: center;
+}
+
+.datePicker__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 5px;
+}
+
+.datePicker__button {
+  border: none;
+  background-color: inherit;
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: 768px;
+    padding-top: 42px;
+    padding-bottom: 76px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .button__name {
+    display: inline-block;
+    margin-left: 18px;
+    font-size: 12px;
+    line-height: 14px;
+    letter-spacing: 0.04em;
+    color: rgba(82, 85, 95, 0.7);
+    text-align: center;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    width: 1280px;
+    padding-top: 43px;
+    padding-bottom: 74px;
+  }
+}
