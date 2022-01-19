@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import s from './ReportPage.module.css';
 import DateField from '../../components/DateField';
+import ReportCoast from '../../components/ReportCoast/reportCoact';
 import { ReactComponent as GoBackArrow } from './GoBackArrow.svg';
 import { ReactComponent as LeftArrow } from './LeftArrow.svg';
 import { ReactComponent as RigthArrow } from './RigthArrow.svg';
@@ -54,6 +55,7 @@ const ReportPage = () => {
         </div>
       </div>
       <Container>
+        <ReportCoast />
         <ReportChart />
       </Container>
     </>

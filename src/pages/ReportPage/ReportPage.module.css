@@ -4,15 +4,16 @@
   margin-left: auto;
   margin-right: auto;
 }
+.button__name {
+  display: none;
+}
 @media (max-width: 767) {
   .container {
     max-width: 480px;
     padding-top: 21px;
     padding-bottom: 51px;
   }
-  .button__name {
-    display: none;
-  }
+
   .small__container {
     margin-top: 16px;
   }
@@ -59,6 +60,7 @@
   }
 
   .button__name {
+    display: inline-block;
     margin-left: 18px;
     font-size: 12px;
     line-height: 14px;
