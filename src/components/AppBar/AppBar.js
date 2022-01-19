@@ -39,13 +39,13 @@ export default function AppBar() {
             {matches => (
               <Fragment>
                 {matches.small && (
-                  <button className={s.header__button_logout}>
+                  <a href="/" className={s.header__logout_svg}>
                     <Icons iconName="logout" />
-                  </button>
+                  </a>
                 )}
                 {matches.medium && (
                   <a href="/">
-                    <span className={s.header__button_logout_text}>Выйти</span>
+                    <span className={s.header__logout_text}>Выйти</span>
                   </a>
                 )}
               </Fragment>

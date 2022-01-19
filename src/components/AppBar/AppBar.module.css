@@ -25,14 +25,10 @@
   height: 32px;
 }
 
-.header__button_logout {
-  display: block;
-  cursor: pointer;
-  border: none;
-  outline: none;
-  background-color: var(--main-background-color);
-  width: 16px;
-  height: 16px;
+.header__logout_svg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .header__control_wrapper {
@@ -45,7 +41,7 @@
   position: relative;
 }
 
-.header__button_logout_text {
+.header__logout_text {
   color: black;
   text-decoration: underline;
 }

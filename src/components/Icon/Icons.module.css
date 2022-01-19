@@ -1,5 +1,25 @@
 @import '../../assets/_variables.css';
 
+.logo {
+  width: 183px;
+  height: 46px;
+  margin-bottom: 5px;
+}
+
+@media (min-width: 768px) {
+  .logo {
+    width: 307px;
+    height: 78px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .logo {
+    width: 377px;
+    height: 120px;
+  }
+}
+
 .miniLogo {
   display: block;
   width: 90px;
