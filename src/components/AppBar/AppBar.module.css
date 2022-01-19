@@ -15,15 +15,6 @@
   align-items: center;
 }
 
-.header_logo {
-  background-image: url(../../images/mini_logo3.svg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: block;
-  width: 90px;
-  height: 31px;
-}
-
 .header_avatar {
   background-image: url(../../images/avatar_user.png);
   background-repeat: no-repeat;
@@ -34,23 +25,10 @@
   height: 32px;
 }
 
-.header__button_logout {
-  display: block;
-  cursor: pointer;
-  border: none;
-  outline: none;
-  background-color: var(--main-background-color);
-  width: 16px;
-  height: 16px;
-}
-
-.header__button_logout_logo {
-  fill: #cbccd0;
-}
-
-.header__button_logout_logo:hover,
-.header__button_logout_logo:focus {
-  fill: var(--orange-background-color);
+.header__logout_svg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .header__control_wrapper {
@@ -63,7 +41,7 @@
   position: relative;
 }
 
-.header__button_logout_text {
+.header__logout_text {
   color: black;
   text-decoration: underline;
 }
