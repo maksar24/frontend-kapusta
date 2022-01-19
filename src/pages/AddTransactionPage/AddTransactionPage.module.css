@@ -1,0 +1,6 @@
+@import '../../assets/_variables.css';
+
+.wrapper {
+  padding: 54px 9px 0px 9px;
+  background-color: #f5f6fb;
+}
