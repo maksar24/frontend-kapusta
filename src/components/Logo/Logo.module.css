@@ -1,0 +1,44 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 183px;
+  height: 63px;
+}
+
+.picture {
+  width: auto;
+  height: auto;
+  margin-bottom: 5px;
+}
+
+.text {
+  margin-left: 11px;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #52555f;
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: 307px;
+    height: 101px;
+  }
+
+  .text {
+    margin-left: 54px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    width: 377px;
+    height: 139px;
+    margin-bottom: 0px;
+  }
+
+  .text {
+    margin-left: 72px;
+  }
+}

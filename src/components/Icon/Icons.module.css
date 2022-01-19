@@ -1,0 +1,36 @@
+@import '../../assets/_variables.css';
+
+.miniLogo {
+  display: block;
+  width: 90px;
+  height: 31px;
+}
+
+.logout {
+  width: 16px;
+  height: 16px;
+  fill: #cbccd0;
+}
+
+.logout:hover,
+.logout:focus {
+  fill: var(--orange-background-color);
+}
+
+.goArrow {
+  width: 18px;
+  height: 12px;
+  fill: var(--orange-background-color);
+}
+
+.leftArrow {
+  width: 7px;
+  height: 12px;
+  fill: none;
+}
+
+.rightArrow {
+  width: 7px;
+  height: 12px;
+  fill: none;
+}
