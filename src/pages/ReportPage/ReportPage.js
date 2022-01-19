@@ -4,6 +4,8 @@ import s from './ReportPage.module.css';
 import DateField from '../../components/DateField';
 import ReportCoast from '../../components/ReportCoast/reportCoact';
 import Icons from '../../components/Icon';
+import ReportChart from '../../components/ReportChart';
+import Container from '../../components/Container';
 
 const ReportPage = () => {
   let navigate = useNavigate();
@@ -50,7 +52,10 @@ const ReportPage = () => {
           </div>
         </div>
       </div>
-      <ReportCoast />
+      <Container>
+        <ReportCoast />
+        <ReportChart />
+      </Container>
     </>
   );
 };
