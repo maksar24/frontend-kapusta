@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Container from '../../components/Container';
 import LoginForm from '../../components/LogInForm';
+import Background from '../../components/Background';
 import s from './HomePage.module.css';
 
 const HomePageView = () => {
@@ -11,18 +11,9 @@ const HomePageView = () => {
   };
 
   return (
-    <section className={s.section}>
-      <Container>
-        <div className={s.mainWrapper}>
-          <div className={s.textWrapper}>
-            <h1 className={s.title}>smart finance</h1>
-          </div>
-          <div className={s.loginWrapper}>
-            <LoginForm onClickRegister={onRegisterClick} />
-          </div>
-        </div>
-      </Container>
-    </section>
+    <Background>
+      <LoginForm onClickRegister={onRegisterClick} />
+    </Background>
   );
 };
 

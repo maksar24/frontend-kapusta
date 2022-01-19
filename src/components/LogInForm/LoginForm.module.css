@@ -1,9 +1,5 @@
 .formLogin {
-  /* position: absolute;
-    left: 50%;
-    top: -84px;
-    transform: translate(-50%, 0);
-    z-index: 1; */
+  /* position: absolute; */
   display: flex;
   flex-direction: column;
   margin-left: auto;
@@ -87,7 +83,7 @@
   .formLogin {
     z-index: 4;
     width: 436px;
-    top: -64%;
+    /* top: -64%; */
     padding: 50px 85px 53px 85px;
   }
 
@@ -114,7 +110,7 @@
   .formLogin {
     margin: 0;
     width: 436px;
-    top: -409px;
-    left: 75%;
+    /* top: -409px;
+    left: 75%; */
   }
 }
