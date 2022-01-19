@@ -3,10 +3,14 @@ import LoginForm from '../../components/LogInForm';
 import Background from '../../components/Background';
 
 const HomePageView = () => {
-  const [setLogin] = useState(true);
+  const [login, setLogin] = useState(true);
 
   const onRegisterClick = () => {
     setLogin(false);
+  };
+
+  const onComeBackClick = () => {
+    setLogin(true);
   };
 
   return (
