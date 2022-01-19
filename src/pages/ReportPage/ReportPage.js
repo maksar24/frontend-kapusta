@@ -6,6 +6,8 @@ import ReportCoast from '../../components/ReportCoast/reportCoact';
 import { ReactComponent as GoBackArrow } from './GoBackArrow.svg';
 import { ReactComponent as LeftArrow } from './LeftArrow.svg';
 import { ReactComponent as RigthArrow } from './RigthArrow.svg';
+import ReportChart from '../../components/ReportChart';
+import Container from '../../components/Container';
 
 const ReportPage = () => {
   let navigate = useNavigate();
@@ -52,7 +54,10 @@ const ReportPage = () => {
           </div>
         </div>
       </div>
-      <ReportCoast />
+      <Container>
+        <ReportCoast />
+        <ReportChart />
+      </Container>
     </>
   );
 };
