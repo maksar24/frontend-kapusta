@@ -1,26 +1,42 @@
 .container {
   display: flex;
   flex-direction: column;
-  width: 183px;
-  height: 63px;
-}
-
-@media (min-width: 768px) {
-  .container {
-    width: 307px;
-    height: 101px;
-  }
 }
 
 .picture {
   width: 183px;
   height: 47px;
+  margin-bottom: 5px;
 }
 
 .text {
-  margin-left: 10px;
+  margin-left: 11px;
   font-weight: 700;
   font-size: 13px;
   letter-spacing: 0.15em;
   text-transform: uppercase;
+  color: #52555f;
+}
+
+@media (min-width: 768px) {
+  .picture {
+    width: 307px;
+    height: 78px;
+  }
+
+  .text {
+    margin-left: 54px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .picture {
+    width: 377px;
+    height: 120px;
+    margin-bottom: 0px;
+  }
+
+  .text {
+    margin-left: 72px;
+  }
 }
