@@ -1,0 +1,31 @@
+@import '../../assets/_variables.css';
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.text {
+  margin-left: 11px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 15px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--main-text-color);
+}
+
+@media (min-width: 768px) {
+  .text {
+    margin-left: 54px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .text {
+    font-size: 16px;
+    line-height: 19px;
+    margin-left: 72px;
+  }
+}

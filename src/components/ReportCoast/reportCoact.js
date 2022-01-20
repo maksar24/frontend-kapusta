@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import sprite from './sprite.svg';
-import { ReactComponent as LeftArrow } from '../../pages/ReportPage/LeftArrow.svg';
-import { ReactComponent as RigthArrow } from '../../pages/ReportPage/RigthArrow.svg';
+import Icons from '../Icon';
 
 import svg from './svg';
 
 import s from './reportCoact.module.css';
+
 export default function ReportCoast() {
   const [coast, setCoast] = useState(true);
   const coastOrIncome = () => {
@@ -15,11 +15,11 @@ export default function ReportCoast() {
     <div className={s.container}>
       <div className={s.nav}>
         <button type="button" className={s.reportArrow} onClick={coastOrIncome}>
-          <LeftArrow />
+          <Icons iconName="leftArrow" />
         </button>
         <h2 className={s.reportTitle}>{coast ? 'Расходы' : 'Доходы'}</h2>
         <button type="button" className={s.reportArrow} onClick={coastOrIncome}>
-          <RigthArrow />
+          <Icons iconName="rightArrow" />
         </button>
       </div>
       <ul>
