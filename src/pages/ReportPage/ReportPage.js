@@ -6,6 +6,7 @@ import ReportCoast from '../../components/ReportCoast/reportCoact';
 import Icons from '../../components/Icon';
 import ReportChart from '../../components/ReportChart';
 import Container from '../../components/Container';
+import ReportBalance from '../../components/ReportBalance/ReportBalance';
 
 const ReportPage = () => {
   let navigate = useNavigate();
@@ -53,6 +54,7 @@ const ReportPage = () => {
         </div>
       </div>
       <Container>
+        <ReportBalance />
         <ReportCoast />
         <ReportChart />
       </Container>
