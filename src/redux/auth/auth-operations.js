@@ -12,7 +12,7 @@ const token = {
   },
 };
 
-const register = createAsyncThunk(
+export const register = createAsyncThunk(
   '/users/signup',
   async (credentials, { rejectWithValue }) => {
     try {
@@ -31,7 +31,7 @@ const register = createAsyncThunk(
   },
 );
 
-const logIn = createAsyncThunk(
+export const logIn = createAsyncThunk(
   'users/login',
   async (credentials, { rejectWithValue }) => {
     try {
@@ -44,7 +44,7 @@ const logIn = createAsyncThunk(
   },
 );
 
-const logOut = createAsyncThunk(
+export const logOut = createAsyncThunk(
   'users/logout',
   async (_, { rejectWithValue }) => {
     try {
@@ -56,7 +56,7 @@ const logOut = createAsyncThunk(
   },
 );
 
-const setUserBalance = createAsyncThunk(
+export const setUserBalance = createAsyncThunk(
   '/users/setUserBalance',
   async (newBalance, { rejectWithValue }) => {
     try {
@@ -68,7 +68,7 @@ const setUserBalance = createAsyncThunk(
   },
 );
 
-const getUserBalance = createAsyncThunk(
+export const getUserBalance = createAsyncThunk(
   '/users/getUserBalance',
   async (_, { rejectWithValue }) => {
     try {
@@ -80,7 +80,7 @@ const getUserBalance = createAsyncThunk(
   },
 );
 
-const fetchCurrentUser = createAsyncThunk(
+export const fetchCurrentUser = createAsyncThunk(
   'auth/refresh',
   async (_, { getState, rejectWithValue }) => {
     const state = getState();

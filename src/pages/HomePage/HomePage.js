@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import LoginForm from '../../components/LogInForm';
 import Background from '../../components/Background';
 
-const HomePageView = () => {
+const HomePage = () => {
   const [login, setLogin] = useState(true);
 
   const onRegisterClick = () => {
@@ -20,4 +20,4 @@ const HomePageView = () => {
   );
 };
 
-export default HomePageView;
+export default HomePage;
