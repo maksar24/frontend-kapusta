@@ -8,7 +8,9 @@ import Balance from '../../components/Balance';
 const CommonPage = () => {
   return (
     <Container>
-      <Media
+      <SwitchToReport />
+      <Balance />
+      {/* <Media
         queries={{
           small: '(max-width: 767px)',
           medium: '(min-width: 768px)',
@@ -24,7 +26,7 @@ const CommonPage = () => {
             )}
           </Fragment>
         )}
-      </Media>
+      </Media> */}
     </Container>
   );
 };

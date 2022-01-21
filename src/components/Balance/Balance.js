@@ -1,9 +1,9 @@
-// import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import s from './Balance.module.css';
-// import { operations, selectors  } from '../../redux';
+import { authOperations, authSelectors } from '../../redux/auth';
 
 export default function Balance() {
-  // const userBalance = useSelector(selectors.getUserBalance());
+  // const userBalance = useSelector(authSelectors.getUserBalance());
   // const dispatch = useDispatch();
 
   const handleSubmit = e => {
@@ -17,16 +17,16 @@ export default function Balance() {
     console.log(balance);
 
     // const newBalance = Number(balance);
-    // dispatch(operations.setUserBalance({ balance: newBalance }));
+    // dispatch(authOperations.setUserBalance({ balance: newBalance }));
     e.target.elements.balance.value = '';
   };
 
   return (
     <form onSubmit={handleSubmit} className={s.balance_form}>
-      <p className={s.balance_text}>Баланс:</p>
+      <label className={s.balance_text}>Баланс:</label>
       <div className={s.balance_container}>
         <input
-          type="text"
+          type="number"
           name="balance"
           maxLength="10"
           // placeholder={userBalance ? `${userBalance}UAH` : `00.00 UAH`}
@@ -34,7 +34,7 @@ export default function Balance() {
           className={s.balance_input}
           autoComplete="off"
         />
-        <button type="submit" className={s.confirm_button}>
+        <button type="submit" className={s.balance_button}>
           ПОДТВЕРДИТЬ
         </button>
       </div>
