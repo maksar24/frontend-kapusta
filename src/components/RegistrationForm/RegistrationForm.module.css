@@ -1,23 +1,60 @@
-.formLogin {
-  /* position: absolute; */
+.formRegistr {
   display: flex;
   flex-direction: column;
   margin-left: auto;
   margin-right: auto;
   padding: 40px 18px 53px 18px;
   width: 300px;
+
   background-color: #fff;
   box-shadow: 5px 10px 20px rgba(170, 178, 197, 0.4);
   border-radius: 30px;
 }
 
 .promtText {
+  font-family: Roboto;
   font-size: 10px;
   line-height: 12px;
   text-align: center;
   letter-spacing: 0.04em;
   color: #52555f;
   margin-bottom: 24px;
+}
+
+.btnGoogle {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  background-color: #f6f7fb;
+  border-radius: 26px;
+  border: 0;
+  width: 122px;
+  height: 40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: #000000;
+}
+
+.btnGoogle::before {
+  content: '';
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+
+  margin-right: 10px;
+  margin-left: 20px;
+
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .formLabel {
@@ -80,10 +117,11 @@
 }
 
 @media screen and (min-width: 768px) {
-  .formLogin {
+  .formRegistr {
     z-index: 4;
     width: 436px;
-    /* top: -64%; */
+    height: 535px;
+    top: -64%;
     padding: 50px 85px 53px 85px;
   }
 
@@ -98,6 +136,7 @@
     line-height: 14px;
     margin-bottom: 20px;
     text-align: left;
+    text-align: center;
   }
 
   .labelText {
@@ -107,10 +146,29 @@
 }
 
 @media screen and (min-width: 1280px) {
-  .formLogin {
+  .formRegistr {
     margin: 0;
     width: 436px;
-    /* top: -409px;
-    left: 75%; */
+    min-height: 535px;
+    top: -409px;
+    left: 75%;
   }
+}
+
+.toastDiv {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  max-width: 300px;
+  font-size: 16px;
+  line-height: 1.5;
+  padding: 20px 15px;
+  background-color: var(--accent-color);
+  color: white;
+}
+
+.toastIcon {
+  width: 40px;
+  font-weight: 700;
+  margin-right: 10px;
 }
