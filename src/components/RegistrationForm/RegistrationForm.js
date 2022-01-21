@@ -6,10 +6,10 @@ const RegisterForm = ({ onClickComeBack }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [nameError, setNameError] = useState('это обязательное поле');
-  const [emailError, setEmaiError] = useState('это обязательное поле');
-  const [passwordError, setPasswordError] = useState('это обязательное поле');
-  const [errorSymbol, setErrorSymbol] = useState('*');
+  const [setNameError] = useState('это обязательное поле');
+  const [setEmaiError] = useState('это обязательное поле');
+  const [setPasswordError] = useState('это обязательное поле');
+  const [setErrorSymbol] = useState('*');
 
   const nameHandler = e => {
     setName(e.target.value);

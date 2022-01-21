@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import LoginForm from '../../components/LogInForm';
 import Background from '../../components/Background';
+import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
 import s from './HomePage.module.css';
 
 const HomePageView = () => {
@@ -16,7 +17,13 @@ const HomePageView = () => {
 
   return (
     <Background>
-      <LoginForm onClickRegister={onRegisterClick} />
+      <div className={s.loginWrapper}>
+        {login ? (
+          <LoginForm onClickRegister={onRegisterClick} />
+        ) : (
+          <RegistrationForm onClickComeBack={onComeBackClick} />
+        )}
+      </div>
     </Background>
   );
 };
