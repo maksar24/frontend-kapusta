@@ -1,2 +1,0 @@
-frontend-kapusta
-2022
