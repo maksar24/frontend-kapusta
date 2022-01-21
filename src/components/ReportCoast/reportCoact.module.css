@@ -68,7 +68,7 @@ ul {
 .svg:focus {
   fill: #ff751d;
   color: #ffdac0;
-  transform: rotate(350deg);
+  transform: rotate(360deg);
   transition: 500ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 

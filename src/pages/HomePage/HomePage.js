@@ -4,7 +4,7 @@ import Background from '../../components/Background';
 import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
 import s from './HomePage.module.css';
 
-const HomePageView = () => {
+const HomePage = () => {
   const [login, setLogin] = useState(true);
 
   const onRegisterClick = () => {
@@ -28,4 +28,4 @@ const HomePageView = () => {
   );
 };
 
-export default HomePageView;
+export default HomePage;
