@@ -19,17 +19,15 @@ const CommonPage = () => {
       {matches => (
         <Fragment>
           {matches.small && (
-            <>
-              <BackgroundMobile>
-                <Container>
-                  <CommonPageWrapper>
-                    <SwitchToReport />
-                    <Balance />
-                    <IncomeOutcomeButtons />
-                  </CommonPageWrapper>
-                </Container>
-              </BackgroundMobile>
-            </>
+            <BackgroundMobile>
+              <Container>
+                <CommonPageWrapper>
+                  <SwitchToReport />
+                  <Balance />
+                  <IncomeOutcomeButtons />
+                </CommonPageWrapper>
+              </Container>
+            </BackgroundMobile>
           )}
           {matches.medium && (
             <>

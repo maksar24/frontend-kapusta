@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import LoginForm from '../../components/LogInForm';
 import { BackgroundAuth } from '../../components/Background';
+import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
+import s from './HomePage.module.css';
 
 const HomePage = () => {
   const [login, setLogin] = useState(true);
@@ -15,7 +17,13 @@ const HomePage = () => {
 
   return (
     <BackgroundAuth>
-      <LoginForm onClickRegister={onRegisterClick} />
+      <div className={s.loginWrapper}>
+        {login ? (
+          <LoginForm onClickRegister={onRegisterClick} />
+        ) : (
+          <RegistrationForm onClickComeBack={onComeBackClick} />
+        )}
+      </div>
     </BackgroundAuth>
   );
 };

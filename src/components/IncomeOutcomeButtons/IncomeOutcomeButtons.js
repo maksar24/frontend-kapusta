@@ -7,8 +7,12 @@ import styles from './IncomeOutcomeButtons.module.css';
 const IncomeOutcomeButtons = () => {
   const [state, setState] = useState('');
 
-  const handleClick = state => {
-    setState(state);
+  const onOutcomeClick = () => {
+    setState('outcome');
+  };
+
+  const onIncomeClick = () => {
+    setState('income');
   };
 
   return (
@@ -16,7 +20,7 @@ const IncomeOutcomeButtons = () => {
       <button
         className={styles.outcomeButton}
         type="button"
-        onClick={handleClick('outcome')}
+        onClick={onOutcomeClick}
       >
         <NavLink className={styles.outcomeLink} to="/balance/addViaMobile">
           РАСХОД
@@ -26,7 +30,7 @@ const IncomeOutcomeButtons = () => {
       <button
         className={styles.incomeButton}
         type="button"
-        onClick={handleClick('income')}
+        onClick={onIncomeClick}
       >
         <NavLink className={styles.incomeLink} to="/balance/addViaMobile">
           ДОХОД

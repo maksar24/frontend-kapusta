@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import s from './ReportPage.module.css';
 import DateField from '../../components/DateField';
@@ -7,11 +8,20 @@ import Icons from '../../components/Icon';
 import ReportChart from '../../components/ReportChart';
 import Container from '../../components/Container';
 import ReportBalance from '../../components/ReportBalance/ReportBalance';
+import {
+  fetchSuccess,
+  fetchError,
+  filteredData,
+} from '../../redux/balance/index';
 
 const ReportPage = () => {
   let navigate = useNavigate();
   const [thisMonth, setThisMonth] = useState(+new Date().getMonth());
   const [thisYear, setThisYear] = useState(2022);
+  const { data, filteredData, error, isLoading } = useSelector(
+    data => data.balanceReducer,
+  );
+  const dispatch = useDispatch();
 
   function handleClick() {
     navigate('/');
