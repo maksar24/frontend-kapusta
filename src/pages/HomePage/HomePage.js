@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import LoginForm from '../../components/LogInForm';
-import Background from '../../components/Background';
+import { BackgroundAuth } from '../../components/Background';
 
 const HomePage = () => {
   const [login, setLogin] = useState(true);
@@ -14,9 +14,9 @@ const HomePage = () => {
   };
 
   return (
-    <Background>
+    <BackgroundAuth>
       <LoginForm onClickRegister={onRegisterClick} />
-    </Background>
+    </BackgroundAuth>
   );
 };
 

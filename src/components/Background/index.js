@@ -1,1 +1,2 @@
-export { default } from './BackgroundAuth';
+export { BackgroundAuth } from './BackgroundAuth';
+export { BackgroundMobile } from './BackgroundMobile';
