@@ -1,152 +1,113 @@
-import Alert from '../../components/Alert';
-import {
-  registerRequest,
-  registerSuccess,
-  registerError,
-  uploadAvatarRequest,
-  uploadAvatarSuccess,
-  uploadAvatarError,
-  repeatEmailVerifyRequest,
-  repeatEmailVerifySuccess,
-  repeatEmailVerifyError,
-  logoutRequest,
-  logoutSuccess,
-  loginRequest,
-  loginSuccess,
-  loginError,
-  getCurrentUserRequest,
-  getCurrentUserSuccess,
-  getCurrentUserError,
-} from './auth-actions';
+import axios from 'axios';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { setTotalBalanceSuccess } from '../transactions';
+axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
-import {
-  token,
-  fetchSignUp,
-  fetchLogin,
-  fetchLogout,
-  fetchAvatar,
-  fetchCurrent,
-  fetchRepeatVerify,
-  fetchRefreshToken,
-} from '../../services/fetchApi';
-
-const register = credentials => async dispatch => {
-  dispatch(registerRequest());
-  try {
-    const response = await fetchSignUp(credentials);
-    dispatch(registerSuccess(response.data));
-  } catch ({ response }) {
-    dispatch(registerError(response.data.message));
-    Alert(response.data.message);
-  }
+const token = {
+  set(token) {
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+  },
+  unset() {
+    axios.defaults.headers.common.Authorization = '';
+  },
 };
 
-const repeatVerify = email => async dispatch => {
-  dispatch(repeatEmailVerifyRequest());
-  try {
-    const response = await fetchRepeatVerify(email);
-    dispatch(repeatEmailVerifySuccess(response.data));
-  } catch ({ response }) {
-    dispatch(repeatEmailVerifyError(response.data.message));
-    Alert(response.data.message);
-  }
-};
-
-const logIn = credentials => async dispatch => {
-  dispatch(loginRequest());
-  try {
-    const response = await fetchLogin(credentials);
-    token.set(response.data.data);
-    dispatch(loginSuccess(response.data.data));
-  } catch ({ response }) {
-    dispatch(loginError(response.data.message));
-    Alert(response.data.message);
-  }
-};
-
-const logOut = () => async dispatch => {
-  dispatch(logoutRequest());
-  try {
-    await fetchLogout();
-    token.unset();
-    dispatch(logoutSuccess());
-  } catch ({ response }) {
-    token.unset();
-    dispatch(logoutSuccess());
-  }
-};
-
-const uploadAvatar = formData => async (dispatch, getState) => {
-  dispatch(uploadAvatarRequest());
-  try {
-    const response = await fetchAvatar(formData);
-    dispatch(uploadAvatarSuccess(response.data.data));
-  } catch ({ response }) {
-    if (response.data.message === 'Unvalid token') {
-      await refresh(dispatch, getState);
-      const response = await fetchAvatar(formData);
-      dispatch(uploadAvatarSuccess(response.data.data));
-    } else {
-      dispatch(uploadAvatarError(response.data.message));
-      Alert(response.data.message);
+export const register = createAsyncThunk(
+  '/users/signup',
+  async (credentials, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post('users/signup', credentials);
+      token.set(data.token);
+      return data;
+    } catch (error) {
+      /* if (error.response.status === 409) {
+            throw new Error('Email already registrated')
+         }
+         if (!error.response) {
+            throw new Error('Register failed')
+         } */
+      return rejectWithValue(error.response.data);
     }
-  }
-};
+  },
+);
 
-const getCurrentUser = () => async (dispatch, getState) => {
-  const {
-    auth: { token: persistedToken },
-  } = getState();
-
-  if (!persistedToken) {
-    return;
-  }
-  token.set(persistedToken);
-  dispatch(getCurrentUserRequest());
-  try {
-    const response = await fetchCurrent();
-    dispatch(getCurrentUserSuccess(response.data.user));
-    dispatch(setTotalBalanceSuccess(response.data.user.balance));
-  } catch ({ response }) {
-    if (response.data.message === 'Unvalid token') {
-      return await refresh(dispatch, getState);
+export const logIn = createAsyncThunk(
+  'users/login',
+  async (credentials, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post('users/login', credentials);
+      token.set(data.token);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.response.data);
     }
-    dispatch(getCurrentUserError(response.data.message));
-    Alert(response.data.message);
-  }
-};
+  },
+);
 
-const refresh = async (dispatch, getState) => {
-  const {
-    auth: { refreshToken: persistedRefreshToken },
-  } = getState();
-  token.set(persistedRefreshToken);
-  try {
-    const response = await fetchRefreshToken();
-    token.set(response.data.data.token);
-    dispatch(getCurrentUserSuccess(response.data.data.user));
-    dispatch(setTotalBalanceSuccess(response.data.data.user.balance));
-    dispatch(
-      loginSuccess({
-        token: response.data.data.token,
-        refreshToken: response.data.data.refreshToken,
-      }),
-    );
-  } catch (error) {
-    dispatch(logoutSuccess());
-    token.unset();
-    console.log(error.message);
-  }
-};
+export const logOut = createAsyncThunk(
+  'users/logout',
+  async (_, { rejectWithValue }) => {
+    try {
+      await axios.post('users/logout');
+      token.unset();
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  },
+);
 
-export {
+export const setUserBalance = createAsyncThunk(
+  '/users/setUserBalance',
+  async (newBalance, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.post('/users/', newBalance);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  },
+);
+
+export const getUserBalance = createAsyncThunk(
+  '/users/getUserBalance',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await axios.get('/users/');
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  },
+);
+
+export const fetchCurrentUser = createAsyncThunk(
+  'auth/refresh',
+  async (_, { getState, rejectWithValue }) => {
+    const state = getState();
+    const persistedToken = state.auth.token;
+
+    if (persistedToken === null) {
+      return rejectWithValue();
+    }
+
+    token.set(persistedToken);
+    try {
+      const { data } = await axios.get('users/current');
+      return data;
+    } catch (error) {
+      return rejectWithValue(error);
+    }
+  },
+);
+
+const operations = {
   register,
-  repeatVerify,
-  logOut,
   logIn,
-  getCurrentUser,
-  refresh,
-  uploadAvatar,
+  logOut,
+  setUserBalance,
+  getUserBalance,
+  fetchCurrentUser,
+  token,
 };
+
+export default operations;

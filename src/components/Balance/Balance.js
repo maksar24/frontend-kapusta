@@ -1,82 +1,43 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
 import s from './Balance.module.css';
-import { getTotalBalance } from 'redux/transactions/transactions-selectors';
-import transactionOp from 'redux/transactions/transactions-operations';
+import { authOperations, authSelectors } from '../../redux/auth';
 
-import Notification from '../Notification/Notification';
+export default function Balance() {
+  // const userBalance = useSelector(authSelectors.getUserBalance());
+  // const dispatch = useDispatch();
 
-const Balance = ({ hide, width }) => {
-  const balance = useSelector(getTotalBalance);
-  const dispatch = useDispatch();
-  const [sum, setSum] = useState('');
-  const [setPromptClose, setClosePrompt] = useState(true);
-  const toggleWindow = () => {
-    setClosePrompt(setClosePrompt => !setClosePrompt);
-  };
-
-  const onHandleChange = e => setSum(e.currentTarget.value);
-  useEffect(() => {
-    setSum(balance);
-  }, [balance]);
-
-  const onhandleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    dispatch(transactionOp.setBalance(sum));
+    let balance = e.target.elements.balance.value;
+
+    if (!balance || Number(balance) === 0) {
+      return console.log('Сумма должна баланса должна быть больше нуля');
+    }
+
+    console.log(balance);
+
+    // const newBalance = Number(balance);
+    // dispatch(authOperations.setUserBalance({ balance: newBalance }));
+    e.target.elements.balance.value = '';
   };
+
   return (
-    <form onSubmit={onhandleSubmit} className={s.reportBalance}>
-      <label htmlFor="balans" className={s.balanceLabel}>
-        Баланс:
-        <div className={s.buttonsGroup}>
-          {balance === 0 ? (
-            <>
-              {setPromptClose && <Notification onClose={toggleWindow} />}
-              <input
-                type="text"
-                name="name"
-                maxLength="10"
-                placeholder="00.00"
-                onChange={onHandleChange}
-                className={
-                  width
-                    ? `${s.balanceInputReport} ${s.balanceInput}`
-                    : `${s.balanceInput}`
-                }
-                // className={s.balanceInput}
-                autoComplete="off"
-              />
-              <button
-                className={
-                  width
-                    ? `${s.balanceInputReport} ${s.balanceButton}`
-                    : `${s.balanceButton} `
-                }
-                type="submit"
-              >
-                ПОДТВЕРДИТЬ
-              </button>
-            </>
-          ) : (
-            <>
-              <p
-                className={
-                  width
-                    ? `${s.balanceInput} ${s.balanceInputReport}`
-                    : `${s.balanceInput}`
-                }
-              >
-                {`${balance.toLocaleString('ru')}.00`} UAH
-              </p>
-              <button className={`${s.balanceButton} ${hide}`} disabled>
-                ПОДТВЕРДИТЬ
-              </button>
-            </>
-          )}
-        </div>
-      </label>
+    <form onSubmit={handleSubmit} className={s.balance_form}>
+      <label className={s.balance_text}>Баланс:</label>
+      <div className={s.balance_container}>
+        <input
+          type="number"
+          name="balance"
+          maxLength="10"
+          // placeholder={userBalance ? `${userBalance}UAH` : `00.00 UAH`}
+          placeholder="00.00 UAH"
+          className={s.balance_input}
+          autoComplete="off"
+        />
+        <button type="submit" className={s.balance_button}>
+          ПОДТВЕРДИТЬ
+        </button>
+      </div>
     </form>
   );
-};
-export default Balance;
+}

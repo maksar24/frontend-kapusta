@@ -1,4 +1,6 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import logger from 'redux-logger';
+import storage from 'redux-persist/lib/storage';
 import {
   persistStore,
   persistReducer,
@@ -9,11 +11,15 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
+// import thunk from 'redux-thunk'
+import authReducer from './auth/auth-slice';
+import balanceReducer from './balance';
 
-import storage from 'redux-persist/lib/storage';
-
-import { authReducer } from './auth';
-import { wallet } from './transactions';
+const authPersistConfig = {
+  key: 'auth',
+  storage,
+  whitelist: ['token'],
+};
 
 const middleware = [
   ...getDefaultMiddleware({
@@ -21,22 +27,16 @@ const middleware = [
       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
     },
   }),
+  logger,
 ];
 
-const persistConfig = {
-  key: 'token',
-  storage,
-  whitelist: ['token', 'refreshToken'],
-};
-
-const store = configureStore({
+export const store = configureStore({
   reducer: {
-    auth: persistReducer(persistConfig, authReducer),
-    wallet,
+    auth: persistReducer(authPersistConfig, authReducer),
+    balanceReducer,
   },
   middleware,
-  devTools: true,
+  devTools: process.env.NODE_ENV === 'development',
 });
 
-const persistor = persistStore(store);
-export { store, persistor };
+export const persistor = persistStore(store);
