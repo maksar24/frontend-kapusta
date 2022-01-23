@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import LoginForm from '../../components/LogInForm';
-import Background from '../../components/Background';
+import { BackgroundAuth } from '../../components/Background';
 import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
 import s from './HomePage.module.css';
 
@@ -16,7 +16,7 @@ const HomePage = () => {
   };
 
   return (
-    <Background>
+    <BackgroundAuth>
       <div className={s.loginWrapper}>
         {login ? (
           <LoginForm onClickRegister={onRegisterClick} />
@@ -24,7 +24,7 @@ const HomePage = () => {
           <RegistrationForm onClickComeBack={onComeBackClick} />
         )}
       </div>
-    </Background>
+    </BackgroundAuth>
   );
 };
 
