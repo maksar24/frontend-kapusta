@@ -85,7 +85,7 @@ const IncomeOutcomeForm = () => {
       </button>
 
       <form className={styles.form} onSubmit={onSubmit}>
-        <ul>
+        <ul className={styles.ul}>
           <li>
             <label className={styles.nameField}>
               <input
