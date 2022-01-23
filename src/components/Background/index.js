@@ -1,1 +1,1 @@
-export { default } from './BackgroundAuth';
+export { default } from './Background';

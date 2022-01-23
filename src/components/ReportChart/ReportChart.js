@@ -1,6 +1,7 @@
 import s from './ReportChart.module.css';
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import {
@@ -19,6 +20,7 @@ ChartJS.register(
   BarElement,
   Title,
   Tooltip,
+  ChartDataLabels,
   Legend,
 );
 
@@ -32,6 +34,30 @@ const ReportChart = () => {
     plugins: {
       legend: {
         display: false,
+      },
+      datalabels: {
+        align: function (context) {
+          var value = context.dataset.data[context.dataIndex];
+          return value > 0 ? 'end' : 'start';
+        },
+        anchor: function (context) {
+          var value = context.dataset.data[context.dataIndex];
+          return value > 0 ? 'end' : 'start';
+        },
+        borderRadius: 4,
+        color: '#52555F',
+        formatter: function (value, context) {
+          return context.dataIndex + 'грн ' + Math.round(value) + 'грн';
+        },
+        // rotation: function (context) {
+        //   var value = context.dataset.data[context.dataIndex];
+        //   return value > 0 ? 45 : 180 - 45;
+        // },
+        // backgroundColor: function (context) {
+        //   return context.dataset.backgroundColor;
+        // },
+        formatter: Math.round,
+        padding: 10,
       },
     },
     scales: {
@@ -58,6 +84,14 @@ const ReportChart = () => {
         ticks: {
           display: false,
         },
+      },
+    },
+    layout: {
+      padding: {
+        top: 32,
+        right: 15,
+        bottom: 10,
+        left: 15,
       },
     },
     elements: {
@@ -116,9 +150,11 @@ const ReportChart = () => {
   };
 
   return (
-    <div className={s.chartSection}>
-      <Bar options={{ ...options, indexAxis: axis }} data={data} />
-    </div>
+    <>
+      <div className={s.chartSection}>
+        <Bar options={{ ...options, indexAxis: axis }} data={data} />
+      </div>
+    </>
   );
 };
 

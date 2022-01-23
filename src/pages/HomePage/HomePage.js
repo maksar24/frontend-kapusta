@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import LoginForm from '../../components/LogInForm';
-import Background from '../../components/Background';
+import Background from '../../components/Background/BackgroundAuth/BackgroundAuth';
 import s from './HomePage.module.css';
 
 const HomePageView = () => {

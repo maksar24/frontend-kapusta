@@ -3,19 +3,22 @@
   margin-left: auto;
   margin-right: auto;
 }
+
 .logoImg {
   margin-left: 19px;
 }
+
 .decorSection {
   position: relative;
-  background-color: #f5f6fb;
   height: 342px;
+  background-color: var(--secondary-background-color);
   border-bottom-left-radius: 100px;
 }
 
 .loginSection {
   position: relative;
 }
+
 .logoSection {
   display: flex;
   flex-direction: column;
@@ -23,44 +26,49 @@
   margin-bottom: 50px;
   margin-left: 39px;
 }
+
 .decorLogo {
   width: 183px;
   height: 46px;
 }
+
 .decorText {
-  font-family: 'Roboto', sans-serif;
-  font-style: normal;
   font-weight: bold;
   font-size: 13px;
   line-height: 15px;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #52555f;
+  color: var(--main-text-color);
 }
 
 .decorImageTop {
   position: absolute;
-  z-index: 2;
-  background-image: url('../../images/auth_bg320.svg');
-  width: 83px;
-  height: 89px;
   top: 104px;
   right: -20px;
   left: auto;
-  background-repeat: no-repeat;
-}
-.decorImageBottom {
-  margin-top: -13px;
-  margin-left: 25px;
+  z-index: 2;
+
   width: 83px;
   height: 89px;
-  background-image: url('../../images/kapusta_jump320.svg');
+
+  background-image: url('../../../images/auth_bg320.svg');
+  background-repeat: no-repeat;
+}
+
+.decorImageBottom {
+  width: 83px;
+  height: 89px;
+  margin-top: -13px;
+  margin-left: 25px;
+
+  background-image: url('../../../images/kapusta_jump320.svg');
 }
 
 @media screen and (min-width: 768px) {
   .wrapper {
     width: 100%;
   }
+
   .inner {
     display: flex;
     flex-direction: column;
@@ -68,26 +76,33 @@
     padding-left: 117px;
     padding-right: 116px;
   }
+
   .logoImg {
     margin-left: 26px;
   }
+
   .decorLogo {
     width: 307px;
     height: 78px;
   }
+
   .decorSection {
-    height: 526px;
     position: relative;
+    height: 526px;
   }
+
   .decorImageTop {
     position: absolute;
+    top: 28px;
     z-index: 2;
+
     width: 100%;
     height: 232px;
-    top: 28px;
+
     background-repeat: repeat-x;
-    background-image: url('../../images/auth_bg1280.svg');
+    background-image: url('../../../images/auth_bg1280.svg');
   }
+
   .logoSection {
     z-index: 3;
     padding-top: 90px;
@@ -95,18 +110,22 @@
   }
 
   .loginSection {
-    height: 442px;
     z-index: 3;
+    height: 442px;
   }
+
   .decorImageBottom {
-    margin-top: 16px;
-    margin-left: 54px;
     z-index: 99;
+
     width: 183px;
     height: 142px;
-    background-image: url('../../images/kapusta_jump.svg');
+    margin-top: 16px;
+    margin-left: 54px;
+
+    background-image: url('../../../images/kapusta_jump.svg');
   }
 }
+
 @media screen and (min-width: 1280px) {
   .inner {
     width: 100%;
@@ -122,46 +141,57 @@
   .decorSection {
     position: relative;
   }
+
   .decorImageTop {
     position: absolute;
-    z-index: 2;
-    width: 100%;
-    height: 232px;
     top: 28px;
     left: 10px;
+    z-index: 2;
+
+    width: 100%;
+    height: 232px;
+
     background-repeat: repeat-x;
     background-size: contain;
-    background-image: url('../../images/auth_bg1280.svg');
+    background-image: url('../../../images/auth_bg1280.svg');
   }
+
   .decorLogo {
     width: 377px;
     height: 120px;
     padding: 20px 1px 2px 3px;
   }
+
   .logoSection {
     padding-top: 308px;
     margin-bottom: 79px;
     margin-left: 0px;
   }
+
   .decorText {
     font-size: 16px;
     line-height: 19px;
   }
+
   .loginSection {
     top: 117px;
     height: 268px;
   }
+
   .decorImageBottom {
-    margin-top: 76px;
-    margin-left: 120px;
+    top: 76px;
+
     width: 183px;
     height: 142px;
-    top: 76px;
+    margin-top: 76px;
+    margin-left: 120px;
+
     animation-duration: 4s;
     animation-iteration-count: infinite;
     transform-origin: bottom;
   }
 }
+
 .bounce {
   animation-name: jump;
   animation-timing-function: cubic-bezier(0.28, 0.84, 0.42, 1);

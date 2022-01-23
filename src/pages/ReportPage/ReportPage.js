@@ -7,7 +7,8 @@ import { ReactComponent as GoBackArrow } from './GoBackArrow.svg';
 import { ReactComponent as LeftArrow } from './LeftArrow.svg';
 import { ReactComponent as RigthArrow } from './RigthArrow.svg';
 import ReportChart from '../../components/ReportChart';
-import Container from '../../components/Container';
+import Background from '../../components/Background/BackgroundReport/BackgroundReport';
+import ReportWrapper from '../../components/ReportWrapper';
 
 const ReportPage = () => {
   let navigate = useNavigate();
@@ -35,7 +36,7 @@ const ReportPage = () => {
   };
 
   return (
-    <>
+    <Background>
       <div className={s.container}>
         <button className={s.button__back} onClick={handleClick}>
           <GoBackArrow />
@@ -54,11 +55,13 @@ const ReportPage = () => {
           </div>
         </div>
       </div>
-      <Container>
+      <ReportWrapper>
         <ReportCoast />
+      </ReportWrapper>
+      <ReportWrapper>
         <ReportChart />
-      </Container>
-    </>
+      </ReportWrapper>
+    </Background>
   );
 };
 
