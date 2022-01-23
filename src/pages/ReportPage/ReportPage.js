@@ -6,7 +6,9 @@ import DateField from '../../components/DateField';
 import ReportCoast from '../../components/ReportCoast/reportCoact';
 import Icons from '../../components/Icon';
 import ReportChart from '../../components/ReportChart';
-import Container from '../../components/Container';
+import Background from '../../components/Background/BackgroundReport/BackgroundReport';
+import ReportWrapper from '../../components/ReportWrapper';
+// import Container from '../../components/Container';
 import ReportBalance from '../../components/ReportBalance/ReportBalance';
 import {
   fetchSuccess,
@@ -44,7 +46,7 @@ const ReportPage = () => {
   };
 
   return (
-    <>
+    <Background>
       <div className={s.container}>
         <button className={s.button__back} onClick={handleClick}>
           <Icons iconName="goArrow" />
@@ -63,12 +65,16 @@ const ReportPage = () => {
           </div>
         </div>
       </div>
-      <Container>
+      <ReportWrapper>
         <ReportBalance />
+      </ReportWrapper>
+      <ReportWrapper>
         <ReportCoast />
+      </ReportWrapper>
+      <ReportWrapper>
         <ReportChart />
-      </Container>
-    </>
+      </ReportWrapper>
+    </Background>
   );
 };
 

@@ -1,5 +1,5 @@
-import logo from '../../images/kapusta_logo.svg';
-import Container from '../Container';
+import logo from '../../../images/kapusta_logo.svg';
+import Container from '../../Container';
 import s from './BackgroundAuth.module.css';
 
 //Максим, вместо logoSection добавь компонент логотипа
