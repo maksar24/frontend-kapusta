@@ -26,4 +26,4 @@ const BackgroundAuth = ({ children }) => {
   );
 };
 
-export default BackgroundAuth;
+export { BackgroundAuth };

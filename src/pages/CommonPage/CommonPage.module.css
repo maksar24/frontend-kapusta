@@ -1,0 +1,24 @@
+.section {
+  max-width: 1200px;
+  height: 100vh;
+  margin: auto;
+  padding-top: 15px;
+}
+
+@media screen and (min-width: 768px) {
+  .section {
+    height: 100vh;
+    padding-top: 40px;
+    padding-bottom: 64px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .section {
+    padding-bottom: 83px;
+  }
+}
+
+.wrapper {
+  padding-top: 30px;
+}
