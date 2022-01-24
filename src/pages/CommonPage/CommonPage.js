@@ -13,33 +13,35 @@ const CommonPage = () => {
   return (
     <Background>
       <Media
-        queries={{
-          small: '(max-width: 767px)',
-          medium: '(min-width: 768px)',
-        }}
-      >
-        {matches => (
-          <Fragment>
-            {matches.small && (
-              <BackgroundMobile>
-                <Container>
-                  <CommonPageWrapper>
-                    <SwitchToReport />
-                    <Balance />
-                    <IncomeOutcomeButtons />
-                  </CommonPageWrapper>
-                </Container>
-              </BackgroundMobile>
-            )}
-            {matches.medium && (
-              <>
-                <SwitchToReport />
+      queries={{
+        small: '(max-width: 767px)',
+        medium: '(min-width: 768px)',
+      }}
+    >
+      {matches => (
+        <Fragment>
+          {matches.small && (
+            <BackgroundMobile>
+              <Container>
+                <CommonPageWrapper>
+                  <SwitchToReport />
+                  <Balance />
+                  <IncomeOutcomeButtons />
+                </CommonPageWrapper>
+              </Container>
+            </BackgroundMobile>
+          )}
+          {matches.medium && (
+            <>
+              <div className={s.container_balance}>
                 <Balance />
-              </>
-            )}
-          </Fragment>
-        )}
-      </Media>
+                <SwitchToReport />
+              </div>
+            </>
+          )}
+        </Fragment>
+      )}
+    </Media>
     </Background>
   );
 };
