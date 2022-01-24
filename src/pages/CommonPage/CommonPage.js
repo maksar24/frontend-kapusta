@@ -31,8 +31,10 @@ const CommonPage = () => {
           )}
           {matches.medium && (
             <>
-              <SwitchToReport />
-              <Balance />
+              <div className={s.container_balance}>
+                <Balance />
+                <SwitchToReport />
+              </div>
             </>
           )}
         </Fragment>
