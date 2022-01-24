@@ -1,4 +1,6 @@
+import React, { Fragment } from 'react';
 import { useEffect, useState } from 'react';
+import Media from 'react-media';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import s from './ReportPage.module.css';
@@ -8,13 +10,14 @@ import Icons from '../../components/Icon';
 import ReportChart from '../../components/ReportChart';
 import Background from '../../components/Background/BackgroundReport/BackgroundReport';
 import ReportWrapper from '../../components/ReportWrapper';
-// import Container from '../../components/Container';
+
 import ReportBalance from '../../components/ReportBalance/ReportBalance';
 import {
   fetchSuccess,
   fetchError,
   filteredData,
 } from '../../redux/balance/index';
+import ReportChartMobile from '../../components/ReportChart/ReportChartMobile';
 
 const ReportPage = () => {
   let navigate = useNavigate();
@@ -71,9 +74,27 @@ const ReportPage = () => {
       <ReportWrapper>
         <ReportCoast />
       </ReportWrapper>
-      <ReportWrapper>
-        <ReportChart />
-      </ReportWrapper>
+      <Media
+        queries={{
+          small: '(max-width: 767px)',
+          medium: '(min-width: 768px)',
+        }}
+      >
+        {matches => (
+          <Fragment>
+            {matches.small && (
+              <ReportWrapper>
+                <ReportChartMobile />
+              </ReportWrapper>
+            )}
+            {matches.medium && (
+              <ReportWrapper>
+                <ReportChart />
+              </ReportWrapper>
+            )}
+          </Fragment>
+        )}
+      </Media>
     </Background>
   );
 };
