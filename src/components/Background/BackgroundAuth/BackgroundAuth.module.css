@@ -19,26 +19,11 @@
   position: relative;
 }
 
-.logoSection {
+.container_mobile {
+  padding-right: 100px;
+  align-items: center;
   display: flex;
-  flex-direction: column;
-  padding-top: 86px;
-  margin-bottom: 50px;
-  margin-left: 39px;
-}
-
-.decorLogo {
-  width: 183px;
-  height: 46px;
-}
-
-.decorText {
-  font-weight: bold;
-  font-size: 13px;
-  line-height: 15px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--main-text-color);
+  justify-content: space-around;
 }
 
 .decorImageTop {
@@ -81,9 +66,8 @@
     margin-left: 26px;
   }
 
-  .decorLogo {
-    width: 307px;
-    height: 78px;
+  .container_mobile {
+    padding-right: 150px;
   }
 
   .decorSection {
@@ -101,12 +85,6 @@
 
     background-repeat: repeat-x;
     background-image: url('../../../images/auth_bg1280.svg');
-  }
-
-  .logoSection {
-    z-index: 3;
-    padding-top: 90px;
-    margin-bottom: 50px;
   }
 
   .loginSection {
@@ -156,21 +134,8 @@
     background-image: url('../../../images/auth_bg1280.svg');
   }
 
-  .decorLogo {
-    width: 377px;
-    height: 120px;
-    padding: 20px 1px 2px 3px;
-  }
-
-  .logoSection {
-    padding-top: 308px;
-    margin-bottom: 79px;
-    margin-left: 0px;
-  }
-
-  .decorText {
-    font-size: 16px;
-    line-height: 19px;
+  .container_mobile {
+    padding-right: 0px;
   }
 
   .loginSection {
