@@ -7,10 +7,12 @@ import Balance from '../../components/Balance';
 import { BackgroundMobile } from '../../components/Background';
 import IncomeOutcomeButtons from '../../components/IncomeOutcomeButtons';
 import CommonPageWrapper from '../../components/CommonPageWrapper';
+import Background from '../../components/Background/BackgroundReport/BackgroundReport';
 
 const CommonPage = () => {
   return (
-    <Media
+    <Background>
+      <Media
       queries={{
         small: '(max-width: 767px)',
         medium: '(min-width: 768px)',
@@ -40,6 +42,7 @@ const CommonPage = () => {
         </Fragment>
       )}
     </Media>
+    </Background>
   );
 };
 
