@@ -1,12 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-
 import styles from './Modal.module.css';
 import { textAnimation } from '../../helpers/animationText';
 import { gsap, Power1 } from 'gsap';
+const modalRoot = document.querySelector('#root');
 
-const modalRoot = document.querySelector('#modal-root');
-//разлогонизация
 function Modal({
   handleClickLeft,
   handleClickRight,
@@ -58,30 +56,40 @@ function Modal({
   }, []);
 
   return createPortal(
-    <div className={styles.modalBackground} onClick={handleOverlayClick}>
-      <div className={`${styles.modalContainer} ${styleReg}`}>
-        <span className={styles.closeBtn} onClick={onClose}>
-          &#10006;
-        </span>
+    <>
+      {
+        <div className={styles.modalBackground} onClick={handleOverlayClick}>
+          <div className={`${styles.modalContainer} ${styleReg}`}>
+            <span className={styles.closeBtn} onClick={onClose}>
+              &#10006;
+            </span>
 
-        <div className={styles.title} ref={el => (text = el)}>
-          <p>{modalTitle}</p>
-        </div>
+            <div className={styles.title} ref={el => (text = el)}>
+              <p>{modalTitle}</p>
+            </div>
 
-        {/* <p className={styles.title}>{modalTitle}</p> */}
+            {/* <p className={styles.title}>{modalTitle}</p> */}
 
-        <div className={styles.buttons}>
-          <div ref={el => (buttons = el)}>
-            <button className={styles.commonStyles} onClick={handleClickLeft}>
-              {modalButtonleft}
-            </button>
-            <button className={styles.commonStyles} onClick={handleClickRight}>
-              {modalButtonRight}
-            </button>
+            <div className={styles.buttons}>
+              <div ref={el => (buttons = el)}>
+                <button
+                  className={styles.commonStyles}
+                  onClick={handleClickLeft}
+                >
+                  {modalButtonleft}
+                </button>
+                <button
+                  className={styles.commonStyles}
+                  onClick={handleClickRight}
+                >
+                  {modalButtonRight}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>,
+      }
+    </>,
     modalRoot,
   );
 }
