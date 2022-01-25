@@ -1,8 +1,13 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import operations from '../../redux/auth/auth-slice';
 
+import GoogleAuth from '../GoogleAuth';
 import s from './LoginForm.module.css';
 
 const LoginForm = ({ onClickRegister }) => {
+  const dispatch = useDispatch();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailDirty, setEmailDirty] = useState(false);
@@ -51,16 +56,29 @@ const LoginForm = ({ onClickRegister }) => {
     }
   };
 
+  const clearInput = () => {
+    setEmail('');
+    setPassword('');
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    dispatch(operations.logIn({ email, password }));
+    clearInput();
+  };
+
   return (
     <div className={s.formLogin}>
       <p className={s.promtText}>
         Вы можете авторизоваться с помощью Google Account:
       </p>
-      <div className={s.animationGoogle}></div>
+      <div className={s.animationGoogle}>
+        <GoogleAuth />
+      </div>
       <p className={s.promtText}>
         Или зайти с помощью e-mail и пароля, предварительно зарегистрировавшись:
       </p>
-      <form onSubmit action="" autoComplete="on">
+      <form onSubmit={handleSubmit} action="" autoComplete="on">
         <div>
           <label className={s.formLabel}>
             <p className={s.labelText}>
