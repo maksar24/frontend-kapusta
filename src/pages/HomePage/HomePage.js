@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import LoginForm from '../../components/LogInForm';
-import Background from '../../components/Background';
+import { BackgroundAuth } from '../../components/Background';
+import RegistrationForm from '../../components/RegistrationForm/RegistrationForm';
+import s from './HomePage.module.css';
 
-const HomePageView = () => {
+const HomePage = () => {
   const [login, setLogin] = useState(true);
 
   const onRegisterClick = () => {
@@ -14,10 +16,16 @@ const HomePageView = () => {
   };
 
   return (
-    <Background>
-      <LoginForm onClickRegister={onRegisterClick} />
-    </Background>
+    <BackgroundAuth>
+      <div className={s.loginWrapper}>
+        {login ? (
+          <LoginForm onClickRegister={onRegisterClick} />
+        ) : (
+          <RegistrationForm onClickComeBack={onComeBackClick} />
+        )}
+      </div>
+    </BackgroundAuth>
   );
 };
 
-export default HomePageView;
+export default HomePage;

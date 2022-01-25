@@ -1,17 +1,32 @@
-import { useState } from 'react';
+import React, { Fragment } from 'react';
+import { useEffect, useState } from 'react';
+import Media from 'react-media';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import s from './ReportPage.module.css';
 import DateField from '../../components/DateField';
 import ReportCoast from '../../components/ReportCoast/reportCoact';
 import Icons from '../../components/Icon';
 import ReportChart from '../../components/ReportChart';
-import Container from '../../components/Container';
+import Background from '../../components/Background/BackgroundReport/BackgroundReport';
+import ReportWrapper from '../../components/ReportWrapper';
+
 import ReportBalance from '../../components/ReportBalance/ReportBalance';
+import {
+  fetchSuccess,
+  fetchError,
+  filteredData,
+} from '../../redux/balance/index';
+import ReportChartMobile from '../../components/ReportChart/ReportChartMobile';
 
 const ReportPage = () => {
   let navigate = useNavigate();
   const [thisMonth, setThisMonth] = useState(+new Date().getMonth());
   const [thisYear, setThisYear] = useState(2022);
+  const { data, filteredData, error, isLoading } = useSelector(
+    data => data.balanceReducer,
+  );
+  const dispatch = useDispatch();
 
   function handleClick() {
     navigate('/');
@@ -34,7 +49,7 @@ const ReportPage = () => {
   };
 
   return (
-    <>
+    <Background>
       <div className={s.container}>
         <button className={s.button__back} onClick={handleClick}>
           <Icons iconName="goArrow" />
@@ -53,12 +68,34 @@ const ReportPage = () => {
           </div>
         </div>
       </div>
-      <Container>
+      <ReportWrapper>
         <ReportBalance />
+      </ReportWrapper>
+      <ReportWrapper>
         <ReportCoast />
-        <ReportChart />
-      </Container>
-    </>
+      </ReportWrapper>
+      <Media
+        queries={{
+          small: '(max-width: 767px)',
+          medium: '(min-width: 768px)',
+        }}
+      >
+        {matches => (
+          <Fragment>
+            {matches.small && (
+              <ReportWrapper>
+                <ReportChartMobile />
+              </ReportWrapper>
+            )}
+            {matches.medium && (
+              <ReportWrapper>
+                <ReportChart />
+              </ReportWrapper>
+            )}
+          </Fragment>
+        )}
+      </Media>
+    </Background>
   );
 };
 

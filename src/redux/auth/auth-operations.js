@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
+axios.defaults.baseURL = 'https://lit-headland-14010.herokuapp.com/api/';
 
 const token = {
   set(token) {
@@ -12,11 +12,11 @@ const token = {
   },
 };
 
-const register = createAsyncThunk(
-  '/users/signup',
+export const register = createAsyncThunk(
+  'auth/signup',
   async (credentials, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post('users/signup', credentials);
+      const { data } = await axios.post('auth/signup', credentials);
       token.set(data.token);
       return data;
     } catch (error) {
@@ -31,11 +31,11 @@ const register = createAsyncThunk(
   },
 );
 
-const logIn = createAsyncThunk(
-  'users/login',
+export const logIn = createAsyncThunk(
+  'auth/login',
   async (credentials, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post('users/login', credentials);
+      const { data } = await axios.post('auth/login', credentials);
       token.set(data.token);
       return data;
     } catch (error) {
@@ -44,11 +44,11 @@ const logIn = createAsyncThunk(
   },
 );
 
-const logOut = createAsyncThunk(
-  'users/logout',
+export const logOut = createAsyncThunk(
+  'auth/logout',
   async (_, { rejectWithValue }) => {
     try {
-      await axios.post('users/logout');
+      await axios.post('auth/logout');
       token.unset();
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -56,7 +56,7 @@ const logOut = createAsyncThunk(
   },
 );
 
-const setUserBalance = createAsyncThunk(
+export const setUserBalance = createAsyncThunk(
   '/users/setUserBalance',
   async (newBalance, { rejectWithValue }) => {
     try {
@@ -68,7 +68,7 @@ const setUserBalance = createAsyncThunk(
   },
 );
 
-const getUserBalance = createAsyncThunk(
+export const getUserBalance = createAsyncThunk(
   '/users/getUserBalance',
   async (_, { rejectWithValue }) => {
     try {
@@ -80,7 +80,7 @@ const getUserBalance = createAsyncThunk(
   },
 );
 
-const fetchCurrentUser = createAsyncThunk(
+export const fetchCurrentUser = createAsyncThunk(
   'auth/refresh',
   async (_, { getState, rejectWithValue }) => {
     const state = getState();
