@@ -13,6 +13,7 @@ import {
 } from 'redux-persist';
 // import thunk from 'redux-thunk'
 import authReducer from './auth/auth-slice';
+import balanceReducer from './balance';
 
 const authPersistConfig = {
   key: 'auth',
@@ -32,6 +33,7 @@ const middleware = [
 export const store = configureStore({
   reducer: {
     auth: persistReducer(authPersistConfig, authReducer),
+    balanceReducer,
   },
   middleware,
   devTools: process.env.NODE_ENV === 'development',

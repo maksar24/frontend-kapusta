@@ -62,3 +62,23 @@
   background-color: var(--orange-background-color);
   color: var(--main-background-color);
 }
+
+@media screen and (min-width: 768px) {
+  .balance_form {
+    flex-direction: row;
+  }
+
+  .balance_text {
+    margin-right: 21px;
+    margin-bottom: 0;
+  }
+
+  .balance_button {
+    border-radius: 16px;
+  }
+
+  .balance_input {
+    margin-right: 15px;
+    border-radius: 16px;
+  }
+}

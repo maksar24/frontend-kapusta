@@ -4,13 +4,15 @@ import s from './CommonPage.module.css';
 import Container from '../../components/Container';
 import SwitchToReport from '../../components/SwitchToReport';
 import Balance from '../../components/Balance';
+import { BackgroundMobile } from '../../components/Background';
+import IncomeOutcomeButtons from '../../components/IncomeOutcomeButtons';
+import CommonPageWrapper from '../../components/CommonPageWrapper';
+import Background from '../../components/Background/BackgroundReport/BackgroundReport';
 
 const CommonPage = () => {
   return (
-    <Container>
-      <SwitchToReport />
-      <Balance />
-      {/* <Media
+    <Background>
+      <Media
         queries={{
           small: '(max-width: 767px)',
           medium: '(min-width: 768px)',
@@ -18,16 +20,29 @@ const CommonPage = () => {
       >
         {matches => (
           <Fragment>
+            {matches.small && (
+              <BackgroundMobile>
+                <Container>
+                  <CommonPageWrapper>
+                    <SwitchToReport />
+                    <Balance />
+                    <IncomeOutcomeButtons />
+                  </CommonPageWrapper>
+                </Container>
+              </BackgroundMobile>
+            )}
             {matches.medium && (
               <>
-                <SwitchToReport />
-                <Balance />
+                <div className={s.container_balance}>
+                  <Balance />
+                  <SwitchToReport />
+                </div>
               </>
             )}
           </Fragment>
         )}
-      </Media> */}
-    </Container>
+      </Media>
+    </Background>
   );
 };
 

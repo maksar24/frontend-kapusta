@@ -1,28 +1,14 @@
-.section {
+.chartSection {
   width: 100%;
-  background-color: #ffffff;
 }
 
 @media screen and (min-width: 768px) {
-  .section {
-    margin-bottom: 30px;
-    border-radius: 30px;
-    box-shadow: 5px 10px 20px rgba(170, 178, 197, 0.4);
-  }
   .chartSection {
     padding: 45px 30px;
-  }
-  .chartBlock {
-    width: 605px;
   }
 }
 
 @media screen and (min-width: 1280px) {
-  .section {
-    margin-bottom: 30px;
-    border-radius: 30px;
-    box-shadow: 5px 10px 20px rgba(170, 178, 197, 0.4);
-  }
   .chartSection {
     padding: 20px 150px;
   }
