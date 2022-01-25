@@ -6,7 +6,7 @@ import DateField from '../../components/DateField';
 import ReportCoast from '../../components/ReportCoast/reportCoact';
 import Icons from '../../components/Icon';
 import ReportChart from '../../components/ReportChart';
-import Background from '../../components/Background/BackgroundReport/BackgroundReport';
+import { BackgroundReport } from '../../components/Background';
 import ReportWrapper from '../../components/ReportWrapper';
 // import Container from '../../components/Container';
 import ReportBalance from '../../components/ReportBalance/ReportBalance';
@@ -46,7 +46,7 @@ const ReportPage = () => {
   };
 
   return (
-    <Background>
+    <BackgroundReport>
       <div className={s.container}>
         <button className={s.button__back} onClick={handleClick}>
           <Icons iconName="goArrow" />
@@ -74,7 +74,7 @@ const ReportPage = () => {
       <ReportWrapper>
         <ReportChart />
       </ReportWrapper>
-    </Background>
+    </BackgroundReport>
   );
 };
 

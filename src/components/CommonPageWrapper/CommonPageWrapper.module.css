@@ -15,7 +15,9 @@ li {
   margin-top: 40px;
 }
 
-.incomeOutcomeButtons {
-  position: fixed;
-  bottom: 0;
+@media screen and (max-width: 767px) {
+  .incomeOutcomeButtons {
+    position: fixed;
+    bottom: 0;
+  }
 }
