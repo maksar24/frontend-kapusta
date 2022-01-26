@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import sprite from './sprite.svg';
 import Icons from '../Icon';
+import { useSelector, useDispatch } from 'react-redux';
+import { setCategity } from '../../redux/balance/index';
 
 import svg from './svg';
 
@@ -11,6 +13,11 @@ export default function ReportCoast() {
   const coastOrIncome = () => {
     setCoast(coast => !coast);
   };
+  const { sumByCategoryConsumption, sumByCategoryIncome } = useSelector(
+    data => data.balanceReducer,
+  );
+  const dispatch = useDispatch();
+
   return (
     <div className={s.container}>
       <div className={s.nav}>
@@ -23,33 +30,51 @@ export default function ReportCoast() {
         </button>
       </div>
       <ul>
-        {coast
-          ? svg.coast.map(svg => {
+        {coast ? (
+          sumByCategoryConsumption?.length > 0 ? (
+            sumByCategoryConsumption?.map(category => {
               return (
-                <li key={Object.keys(svg)[0]} className={s.card}>
-                  <button type="button" className={s.cardButton}>
-                    <p className={s.cardTitle}>1000.00</p>
+                <li key={category?.group} className={s.card}>
+                  <button
+                    type="button"
+                    className={s.cardButton}
+                    value={category?.group}
+                    onClick={e => dispatch(setCategity(e.currentTarget.value))}
+                  >
+                    <p className={s.cardTitle}>{category.totalCategory}.00</p>
                     <svg className={s.svg}>
-                      <use href={sprite + '#' + Object.keys(svg)[0]} />
+                      <use href={sprite + '#' + category?.group} />
                     </svg>
-                    <p className={s.cardTitle}>{Object.values(svg)[0]}</p>
+                    <p className={s.cardTitle}>{svg.coast[category?.group]}</p>
                   </button>
                 </li>
               );
             })
-          : svg.income.map(svg => {
-              return (
-                <li key={Object.keys(svg)[0]} className={s.card}>
-                  <button type="button" className={s.cardButton}>
-                    <p className={s.cardTitle}>1000.00</p>
-                    <svg className={s.svg}>
-                      <use href={sprite + '#' + Object.keys(svg)[0]} />
-                    </svg>
-                    <p className={s.cardTitle}>{Object.values(svg)[0]}</p>
-                  </button>
-                </li>
-              );
-            })}
+          ) : (
+            <h3>За данный период нет рассходов</h3>
+          )
+        ) : sumByCategoryIncome?.length > 0 ? (
+          sumByCategoryIncome?.map(category => {
+            return (
+              <li key={category?.group} className={s.card}>
+                <button
+                  type="button"
+                  className={s.cardButton}
+                  value={category?.group}
+                  onClick={e => dispatch(setCategity(e.currentTarget.value))}
+                >
+                  <p className={s.cardTitle}>{category.totalCategory}.00</p>
+                  <svg className={s.svg}>
+                    <use href={sprite + '#' + category?.group} />
+                  </svg>
+                  <p className={s.cardTitle}>{svg.income[category?.group]}</p>
+                </button>
+              </li>
+            );
+          })
+        ) : (
+          <h3>За данный период нет доходов</h3>
+        )}
       </ul>
     </div>
   );
