@@ -10,6 +10,7 @@
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.25.0",
+    "build": "^0.1.4",
     "chart.js": "^3.7.0",
     "chartjs-plugin-datalabels": "^2.0.0",
     "gsap": "^3.9.1",
@@ -23,7 +24,7 @@
     "react-icons": "^4.3.1",
     "react-media": "^1.10.0",
     "react-redux": "^7.2.6",
-    "react-router-dom": "^6.2.1",
+    "react-router-dom": "^5.3.0",
     "react-scripts": "5.0.0",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
@@ -34,7 +35,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "netlify deploy -p"
   },
   "eslintConfig": {
     "extends": [
