@@ -331,7 +331,8 @@ input::placeholder {
 
   .buttons {
     width: 265px;
-    padding-left: 20px;
+    margin-left: 20px;
+    padding-left: 0;
   }
 
   .categoriesRoot {
@@ -364,5 +365,10 @@ input::placeholder {
 
   .summButton {
     width: 49px;
+  }
+
+  .enterButton,
+  .clearButton {
+    width: 125px;
   }
 }
