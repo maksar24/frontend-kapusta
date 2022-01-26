@@ -22,7 +22,7 @@ export default function ReportCoast() {
           <Icons iconName="rightArrow" />
         </button>
       </div>
-      <ul>
+      <ul className={s.coastWrapper}>
         {coast
           ? svg.coast.map(svg => {
               return (

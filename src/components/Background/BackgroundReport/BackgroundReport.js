@@ -11,4 +11,4 @@ const BackgroundReport = ({ children }) => {
   );
 };
 
-export default BackgroundReport;
+export { BackgroundReport };
