@@ -24,11 +24,13 @@ ChartJS.register(
   Legend,
 );
 
-const ReportChart = () => {
-  const [axis, setAxis] = useState('x');
+const ReportChartMobile = () => {
+  const [axis, setAxis] = useState('y');
 
   const options = {
-    maxBarThickness: 38,
+    barThickness: 15,
+    maxBarThickness: 50,
+    minBarLength: 90,
     plugins: {
       legend: {
         display: false,
@@ -37,74 +39,65 @@ const ReportChart = () => {
         enabled: false,
       },
       datalabels: {
-        align: function (context) {
-          var value = context.dataset.data[context.dataIndex];
-          return value > 0 ? 'end' : 'start';
-        },
-        anchor: function (context) {
-          var value = context.dataset.data[context.dataIndex];
-          return value > 0 ? 'end' : 'start';
-        },
+        // align: function (context) {
+        //   var value = context.dataset.data[context.dataIndex];
+        //   return value > 0 ? 'end' : 'start';
+        // },
+        // anchor: function (context) {
+        //   var value = context.dataset.data[context.dataIndex];
+        //   return value > 0 ? 'end' : 'start';
+        // },
+        anchor: 'end',
+        align: 'top',
+        offset: 12,
         borderRadius: 4,
         color: '#52555F',
         formatter: function (value) {
           return Math.round(value) + ' грн';
         },
-        padding: 10,
+        padding: 0,
       },
     },
     scales: {
       x: {
         grid: {
           display: false,
-          lineWidth: 2,
           drawBorder: false,
-          color: '#F5F6FB',
+          drawTicks: false,
         },
         ticks: {
           display: false,
-          stepSize: 100,
         },
       },
       y: {
         grid: {
-          lineWidth: 2,
+          display: false,
           drawBorder: false,
           drawTicks: false,
-          color: '#F5F6FB',
         },
         display: true,
         ticks: {
-          display: false,
-          stepSize: 635,
+          mirror: true,
+          labelOffset: -20,
+          //   stepSize: 635,
         },
       },
     },
     layout: {
       padding: {
-        top: 35,
-        bottom: 0,
+        top: 5,
+        bottom: 10,
+        left: -5,
+        right: 20,
       },
     },
+
     elements: {
       bar: {
-        barWidth: 605,
         borderRadius: 10,
       },
     },
   };
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     setAxis(window.matchMedia('(max-width: 767px)').matches ? 'y' : 'x');
-  //   };
-
-  //   window.addEventListener('resize', handleResize);
-  //   handleResize();
-
-  //   return () => {
-  //     window.removeEventListener('resize', handleResize);
-  //   };
-  // }, []);
 
   const labels = [
     'Свинина',
@@ -145,10 +138,14 @@ const ReportChart = () => {
   return (
     <>
       <div className={s.chartSection}>
-        <Bar options={{ ...options, indexAxis: axis }} data={data} />
+        <Bar
+          height={437}
+          options={{ ...options, indexAxis: axis }}
+          data={data}
+        />
       </div>
     </>
   );
 };
 
-export default ReportChart;
+export default ReportChartMobile;
