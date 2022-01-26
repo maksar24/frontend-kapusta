@@ -17,7 +17,7 @@ const balanceSlice = createSlice({
       state.isLoading = true;
     },
     fetchSuccess(state, { payload }) {
-      state.data = payload;
+      state.finance = payload;
       state.isLoading = false;
     },
     fetchError(state, { payload }) {
@@ -32,6 +32,12 @@ const balanceSlice = createSlice({
     },
     setCategity(state, { payload }) {
       state.category = payload;
+    },
+    incomeData(state, { payload }) {
+      state.income = payload;
+    },
+    consumptionData(state, { payload }) {
+      state.consumption = payload;
     },
   },
 });
