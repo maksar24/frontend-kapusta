@@ -4,7 +4,8 @@
   "private": true,
   "dependencies": {
     "@datepicker-react/hooks": "^2.8.4",
-    "@reduxjs/toolkit": "^1.7.1",
+    "@reduxjs/toolkit": "https://pkg.csb.dev/reduxjs/redux-toolkit/commit/27edeffb/@reduxjs/toolkit",
+    "@rtk-query/graphql-request-base-query": "https://pkg.csb.dev/reduxjs/redux-toolkit/commit/27edeffb/@rtk-query/graphql-request-base-query",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
