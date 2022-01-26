@@ -1,18 +1,18 @@
-const coast = [
-  { products: 'Продукты' },
-  { alcohol: 'Алкоголь' },
-  { entertainment: 'Развлечение' },
-  { health: 'Здоровье' },
-  { transport: 'Транспорт' },
-  { home: 'Все для дома' },
-  { technics: 'Техника' },
-  { connection: 'Коммуналка, Связь' },
-  { sport: 'Спорт, Хобби' },
-  { education: 'Образование' },
-  { other: 'Прочее' },
-];
+const coast = {
+  food: 'Продукты',
+  alcohol: 'Алкоголь',
+  activities: 'Развлечение',
+  health: 'Здоровье',
+  transport: 'Транспорт',
+  home_stuff: 'Все для дома',
+  gadgets: 'Техника',
+  utility_bills: 'Коммуналка, Связь',
+  hobbies: 'Спорт, Хобби',
+  education: 'Образование',
+  others: 'Прочее',
+};
 
-const income = [{ income: 'Доп. доход' }, { wage: 'ЗП' }];
+const income = { 'additional-income': 'Доп. доход', salary: 'ЗП' };
 
 const svg = { coast, income };
 export default svg;
