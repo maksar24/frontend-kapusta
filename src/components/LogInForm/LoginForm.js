@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import operations from '../../redux/auth/auth-slice';
+import { logIn } from '../../redux/auth/auth-operations';
 
 import GoogleAuth from '../GoogleAuth';
 import s from './LoginForm.module.css';
@@ -63,7 +63,7 @@ const LoginForm = ({ onClickRegister }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(operations.logIn({ email, password }));
+    dispatch(logIn({ email, password }));
     clearInput();
   };
 
