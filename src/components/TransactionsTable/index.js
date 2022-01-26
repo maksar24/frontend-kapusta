@@ -1,1 +1,2 @@
-export { default } from './TransactionsTable';
+export { TransactionsTable } from './TransactionsTable';
+export { MobileTable } from './MobileTable';

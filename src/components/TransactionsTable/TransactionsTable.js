@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import EllipsisText from 'react-ellipsis-text';
 
 // import { phonebookOperations, phonebookSelectors } from 'Redux/phonebook';
 import styles from './TransactionsTable.module.css';
@@ -58,8 +59,7 @@ const TransactionsTable = () => {
               <th className={`${styles.th} ${styles.thDesc}`}>Описание</th>
               <th className={`${styles.th} ${styles.thCateg}`}>Категория</th>
               <th className={`${styles.th} ${styles.thSum}`}>Сумма</th>
-              <th className={`${styles.th} ${styles.thIcon}`}></th>
-              <th className={`${styles.th} ${styles.thIcon}`}></th>
+              <th className={`${styles.th} ${styles.thEmpty}`}></th>
             </tr>
           </thead>
         </table>
@@ -68,9 +68,18 @@ const TransactionsTable = () => {
             <tbody className={styles.tbodyTable}>
               {/* {filteredTransactions.map(transaction => ( */}
               <tr className={styles.td}>
-                <td className={styles.thData}>21.07.2021</td>
-                <td className={styles.tdDesc}> Subway</td>
-                <td className={styles.thCateg}>Transport</td>
+                <td className={styles.thData}>
+                  {/* {transaction.date} */}
+                  21.07.2021
+                </td>
+                <td className={styles.tdDesc}>
+                  {/* <EllipsisText text={transaction.subCategory} length={'5'} /> */}
+                  Subway
+                </td>
+                <td className={styles.thCateg}>
+                  {/* {transaction.category} */}
+                  Transport
+                </td>
                 <td
                   className={
                     `${styles.tdSum}`
@@ -79,16 +88,15 @@ const TransactionsTable = () => {
                     //                   }`
                   }
                 >
-                  {/* {type === 'income'
-                      ? `${transaction.sum.toLocaleString('ru')}.00 грн.`
-                      : `-${transaction.sum.toLocaleString('ru')}.00 грн.`} */}
+                  {/* <EllipsisText
+                    text={
+                      type === 'income'
+                        ? `${transaction.sum.toLocaleString('ru')}.00 грн.`
+                        : `-${transaction.sum.toLocaleString('ru')}.00 грн.`
+                    }
+                    length={'5'}
+                  /> */}
                   16.00 uah
-                </td>
-                <td className={styles.thIcon}>
-                  <button
-                    className={styles.deleteBtn}
-                    //   onClick={() => handleDeteteClick(transaction)}
-                  ></button>
                 </td>
                 <td
                   className={styles.thIcon}
@@ -106,4 +114,4 @@ const TransactionsTable = () => {
   );
 };
 
-export default TransactionsTable;
+export { TransactionsTable };

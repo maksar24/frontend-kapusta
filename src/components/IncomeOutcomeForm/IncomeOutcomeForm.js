@@ -1,6 +1,9 @@
 import { useState, useRef, Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
 import Media from 'react-media';
+import EllipsisText from 'react-ellipsis-text';
+import optionsIncome from '../../data/incomeCategories.json';
+import optionsOutcome from '../../data/outcomeCategories.json';
 
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
@@ -58,20 +61,9 @@ const IncomeOutcomeForm = () => {
     textInput.current.focus();
   };
 
-  const options = [
-    { value: '', label: 'Категория товара' },
-    'Транспорт',
-    'Продукты',
-    'Здоровье',
-    'Алкоголь',
-    'Развлечения',
-    'Всё для дома',
-    'Техника',
-    'Коммуналка, связь',
-    'Спорт, хобби',
-    'Образование',
-    'Прочее',
-  ];
+  // const options = type === 'outcome' ? optionsIncome : optionsOutcome;
+
+  const options = optionsIncome;
 
   const setSelect = selectedOption => {
     setCategory(selectedOption);
@@ -95,7 +87,7 @@ const IncomeOutcomeForm = () => {
               </button>
               <form className={styles.form} onSubmit={onSubmit}>
                 <ul className={styles.ul}>
-                  <li>
+                  <li className={styles.nameLi}>
                     <label className={styles.nameField}>
                       <input
                         className={styles.nameInput}
@@ -110,7 +102,7 @@ const IncomeOutcomeForm = () => {
                       />
                     </label>
                   </li>
-                  <li>
+                  <li className={styles.dropdownLi}>
                     <Dropdown
                       className={styles.categoriesRoot}
                       controlClassName={styles.categoriesControll}
@@ -174,7 +166,7 @@ const IncomeOutcomeForm = () => {
           {matches.medium && (
             <form className={styles.form} onSubmit={onSubmit}>
               <ul className={styles.ul}>
-                <li>
+                <li className={styles.nameLi}>
                   <label className={styles.nameField}>
                     <input
                       className={styles.nameInput}
@@ -189,7 +181,7 @@ const IncomeOutcomeForm = () => {
                     />
                   </label>
                 </li>
-                <li>
+                <li className={styles.dropdownLi}>
                   <Dropdown
                     className={styles.categoriesRoot}
                     controlClassName={styles.categoriesControll}
