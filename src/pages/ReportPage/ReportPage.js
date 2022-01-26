@@ -22,8 +22,8 @@ import ReportChartMobile from '../../components/ReportChart/ReportChartMobile';
 const ReportPage = () => {
   let navigate = useNavigate();
   const [thisMonth, setThisMonth] = useState(+new Date().getMonth());
-  const [thisYear, setThisYear] = useState(2022);
-  const { data, filteredData, error, isLoading } = useSelector(
+  const [thisYear, setThisYear] = useState(new Date().getFullYear());
+  const { finance, filteredData, error, isLoading } = useSelector(
     data => data.balanceReducer,
   );
   const dispatch = useDispatch();
