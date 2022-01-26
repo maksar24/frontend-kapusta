@@ -14,8 +14,7 @@ export default function AppBar() {
         <a href="/">
           <Icons iconName="miniLogo" />
         </a>
-        <Navigation />
-        {/* {isLoggedIn && <Navigation />} */}
+        {isLoggedIn && <Navigation />}
       </div>
     </header>
   );
