@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 
 const ReportBalance = () => {
   const { data } = useSelector(data => data.balanceReducer);
+
   return (
     <div className={s.section_balance}>
       <div className={s.balance_item}>

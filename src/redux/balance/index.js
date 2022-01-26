@@ -17,7 +17,7 @@ const balanceSlice = createSlice({
       state.isLoading = true;
     },
     fetchSuccess(state, { payload }) {
-      state.finance = payload;
+      state.data = payload;
       state.isLoading = false;
     },
     fetchError(state, { payload }) {
