@@ -81,18 +81,18 @@ export const getUserBalance = createAsyncThunk(
 );
 
 export const fetchCurrentUser = createAsyncThunk(
-  'auth/refresh',
+  'auth/current',
   async (_, { getState, rejectWithValue }) => {
     const state = getState();
     const persistedToken = state.auth.token;
-
+    console.log(state.auth.user.data);
     if (persistedToken === null) {
       return rejectWithValue();
     }
 
     token.set(persistedToken);
     try {
-      const { data } = await axios.get('users/current');
+      const { data } = await axios.get('auth/current');
       return data;
     } catch (error) {
       return rejectWithValue(error);

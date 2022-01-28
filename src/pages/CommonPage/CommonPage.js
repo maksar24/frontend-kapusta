@@ -44,7 +44,6 @@ const CommonPage = () => {
               <IncomeOutcomeButtons />
             </Fragment>
           )}
-          ,
           {matches.medium && (
             <BackgroundReport>
               <CommonPageWrapper>
@@ -64,7 +63,6 @@ const CommonPage = () => {
               </CommonPageWrapper>
             </BackgroundReport>
           )}
-          ,
           {matches.large && (
             <BackgroundReport>
               <CommonPageWrapper>
