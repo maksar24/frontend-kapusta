@@ -2,9 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   data: null,
-  filteredData: null,
   isLoading: false,
   error: null,
+  sumByCategoryIncome: null,
+  sumByCategoryConsumption: null,
+  category: null,
 };
 
 const balanceSlice = createSlice({
@@ -22,13 +24,31 @@ const balanceSlice = createSlice({
       state.error = payload;
       state.isLoading = false;
     },
-    filteredData(state, { payload }) {
-      state.filteredData = payload;
+    sumByCategoryIncome(state, { payload }) {
+      state.sumByCategoryIncome = payload;
+    },
+    sumByCategoryConsumption(state, { payload }) {
+      state.sumByCategoryConsumption = payload;
+    },
+    setCategity(state, { payload }) {
+      state.category = payload;
+    },
+    incomeData(state, { payload }) {
+      state.income = payload;
+    },
+    consumptionData(state, { payload }) {
+      state.consumption = payload;
     },
   },
 });
 
-export const { fetchBalanse, fetchSuccess, fetchError, filteredData } =
-  balanceSlice.actions;
+export const {
+  fetchBalanse,
+  fetchSuccess,
+  fetchError,
+  sumByCategoryIncome,
+  sumByCategoryConsumption,
+  setCategity,
+} = balanceSlice.actions;
 
 export default balanceSlice.reducer;

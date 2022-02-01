@@ -1,42 +1,74 @@
-import { useState, Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import IncomeOutcomeForm from '../IncomeOutcomeForm';
+import Media from 'react-media';
 
 import styles from './IncomeOutcomeButtons.module.css';
 
 const IncomeOutcomeButtons = () => {
-  const [state, setState] = useState('');
+  const [outcomeActive, setOutcomeActive] = useState(true);
+  const [incomeActive, setIncomeActive] = useState(false);
 
-  const onOutcomeClick = () => {
-    setState('outcome');
-  };
+  const toggleActive = () => {
+    if (incomeActive) {
+      setOutcomeActive(true);
+      setIncomeActive(false);
+      return;
+    }
 
-  const onIncomeClick = () => {
-    setState('income');
+    if (outcomeActive) {
+      setIncomeActive(true);
+      setOutcomeActive(false);
+    }
   };
 
   return (
-    <Fragment>
-      <button
-        className={styles.outcomeButton}
-        type="button"
-        onClick={onOutcomeClick}
-      >
-        <NavLink className={styles.outcomeLink} to="/balance/addViaMobile">
-          РАСХОД
-        </NavLink>
-      </button>
+    <Media
+      queries={{
+        small: '(max-width: 767px)',
+        medium: '(min-width: 768px)',
+      }}
+    >
+      {matches => (
+        <Fragment>
+          {matches.small && (
+            <div className={styles.incomeOutcomeButtons}>
+              <button className={styles.typeButton} type="button">
+                <NavLink className={styles.typeLink} to="/balance/addViaMobile">
+                  РАСХОД
+                </NavLink>
+              </button>
 
-      <button
-        className={styles.incomeButton}
-        type="button"
-        onClick={onIncomeClick}
-      >
-        <NavLink className={styles.incomeLink} to="/balance/addViaMobile">
-          ДОХОД
-        </NavLink>
-      </button>
-    </Fragment>
+              <button className={styles.typeButton} type="button">
+                <NavLink className={styles.typeLink} to="/balance/addViaMobile">
+                  ДОХОД
+                </NavLink>
+              </button>
+            </div>
+          )}
+          {matches.medium && (
+            <Fragment>
+              <button
+                className={`${styles.typeButton}
+               ${outcomeActive && styles.isActive}`}
+                type="button"
+                onClick={toggleActive}
+              >
+                РАСХОД
+              </button>
+
+              <button
+                className={`${styles.typeButton}
+               ${incomeActive && styles.isActive}`}
+                type="button"
+                onClick={toggleActive}
+              >
+                ДОХОД
+              </button>
+            </Fragment>
+          )}
+        </Fragment>
+      )}
+    </Media>
   );
 };
 

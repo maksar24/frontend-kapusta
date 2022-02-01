@@ -3,7 +3,7 @@ import s from './Balance.module.css';
 import { authOperations, authSelectors } from '../../redux/auth';
 
 export default function Balance() {
-  // const userBalance = useSelector(authSelectors.getUserBalance());
+  // const userBalance = useSelector();
   // const dispatch = useDispatch();
 
   const handleSubmit = e => {
@@ -16,8 +16,6 @@ export default function Balance() {
 
     console.log(balance);
 
-    // const newBalance = Number(balance);
-    // dispatch(authOperations.setUserBalance({ balance: newBalance }));
     e.target.elements.balance.value = '';
   };
 

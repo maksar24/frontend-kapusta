@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import Media from 'react-media';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -8,25 +9,58 @@ import DateField from '../../components/DateField';
 import ReportCoast from '../../components/ReportCoast/reportCoact';
 import Icons from '../../components/Icon';
 import ReportChart from '../../components/ReportChart';
-import Background from '../../components/Background/BackgroundReport/BackgroundReport';
+import { BackgroundReport } from '../../components/Background';
 import ReportWrapper from '../../components/ReportWrapper';
+import { getToken } from '../../redux/auth/auth-selectors';
 
 import ReportBalance from '../../components/ReportBalance/ReportBalance';
 import {
   fetchSuccess,
   fetchError,
-  filteredData,
+  sumByCategoryIncome,
+  sumByCategoryConsumption,
 } from '../../redux/balance/index';
 import ReportChartMobile from '../../components/ReportChart/ReportChartMobile';
 
 const ReportPage = () => {
   let navigate = useNavigate();
-  const [thisMonth, setThisMonth] = useState(+new Date().getMonth());
+  const [thisMonth, setThisMonth] = useState(new Date().getMonth());
   const [thisYear, setThisYear] = useState(2022);
-  const { data, filteredData, error, isLoading } = useSelector(
-    data => data.balanceReducer,
-  );
+  const { data } = useSelector(data => data.balanceReducer);
+  const token = useSelector(getToken);
   const dispatch = useDispatch();
+  const [isLoading, setLoading] = useState(false);
+
+  const fetchData = async () => {
+    let config = {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    };
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `/transaction/report/${thisYear}/${thisMonth + 1}`,
+        config,
+      );
+      dispatch(fetchSuccess(response.data));
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      dispatch(fetchError(error.message));
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, [thisMonth, thisYear, dispatch]);
+
+  useEffect(() => {
+    if (data) {
+      dispatch(sumByCategoryIncome(data.sumByCategoryIncome));
+      dispatch(sumByCategoryConsumption(data.sumByCategoryConsumption));
+    }
+  }, [isLoading]);
 
   function handleClick() {
     navigate('/');
@@ -49,7 +83,7 @@ const ReportPage = () => {
   };
 
   return (
-    <Background>
+    <BackgroundReport>
       <div className={s.container}>
         <button className={s.button__back} onClick={handleClick}>
           <Icons iconName="goArrow" />
@@ -95,7 +129,7 @@ const ReportPage = () => {
           </Fragment>
         )}
       </Media>
-    </Background>
+    </BackgroundReport>
   );
 };
 

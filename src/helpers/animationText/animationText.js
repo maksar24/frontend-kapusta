@@ -2,7 +2,7 @@ export function textAnimation(text) {
   text.innerHTML = [...text.textContent]
     .map(
       n =>
-        `<span style="font-weight: normal;font-size: 14px;transition: all 1.5s; display: inline-block; margin-bottom: 8px; font-family: Roboto;">${
+        `<span style="font-weight: 500;font-size: 14px; line-height: 16px; letter-spacing: 0.02em; transition: all 1.5s; display: inline-block; margin-bottom: 8px;">${
           n.trim() ? n : '&nbsp;'
         }</span>`,
     )
@@ -30,7 +30,7 @@ export function textAnimation(text) {
                   }
                 : {
                     opacity: 1,
-                    color: 'rgb(35, 34, 40)',
+                    color: '#52555F',
                     transform: `translate3d(0, 0, 0)`,
                   },
             ),
