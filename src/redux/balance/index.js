@@ -7,6 +7,7 @@ const initialState = {
   sumByCategoryIncome: null,
   sumByCategoryConsumption: null,
   category: null,
+  summary: [],
 };
 
 const balanceSlice = createSlice({
@@ -39,6 +40,9 @@ const balanceSlice = createSlice({
     consumptionData(state, { payload }) {
       state.consumption = payload;
     },
+    summary(state, { payload }) {
+      state.summary = payload;
+    },
   },
 });
 
@@ -49,6 +53,7 @@ export const {
   sumByCategoryIncome,
   sumByCategoryConsumption,
   setCategity,
+  summary,
 } = balanceSlice.actions;
 
 export default balanceSlice.reducer;
