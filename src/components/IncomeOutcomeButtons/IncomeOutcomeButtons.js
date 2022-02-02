@@ -1,10 +1,15 @@
 import { Fragment, useState } from 'react';
-import { NavLink } from 'react-router-dom';
 import Media from 'react-media';
 
 import styles from './IncomeOutcomeButtons.module.css';
 
-const IncomeOutcomeButtons = () => {
+const IncomeOutcomeButtons = ({
+  transactionType,
+  toggleTransactionType,
+  showMobileAddView,
+}) => {
+  const type = transactionType;
+
   const [outcomeActive, setOutcomeActive] = useState(true);
   const [incomeActive, setIncomeActive] = useState(false);
 
@@ -21,6 +26,19 @@ const IncomeOutcomeButtons = () => {
     }
   };
 
+  const changeType = () => {
+    toggleTransactionType();
+  };
+
+  const showMobile = () => {
+    showMobileAddView();
+  };
+
+  const changeTypeView = () => {
+    changeType();
+    showMobile();
+  };
+
   return (
     <Media
       queries={{
@@ -32,16 +50,20 @@ const IncomeOutcomeButtons = () => {
         <Fragment>
           {matches.small && (
             <div className={styles.incomeOutcomeButtons}>
-              <button className={styles.typeButton} type="button">
-                <NavLink className={styles.typeLink} to="/balance/addViaMobile">
-                  РАСХОД
-                </NavLink>
+              <button
+                className={styles.typeButton}
+                type="button"
+                onClick={changeTypeView}
+              >
+                РАСХОД
               </button>
 
-              <button className={styles.typeButton} type="button">
-                <NavLink className={styles.typeLink} to="/balance/addViaMobile">
-                  ДОХОД
-                </NavLink>
+              <button
+                className={styles.typeButton}
+                type="button"
+                onClick={changeTypeView}
+              >
+                ДОХОД
               </button>
             </div>
           )}
@@ -49,18 +71,18 @@ const IncomeOutcomeButtons = () => {
             <Fragment>
               <button
                 className={`${styles.typeButton}
-               ${outcomeActive && styles.isActive}`}
+               ${type === 'outcome' && styles.isActive}`}
                 type="button"
-                onClick={toggleActive}
+                onClick={(toggleActive, changeType)}
               >
                 РАСХОД
               </button>
 
               <button
                 className={`${styles.typeButton}
-               ${incomeActive && styles.isActive}`}
+               ${type === 'income' && styles.isActive}`}
                 type="button"
-                onClick={toggleActive}
+                onClick={(toggleActive, changeType)}
               >
                 ДОХОД
               </button>

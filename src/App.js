@@ -12,10 +12,6 @@ const MainView = lazy(() =>
   import('./pages/CommonPage' /* webpackChunkName: "main-page" */),
 );
 
-const MobilTransactionView = lazy(() =>
-  import('./views/AddTransactionView' /* webpackChunkName: "mobil-tr-page" */),
-);
-
 const ReportView = lazy(() =>
   import('./pages/ReportPage' /* webpackChunkName: "report-page" */),
 );
@@ -42,7 +38,6 @@ function App() {
               </RedirectRoute>
             }
           />
-          <Route path="/addViaMobile" element={<MobilTransactionView />} />
           <Route path="/report" element={<ReportView />} />
         </Routes>
       </Suspense>

@@ -1,9 +1,8 @@
 import { useState, useRef, Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
 import Media from 'react-media';
-import EllipsisText from 'react-ellipsis-text';
 import optionsIncome from '../../data/incomeCategories.json';
-import optionsOutcome from '../../data/outcomeCategories.json';
+// import optionsOutcome from '../../data/outcomeCategories.json';
 
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
@@ -13,26 +12,26 @@ import 'react-dropdown/style.css';
 
 import styles from './IncomeOutcomeForm.module.css';
 
-const IncomeOutcomeForm = () => {
+const IncomeOutcomeForm = ({ showMobileAddView }) => {
   // const transactions = useSelector(incomeOutcomeSelectors.getTransaction)
   // const dispatch = useDispatch()
 
-  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
-  const [summ, setSumm] = useState('');
+  const [amount, setAmount] = useState('');
 
   const onChange = evt => {
     const { name, value } = evt.currentTarget;
 
     switch (name) {
       case 'name':
-        setName(value);
+        setDescription(value);
         break;
       case 'category':
         setCategory(value);
         break;
       case 'summ':
-        setSumm(value);
+        setAmount(value);
         break;
       default:
         return;
@@ -42,17 +41,17 @@ const IncomeOutcomeForm = () => {
   const onSubmit = evt => {
     evt.preventDefault();
 
-    // dispatch(incomeOutcomeOperations.addTransaction({name, category, summ}))
+    // dispatch(incomeOutcomeOperations.addTransaction({type, description, category, amount, day, month, year}))
 
-    setName('');
+    setDescription('');
     setCategory('');
-    setSumm('');
+    setAmount('');
   };
 
   const resetForm = () => {
-    setName('');
+    setDescription('');
     setCategory('');
-    setSumm('');
+    setAmount('');
   };
 
   const textInput = useRef(null);
@@ -69,6 +68,10 @@ const IncomeOutcomeForm = () => {
     setCategory(selectedOption);
   };
 
+  const goBack = () => {
+    showMobileAddView();
+  };
+
   return (
     <Media
       queries={{
@@ -80,11 +83,11 @@ const IncomeOutcomeForm = () => {
         <Fragment>
           {matches.small && (
             <Fragment>
-              <button className={styles.backButton} type="button">
-                <NavLink className={styles.goBack} to="/balance">
-                  Go back link
-                </NavLink>
-              </button>
+              <button
+                className={`${styles.backButton}`}
+                type="button"
+                onClick={goBack}
+              ></button>
               <form className={styles.form} onSubmit={onSubmit}>
                 <ul className={styles.ul}>
                   <li className={styles.nameLi}>
@@ -96,7 +99,7 @@ const IncomeOutcomeForm = () => {
                         placeholder="Описание товара"
                         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
                         title="Описание должно состоять из букв, апострофа, тире и пробелов. Например Манная каша, Проезд на метро и т. д."
-                        value={name}
+                        value={description}
                         onChange={onChange}
                         required
                       />
@@ -128,7 +131,7 @@ const IncomeOutcomeForm = () => {
                           type="number"
                           name="summ"
                           title="Введите сумму"
-                          value={summ}
+                          value={amount}
                           onChange={onChange}
                           ref={textInput}
                           placeholder="00.00"
@@ -175,7 +178,7 @@ const IncomeOutcomeForm = () => {
                       placeholder="Описание товара"
                       pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
                       title="Описание должно состоять из букв, апострофа, тире и пробелов. Например Манная каша, Проезд на метро и т. д."
-                      value={name}
+                      value={description}
                       onChange={onChange}
                       required
                     />
@@ -207,7 +210,7 @@ const IncomeOutcomeForm = () => {
                         type="number"
                         name="summ"
                         title="Введите сумму"
-                        value={summ}
+                        value={amount}
                         onChange={onChange}
                         ref={textInput}
                         placeholder="00.00"

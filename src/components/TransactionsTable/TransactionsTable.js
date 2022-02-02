@@ -1,55 +1,55 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import EllipsisText from 'react-ellipsis-text';
 
 // import { phonebookOperations, phonebookSelectors } from 'Redux/phonebook';
+
 import styles from './TransactionsTable.module.css';
-// import Modal from 'components/Modal';
-// import EditTransaction from 'components/EditTransaction';
-// import contextProps from 'context/context';
+
+import Modal from '../../components/Modal';
 
 const TransactionsTable = () => {
-  //   const { type, date, setNewDate } = useContext(contextProps);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   //   const transactions = useSelector(transactionsSelectors.getTransactions);
   //   const filteredTransactions = transactions.filter(item => item.type === type);
-  //   const [modalDel, setModalDel] = useState(false);
-  //   const [transaction, setTransaction] = useState('');
+  const [modalDel, setModalDel] = useState(false);
+  const [transaction, setTransaction] = useState('');
 
   //   useEffect(() => {
   //     dispatch(transactionsOperations.getTransactions());
   //   }, [dispatch]);
 
-  //   const handleDeteteClick = transaction => {
-  //     setModalDel(true);
-  //     setTransaction(transaction._id);
-  //   };
+  const handleDeleteClick = transaction => {
+    setModalDel(true);
+    setTransaction(transaction._id);
+    // console.log(type);
+  };
 
-  //   const onDelCancel = () => {
-  //     setTransaction('');
-  //     setModalDel(false);
-  //   };
+  const onDelCancel = () => {
+    setTransaction('');
+    setModalDel(false);
+  };
 
-  //   const onDelOk = () => {
-  //     setModalDel(false);
-  //     const transactionToDel = transactions.find(
-  //       item => item._id === transaction,
-  //     );
-  //     dispatch(transactionsOperations.deleteTransaction(transactionToDel));
-  //     setTransaction('');
-  //   };
+  const onDelOk = () => {
+    setModalDel(false);
+    // const transactionToDel = transactions.find(
+    //   item => item._id === transaction,
+    // );
+    // dispatch(transactionsOperations.deleteTransaction(transactionToDel));
+    setTransaction('');
+  };
 
   return (
     <>
-      {/* {modalDel && (
+      {modalDel && (
         <Modal
           modalTitle="Вы действительно хотите удалить эту запись?"
-        //   handleClickRight={onDelCancel}
-        //   handleClickLeft={onDelOk}
-        //   onClose={onDelCancel}
+          handleClickRight={onDelCancel}
+          handleClickLeft={onDelOk}
+          onClose={onDelCancel}
         />
-      )} */}
+      )}
 
       <div className={styles.bodyTable}>
         <table className={styles.main}>
@@ -69,11 +69,11 @@ const TransactionsTable = () => {
               {/* {filteredTransactions.map(transaction => ( */}
               <tr className={styles.td}>
                 <td className={styles.thData}>
-                  {/* {transaction.date} */}
+                  {/* `${transaction.day}.${transaction.month}.${transaction.year}` */}
                   21.07.2021
                 </td>
                 <td className={styles.tdDesc}>
-                  {/* <EllipsisText text={transaction.subCategory} length={'5'} /> */}
+                  {/* <EllipsisText text={transaction.description} length={'5'} /> */}
                   Subway
                 </td>
                 <td className={styles.thCateg}>
@@ -83,16 +83,14 @@ const TransactionsTable = () => {
                 <td
                   className={
                     `${styles.tdSum}`
-                    //   ${
-                    //     type !== 'income' && styles.tdSumExpense
-                    //                   }`
+                    // ${type !== 'income' && styles.tdSumExpense}`
                   }
                 >
                   {/* <EllipsisText
                     text={
                       type === 'income'
-                        ? `${transaction.sum.toLocaleString('ru')}.00 грн.`
-                        : `-${transaction.sum.toLocaleString('ru')}.00 грн.`
+                        ? `${transaction.amount.toLocaleString('ru')}.00 грн.`
+                        : `-${transaction.amount.toLocaleString('ru')}.00 грн.`
                     }
                     length={'5'}
                   /> */}
@@ -100,7 +98,7 @@ const TransactionsTable = () => {
                 </td>
                 <td
                   className={styles.thIcon}
-                  // onClick={() => handleEditClick(transaction)}
+                  onClick={() => handleDeleteClick(transaction)}
                 >
                   <button className={styles.deleteBtn}></button>
                 </td>
