@@ -4,12 +4,12 @@ import { BackgroundMobile } from '../../components/Background';
 
 import styles from './AddTransactionView.module.css';
 
-const AddTransactionView = () => {
+const AddTransactionView = ({ showMobileAddView }) => {
   return (
     <BackgroundMobile>
       <Container>
         <div className={styles.wrapper}>
-          <IncomeOutcomeForm />
+          <IncomeOutcomeForm showMobileAddView={showMobileAddView} />
         </div>
       </Container>
     </BackgroundMobile>

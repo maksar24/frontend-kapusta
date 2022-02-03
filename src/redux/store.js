@@ -11,7 +11,6 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-// import thunk from 'redux-thunk'
 import authReducer from './auth/auth-slice';
 import balanceReducer from './balance';
 

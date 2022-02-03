@@ -1,68 +1,43 @@
-import { Fragment, useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Fragment, useState } from 'react';
 import Media from 'react-media';
 
 import styles from './IncomeOutcomeButtons.module.css';
-import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
-import { getToken } from '../../redux/auth/auth-selectors';
 
-import { fetchSuccess, fetchError, summary } from '../../redux/balance/index';
+const IncomeOutcomeButtons = ({
+  transactionType,
+  toggleTransactionType,
+  showMobileAddView,
+}) => {
+  const type = transactionType;
 
-const IncomeOutcomeButtons = () => {
-  const [outcomeActive, setOutcomeActive] = useState(false);
-  const [incomeActive, setIncomeActive] = useState(true);
-  const [type, setType] = useState('income');
-  const [thisYear, setThisYear] = useState(2022);
-  const { data } = useSelector(data => data.balanceReducer);
-  const token = useSelector(getToken);
-  const dispatch = useDispatch();
-  const [isLoading, setLoading] = useState(false);
+  const [outcomeActive, setOutcomeActive] = useState(true);
+  const [incomeActive, setIncomeActive] = useState(false);
 
   const toggleActive = () => {
     if (incomeActive) {
       setOutcomeActive(true);
       setIncomeActive(false);
-      setType(`consumption`);
       return;
     }
 
     if (outcomeActive) {
       setIncomeActive(true);
       setOutcomeActive(false);
-      setType(`income`);
     }
   };
 
-  const fethSummary = async type => {
-    let config = {
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
-    };
-    try {
-      setLoading(true);
-      const response = await axios.get(
-        `/transaction/summary/${type}/${thisYear}`,
-        config,
-      );
-      dispatch(fetchSuccess(response.data));
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      dispatch(fetchError(error.message));
-    }
+  const changeType = () => {
+    toggleTransactionType();
   };
 
-  useEffect(() => {
-    fethSummary(type);
-  }, [thisYear, type, dispatch]);
+  const showMobile = () => {
+    showMobileAddView();
+  };
 
-  useEffect(() => {
-    if (data) {
-      dispatch(summary(data.summary));
-    }
-  }, [isLoading]);
+  const changeTypeView = () => {
+    changeType();
+    showMobile();
+  };
 
   return (
     <Media
@@ -75,16 +50,20 @@ const IncomeOutcomeButtons = () => {
         <Fragment>
           {matches.small && (
             <div className={styles.incomeOutcomeButtons}>
-              <button className={styles.typeButton} type="button">
-                <NavLink className={styles.typeLink} to="/balance/addViaMobile">
-                  РАСХОД
-                </NavLink>
+              <button
+                className={styles.typeButton}
+                type="button"
+                onClick={changeTypeView}
+              >
+                РАСХОД
               </button>
 
-              <button className={styles.typeButton} type="button">
-                <NavLink className={styles.typeLink} to="/balance/addViaMobile">
-                  ДОХОД
-                </NavLink>
+              <button
+                className={styles.typeButton}
+                type="button"
+                onClick={changeTypeView}
+              >
+                ДОХОД
               </button>
             </div>
           )}
@@ -92,18 +71,18 @@ const IncomeOutcomeButtons = () => {
             <Fragment>
               <button
                 className={`${styles.typeButton}
-               ${outcomeActive && styles.isActive}`}
+               ${type === 'outcome' && styles.isActive}`}
                 type="button"
-                onClick={toggleActive}
+                onClick={(toggleActive, changeType)}
               >
                 РАСХОД
               </button>
 
               <button
                 className={`${styles.typeButton}
-               ${incomeActive && styles.isActive}`}
+               ${type === 'income' && styles.isActive}`}
                 type="button"
-                onClick={toggleActive}
+                onClick={(toggleActive, changeType)}
               >
                 ДОХОД
               </button>
