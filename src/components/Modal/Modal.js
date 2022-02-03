@@ -67,7 +67,6 @@ function Modal({
             <div className={styles.title} ref={el => (text = el)}>
               <p>{modalTitle}</p>
             </div>
-
             <div className={styles.buttons}>
               <div ref={el => (buttons = el)}>
                 <button

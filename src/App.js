@@ -38,7 +38,12 @@ function App() {
               </RedirectRoute>
             }
           />
-          <Route path="/report" element={<ReportView />} />
+          <Route
+            path="/report"
+            element={
+              <ReportView />
+            }
+          />
         </Routes>
       </Suspense>
     </>
