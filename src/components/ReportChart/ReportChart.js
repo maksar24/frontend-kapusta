@@ -4,6 +4,7 @@ import { Bar } from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -24,11 +25,18 @@ ChartJS.register(
   Legend,
 );
 
-const ReportChart = () => {
-  const [axis, setAxis] = useState('x');
+const ReportChart = ({ category }) => {
+  console.log(`category`, category);
+  const { sumDescriptionIncome, sumDescriptionConsumption } = useSelector(
+    data => data.balanceReducer,
+  );
+  // const dispatch = useDispatch();
+  console.log(`sumDescriptionIncome`, sumDescriptionIncome);
+  console.log(`sumDescriptionConsumption`, sumDescriptionConsumption);
 
   const options = {
     maxBarThickness: 38,
+    indexAxis: 'x',
     plugins: {
       legend: {
         display: false,
@@ -93,59 +101,71 @@ const ReportChart = () => {
       },
     },
   };
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     setAxis(window.matchMedia('(max-width: 767px)').matches ? 'y' : 'x');
-  //   };
+  // const transactions = useSelector(
+  //   transactionsSelectors.getTransactionsByCategoryId(category),
+  // );
+  const labels = [];
+  const amounts = [];
 
-  //   window.addEventListener('resize', handleResize);
-  //   handleResize();
+  // sumDescriptionConsumption.forEach(item => {
+  //   const labelIdx = labels.indexOf(item.group);
+  //   if (labelIdx !== -1) {
+  //     amounts[labelIdx] += item.totalDescription;
+  //   } else {
+  //     labels.push(item.group);
+  //     amounts.push(item.amount);
+  //   }
+  // });
 
-  //   return () => {
-  //     window.removeEventListener('resize', handleResize);
-  //   };
-  // }, []);
+  // const labels = [
+  //   'Свинина',
+  //   'Говядина',
+  //   'Курица',
+  //   'Рыба',
+  //   'Панини',
+  //   'Кофе',
+  //   'Спагетти',
+  //   'Шоколад',
+  //   'Маслины',
+  //   'Зелень',
+  // ];
 
-  const labels = [
-    'Свинина',
-    'Говядина',
-    'Курица',
-    'Рыба',
-    'Панини',
-    'Кофе',
-    'Спагетти',
-    'Шоколад',
-    'Маслины',
-    'Зелень',
-  ];
+  // const data = {
+  //   labels,
+  //   datasets: [
+  //     {
+  //       data: [
+  //         '5000',
+  //         '4500',
+  //         '3200',
+  //         '2100',
+  //         '1800',
+  //         '1700',
+  //         '1500',
+  //         '800',
+  //         '500',
+  //         '300',
+  //       ],
 
+  //       backgroundColor: ['#FF751D', '#FFDAC0', '#FFDAC0'],
+  //       borderWidth: 0,
+  //     },
+  //   ],
+  // };
   const data = {
-    labels,
+    labels: [...labels],
     datasets: [
       {
-        data: [
-          '5000',
-          '4500',
-          '3200',
-          '2100',
-          '1800',
-          '1700',
-          '1500',
-          '800',
-          '500',
-          '300',
-        ],
-
+        data: [...amounts],
         backgroundColor: ['#FF751D', '#FFDAC0', '#FFDAC0'],
         borderWidth: 0,
       },
     ],
   };
-
   return (
     <>
       <div className={s.chartSection}>
-        <Bar options={{ ...options, indexAxis: axis }} data={data} />
+        <Bar options={options} data={data} />
       </div>
     </>
   );

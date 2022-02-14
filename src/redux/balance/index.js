@@ -33,6 +33,12 @@ const balanceSlice = createSlice({
     setCategity(state, { payload }) {
       state.category = payload;
     },
+    sumDescriptionIncome(state, { payload }) {
+      state.sumDescriptionIncome = payload;
+    },
+    sumDescriptionConsumption(state, { payload }) {
+      state.sumDescriptionConsumption = payload;
+    },
     incomeData(state, { payload }) {
       state.income = payload;
     },
@@ -49,6 +55,8 @@ export const {
   sumByCategoryIncome,
   sumByCategoryConsumption,
   setCategity,
+  sumDescriptionIncome,
+  sumDescriptionConsumption,
 } = balanceSlice.actions;
 
 export default balanceSlice.reducer;

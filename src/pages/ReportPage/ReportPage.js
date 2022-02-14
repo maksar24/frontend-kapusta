@@ -19,6 +19,8 @@ import {
   fetchError,
   sumByCategoryIncome,
   sumByCategoryConsumption,
+  sumDescriptionConsumption,
+  sumDescriptionIncome,
 } from '../../redux/balance/index';
 import ReportChartMobile from '../../components/ReportChart/ReportChartMobile';
 
@@ -30,6 +32,7 @@ const ReportPage = () => {
   const token = useSelector(getToken);
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
+  const { category } = useSelector(data => data.balanceReducer);
 
   const fetchData = async () => {
     let config = {
@@ -59,6 +62,8 @@ const ReportPage = () => {
     if (data) {
       dispatch(sumByCategoryIncome(data.sumByCategoryIncome));
       dispatch(sumByCategoryConsumption(data.sumByCategoryConsumption));
+      dispatch(sumDescriptionIncome(data.sumDescriptionIncome));
+      dispatch(sumDescriptionConsumption(data.sumDescriptionConsumption));
     }
   }, [isLoading]);
 
@@ -118,12 +123,12 @@ const ReportPage = () => {
           <Fragment>
             {matches.small && (
               <ReportWrapper>
-                <ReportChartMobile />
+                <ReportChartMobile category={category} />
               </ReportWrapper>
             )}
             {matches.medium && (
               <ReportWrapper>
-                <ReportChart />
+                <ReportChart category={category} />
               </ReportWrapper>
             )}
           </Fragment>
