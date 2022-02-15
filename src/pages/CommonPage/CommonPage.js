@@ -1,6 +1,9 @@
 import { Fragment } from 'react';
 import Media from 'react-media';
+
 import s from './CommonPage.module.css';
+import useLocalStorage from '../../hooks/useLocalStorage';
+
 import Container from '../../components/Container';
 import SwitchToReport from '../../components/SwitchToReport';
 import Balance from '../../components/Balance';
@@ -17,8 +20,37 @@ import {
 } from '../../components/TransactionsTable';
 import ShowDate from '../../components/Date';
 import Summary from '../../components/Summary';
+import AddTransactionView from '../../views/AddTransactionView';
 
 const CommonPage = () => {
+  const [mobileAddView, setMobileAddView] = useLocalStorage(
+    'mobileAddView',
+    false,
+  );
+
+  const showMobileAddView = () => {
+    if (!mobileAddView) {
+      setMobileAddView(true);
+      return;
+    }
+
+    setMobileAddView(false);
+  };
+
+  const [transactionType, setTransactionType] = useLocalStorage(
+    'type',
+    'outcome',
+  );
+
+  const toggleTransactionType = () => {
+    if (transactionType === 'outcome') {
+      setTransactionType('income');
+      return;
+    }
+
+    setTransactionType('outcome');
+  };
+
   return (
     <Media
       queries={{
@@ -30,21 +62,31 @@ const CommonPage = () => {
       {matches => (
         <Fragment>
           {matches.small && (
-            <Fragment>
-              <BackgroundMobile>
-                <Container>
-                  <CommonPageWrapper>
-                    <SwitchToReport />
-                    <Balance />
-                    <ShowDate />
-                    <MobileTable />
-                  </CommonPageWrapper>
-                </Container>
-              </BackgroundMobile>
-              <IncomeOutcomeButtons />
-            </Fragment>
+            <>
+              {mobileAddView ? (
+                <>
+                  <AddTransactionView showMobileAddView={showMobileAddView} />
+                </>
+              ) : (
+                <Fragment>
+                  <BackgroundMobile>
+                    <Container>
+                      <CommonPageWrapper>
+                        <SwitchToReport />
+                        <Balance />
+                        <ShowDate />
+                        <MobileTable />
+                      </CommonPageWrapper>
+                    </Container>
+                  </BackgroundMobile>
+                  <IncomeOutcomeButtons
+                    toggleTransactionType={toggleTransactionType}
+                    showMobileAddView={showMobileAddView}
+                  />
+                </Fragment>
+              )}
+            </>
           )}
-          ,
           {matches.medium && (
             <BackgroundReport>
               <CommonPageWrapper>
@@ -52,11 +94,14 @@ const CommonPage = () => {
                   <Balance />
                   <SwitchToReport />
                 </div>
-                <IncomeOutcomeButtons />
+                <IncomeOutcomeButtons
+                  toggleTransactionType={toggleTransactionType}
+                  transactionType={transactionType}
+                />
                 <div className={s.bigWrapper}>
                   <div className={s.dateFormWrapper}>
                     <ShowDate />
-                    <IncomeOutcomeForm />
+                    <IncomeOutcomeForm transactionType={transactionType} />
                   </div>
                   <TransactionsTable />
                 </div>
@@ -64,7 +109,6 @@ const CommonPage = () => {
               </CommonPageWrapper>
             </BackgroundReport>
           )}
-          ,
           {matches.large && (
             <BackgroundReport>
               <CommonPageWrapper>
@@ -72,11 +116,14 @@ const CommonPage = () => {
                   <Balance />
                   <SwitchToReport />
                 </div>
-                <IncomeOutcomeButtons />
+                <IncomeOutcomeButtons
+                  toggleTransactionType={toggleTransactionType}
+                  transactionType={transactionType}
+                />
                 <div className={s.bigWrapper}>
                   <div className={s.dateFormWrapper}>
                     <ShowDate />
-                    <IncomeOutcomeForm />
+                    <IncomeOutcomeForm transactionType={transactionType} />
                   </div>
                   <div className={s.tableSummaryWrapper}>
                     <TransactionsTable />

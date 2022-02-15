@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-axios.defaults.baseURL = 'https://lit-headland-14010.herokuapp.com/api/';
+// axios.defaults.baseURL = 'https://lit-headland-14010.herokuapp.com/api/';
+axios.defaults.baseURL = 'https://kapusta-backend-node-js.herokuapp.com/api/';
 
 const token = {
   set(token) {
@@ -81,18 +82,18 @@ export const getUserBalance = createAsyncThunk(
 );
 
 export const fetchCurrentUser = createAsyncThunk(
-  'auth/refresh',
+  'auth/current',
   async (_, { getState, rejectWithValue }) => {
     const state = getState();
     const persistedToken = state.auth.token;
-
+    console.log(state.auth.user.data);
     if (persistedToken === null) {
       return rejectWithValue();
     }
 
     token.set(persistedToken);
     try {
-      const { data } = await axios.get('users/current');
+      const { data } = await axios.get('auth/current');
       return data;
     } catch (error) {
       return rejectWithValue(error);

@@ -4,15 +4,14 @@ import EllipsisText from 'react-ellipsis-text';
 
 // import { phonebookOperations, phonebookSelectors } from 'Redux/phonebook';
 import s from './MobileTable.module.css';
-// import Modal from 'components/Modal';
+import Modal from '../../../components/Modal';
 // import contextProps from 'context/context';
 
 const MobileTable = () => {
-  //   const { date, setNewDate } = useContext(contextProps);
   //   const dispatch = useDispatch();
   //   const transactions = useSelector(selectors.getTransactionsPerDay);
-  //   const [modalDel, setModalDel] = useState(false);
-  //   const [transaction, setTransaction] = useState('');
+  const [modalDel, setModalDel] = useState(false);
+  const [transaction, setTransaction] = useState('');
 
   //   useEffect(() => {
   //     if (date) {
@@ -20,34 +19,34 @@ const MobileTable = () => {
   //     }
   //   }, [dispatch, date]);
 
-  //   const handleDeteteClick = transaction => {
-  //     setModalDel(true);
-  //     setTransaction(transaction._id);
-  //   };
-  //   const onDelCancel = () => {
-  //     setTransaction('');
-  //     setModalDel(false);
-  //   };
+  const handleDeleteClick = transaction => {
+    setModalDel(true);
+    setTransaction(transaction._id);
+  };
+  const onDelCancel = () => {
+    setTransaction('');
+    setModalDel(false);
+  };
 
-  //   const onDelOk = () => {
-  //     setModalDel(false);
-  //     const transactionToDel = transactions.find(
-  //       item => item._id === transaction,
-  //     );
-  //     dispatch(transactionsOperations.deleteTransaction(transactionToDel));
-  //     setTransaction('');
-  //   };
+  const onDelOk = () => {
+    setModalDel(false);
+    // const transactionToDel = transactions.find(
+    //   item => item._id === transaction,
+    // );
+    // dispatch(transactionsOperations.deleteTransaction(transactionToDel));
+    setTransaction('');
+  };
 
   return (
     <>
-      {/* {modalDel && (
+      {modalDel && (
         <Modal
           modalTitle="Вы действительно хотите удалить эту запись?"
           handleClickRight={onDelCancel}
           handleClickLeft={onDelOk}
           onClose={onDelCancel}
         />
-      )} */}
+      )}
       <div className={s.tsList__container}>
         <ul>
           {/* {transactions.map(transaction => ( */}
@@ -57,12 +56,12 @@ const MobileTable = () => {
           >
             <div className={s.listItem__wrapper}>
               <p className={s.listItem__subCategory}>
-                {/* <EllipsisText text={transaction.subCategory} length={'5'} /> */}
+                {/* <EllipsisText text={transaction.description} length={'5'} /> */}
                 Subway
               </p>
               <div className={s.dateCategory__wrapper}>
                 <p className={s.listItem__date}>
-                  {/* {transaction.date} */}
+                  {/* `${transaction.day}.${transaction.month}.${transaction.year}` */}
                   21.07.2021
                 </p>
                 <p className={s.listItem__category}>
@@ -85,7 +84,7 @@ const MobileTable = () => {
 
             <button
               className={s.buttonDelMobile}
-              //   onClick={() => handleEditClick(transaction)}
+              onClick={() => handleDeleteClick(transaction)}
             ></button>
           </li>
 
