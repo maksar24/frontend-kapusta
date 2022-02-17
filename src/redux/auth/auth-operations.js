@@ -49,7 +49,7 @@ export const logOut = createAsyncThunk(
   'auth/logout',
   async (_, { rejectWithValue }) => {
     try {
-      await axios.post('auth/logout');
+      await axios.get('auth/logout');
       token.unset();
     } catch (error) {
       return rejectWithValue(error.response.data);
