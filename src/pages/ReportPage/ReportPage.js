@@ -12,7 +12,7 @@ import ReportChart from '../../components/ReportChart';
 import { BackgroundReport } from '../../components/Background';
 import ReportWrapper from '../../components/ReportWrapper';
 import { getToken } from '../../redux/auth/auth-selectors';
-
+import Balance from '../../components/Balance';
 import ReportBalance from '../../components/ReportBalance/ReportBalance';
 import {
   fetchSuccess,
@@ -94,18 +94,63 @@ const ReportPage = () => {
           <Icons iconName="goArrow" />
           <span className={s.button__name}>Вернуться на главную</span>
         </button>
-        <div className={s.small__container}>
-          <p className={s.date__description}>Текущий период:</p>
-          <div className={s.datePicker__container}>
-            <button className={s.datePicker__button} onClick={prevMonth}>
-              <Icons iconName="leftArrow" />
-            </button>
-            <DateField thisYear={thisYear} thisMonth={thisMonth} />
-            <button className={s.datePicker__button} onClick={nextMonth}>
-              <Icons iconName="rightArrow" />
-            </button>
-          </div>
-        </div>
+        <Media
+          queries={{
+            small: '(max-width: 767px)',
+            medium: '(min-width: 768px)',
+          }}
+        >
+          {matches => (
+            <Fragment>
+              {matches.small && (
+                <>
+                  <div className={s.small__container}>
+                    <p className={s.date__description}>Текущий период:</p>
+                    <div className={s.datePicker__container}>
+                      <button
+                        className={s.datePicker__button}
+                        onClick={prevMonth}
+                      >
+                        <Icons iconName="leftArrow" />
+                      </button>
+                      <DateField thisYear={thisYear} thisMonth={thisMonth} />
+                      <button
+                        className={s.datePicker__button}
+                        onClick={nextMonth}
+                      >
+                        <Icons iconName="rightArrow" />
+                      </button>
+                    </div>
+                  </div>
+                  <Balance hide={s.button__balance} style={s.balance__style} />
+                </>
+              )}
+              {matches.medium && (
+                <>
+                  <Balance hide={s.button__balance} />
+                  <div className={s.small__container}>
+                    <p className={s.date__description}>Текущий период:</p>
+                    <div className={s.datePicker__container}>
+                      <button
+                        className={s.datePicker__button}
+                        onClick={prevMonth}
+                      >
+                        <Icons iconName="leftArrow" />
+                      </button>
+                      <DateField thisYear={thisYear} thisMonth={thisMonth} />
+                      <button
+                        className={s.datePicker__button}
+                        onClick={nextMonth}
+                      >
+                        <Icons iconName="rightArrow" />
+                      </button>
+                    </div>
+                  </div>
+                </>
+              )}
+            </Fragment>
+          )}
+        </Media>
       </div>
       <ReportWrapper>
         <ReportBalance />
