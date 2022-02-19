@@ -1,5 +1,4 @@
-import React, { Fragment } from 'react';
-import { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import axios from 'axios';
 import Media from 'react-media';
 import { useSelector, useDispatch } from 'react-redux';

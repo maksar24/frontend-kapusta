@@ -12,7 +12,7 @@
   -moz-border-radius: 30px;
   -webkit-border-radius: 30px;
   top: 117%;
-  z-index: 99;
+  z-index: 999;
   cursor: pointer;
 }
 
