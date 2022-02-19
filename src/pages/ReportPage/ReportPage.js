@@ -1,5 +1,4 @@
-import React, { Fragment } from 'react';
-import { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import axios from 'axios';
 import Media from 'react-media';
 import { useSelector, useDispatch } from 'react-redux';
@@ -12,13 +11,15 @@ import ReportChart from '../../components/ReportChart';
 import { BackgroundReport } from '../../components/Background';
 import ReportWrapper from '../../components/ReportWrapper';
 import { getToken } from '../../redux/auth/auth-selectors';
-
+import Balance from '../../components/Balance';
 import ReportBalance from '../../components/ReportBalance/ReportBalance';
 import {
   fetchSuccess,
   fetchError,
   sumByCategoryIncome,
   sumByCategoryConsumption,
+  sumDescriptionConsumption,
+  sumDescriptionIncome,
 } from '../../redux/balance/index';
 import ReportChartMobile from '../../components/ReportChart/ReportChartMobile';
 
@@ -30,6 +31,7 @@ const ReportPage = () => {
   const token = useSelector(getToken);
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
+  const { category } = useSelector(data => data.balanceReducer);
 
   const fetchData = async () => {
     let config = {
@@ -59,6 +61,8 @@ const ReportPage = () => {
     if (data) {
       dispatch(sumByCategoryIncome(data.sumByCategoryIncome));
       dispatch(sumByCategoryConsumption(data.sumByCategoryConsumption));
+      dispatch(sumDescriptionIncome(data.sumDescriptionIncome));
+      dispatch(sumDescriptionConsumption(data.sumDescriptionConsumption));
     }
   }, [isLoading]);
 
@@ -89,18 +93,63 @@ const ReportPage = () => {
           <Icons iconName="goArrow" />
           <span className={s.button__name}>Вернуться на главную</span>
         </button>
-        <div className={s.small__container}>
-          <p className={s.date__description}>Текущий период:</p>
-          <div className={s.datePicker__container}>
-            <button className={s.datePicker__button} onClick={prevMonth}>
-              <Icons iconName="leftArrow" />
-            </button>
-            <DateField thisYear={thisYear} thisMonth={thisMonth} />
-            <button className={s.datePicker__button} onClick={nextMonth}>
-              <Icons iconName="rightArrow" />
-            </button>
-          </div>
-        </div>
+        <Media
+          queries={{
+            small: '(max-width: 767px)',
+            medium: '(min-width: 768px)',
+          }}
+        >
+          {matches => (
+            <Fragment>
+              {matches.small && (
+                <>
+                  <div className={s.small__container}>
+                    <p className={s.date__description}>Текущий период:</p>
+                    <div className={s.datePicker__container}>
+                      <button
+                        className={s.datePicker__button}
+                        onClick={prevMonth}
+                      >
+                        <Icons iconName="leftArrow" />
+                      </button>
+                      <DateField thisYear={thisYear} thisMonth={thisMonth} />
+                      <button
+                        className={s.datePicker__button}
+                        onClick={nextMonth}
+                      >
+                        <Icons iconName="rightArrow" />
+                      </button>
+                    </div>
+                  </div>
+                  <Balance hide={s.button__balance} style={s.balance__style} />
+                </>
+              )}
+              {matches.medium && (
+                <>
+                  <Balance hide={s.button__balance} />
+                  <div className={s.small__container}>
+                    <p className={s.date__description}>Текущий период:</p>
+                    <div className={s.datePicker__container}>
+                      <button
+                        className={s.datePicker__button}
+                        onClick={prevMonth}
+                      >
+                        <Icons iconName="leftArrow" />
+                      </button>
+                      <DateField thisYear={thisYear} thisMonth={thisMonth} />
+                      <button
+                        className={s.datePicker__button}
+                        onClick={nextMonth}
+                      >
+                        <Icons iconName="rightArrow" />
+                      </button>
+                    </div>
+                  </div>
+                </>
+              )}
+            </Fragment>
+          )}
+        </Media>
       </div>
       <ReportWrapper>
         <ReportBalance />
@@ -118,12 +167,12 @@ const ReportPage = () => {
           <Fragment>
             {matches.small && (
               <ReportWrapper>
-                <ReportChartMobile />
+                <ReportChartMobile category={category} />
               </ReportWrapper>
             )}
             {matches.medium && (
               <ReportWrapper>
-                <ReportChart />
+                <ReportChart category={category} />
               </ReportWrapper>
             )}
           </Fragment>

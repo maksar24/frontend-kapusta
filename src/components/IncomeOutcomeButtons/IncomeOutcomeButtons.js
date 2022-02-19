@@ -9,34 +9,48 @@ import { getToken } from '../../redux/auth/auth-selectors';
 
 import { fetchSuccess, fetchError, summary } from '../../redux/balance/index';
 
+
 const IncomeOutcomeButtons = ({
   transactionType,
   toggleTransactionType,
   showMobileAddView,
 }) => {
-  /* const type = transactionType; */
+  const type = transactionType;
 
   const [outcomeActive, setOutcomeActive] = useState(true);
   const [incomeActive, setIncomeActive] = useState(false);
-  const [type, seType] = useState('consumption');
   const [thisYear, setThisYear] = useState(2022);
   const { data } = useSelector(data => data.balanceReducer);
   const token = useSelector(getToken);
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
 
+
+
   const toggleActive = () => {
     if (incomeActive) {
       setOutcomeActive(true);
       setIncomeActive(false);
-      seType(`consumption`);
+      return;
     }
 
     if (outcomeActive) {
       setIncomeActive(true);
       setOutcomeActive(false);
-      seType(`income`);
     }
+  };
+
+  const changeType = () => {
+    toggleTransactionType();
+  };
+
+  const showMobile = () => {
+    showMobileAddView();
+  };
+
+  const changeTypeView = () => {
+    changeType();
+    showMobile();
   };
 
   const fethSummary = async type => {
@@ -68,22 +82,6 @@ const IncomeOutcomeButtons = ({
       dispatch(summary(data.summary));
     }
   }, [isLoading]);
-
-  console.log(type);
-  console.log(data);
-
-  const changeType = () => {
-    toggleTransactionType();
-  };
-
-  const showMobile = () => {
-    showMobileAddView();
-  };
-
-  const changeTypeView = () => {
-    changeType();
-    showMobile();
-  };
 
   return (
     <Media
@@ -117,18 +115,18 @@ const IncomeOutcomeButtons = ({
             <Fragment>
               <button
                 className={`${styles.typeButton}
-               ${outcomeActive && styles.isActive}`}
+               ${type === 'consumption' && styles.isActive}`}
                 type="button"
-                onClick={toggleActive}
+                onClick={(toggleActive, changeType)}
               >
                 РАСХОД
               </button>
 
               <button
                 className={`${styles.typeButton}
-               ${incomeActive && styles.isActive}`}
+               ${type === 'income' && styles.isActive}`}
                 type="button"
-                onClick={toggleActive}
+                onClick={(toggleActive, changeType)}
               >
                 ДОХОД
               </button>

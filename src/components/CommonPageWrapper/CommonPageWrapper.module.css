@@ -53,3 +53,9 @@ li {
     justify-content: start;
   }
 }
+
+@media screen and (min-width: 1280px) {
+  .firstElement {
+    margin-bottom: 9px;
+  }
+}

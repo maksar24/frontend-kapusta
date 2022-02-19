@@ -1,12 +1,14 @@
 import React, { Fragment, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Media from 'react-media';
+import { useNavigate } from 'react-router-dom';
 import s from './Navigation.module.css';
 import Icons from '../../Icon';
 import Modal from '../../Modal';
 import { logOut } from '../../../redux/auth/auth-operations';
 
 export default function Navigation() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
 
@@ -17,6 +19,7 @@ export default function Navigation() {
   const logoutModal = () => {
     dispatch(logOut());
     toggleModal();
+    navigate('/auth');
   };
 
   return (

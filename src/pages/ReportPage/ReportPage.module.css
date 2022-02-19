@@ -5,6 +5,15 @@
   margin-right: auto;
 }
 
+.balance__style {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.button__balance {
+  display: none;
+}
+
 .button__back {
   display: flex;
   align-items: center;
@@ -73,5 +82,9 @@
 @media (min-width: 1280px) {
   .container {
     padding-top: 43px;
+  }
+
+  .button__balance {
+    display: block;
   }
 }

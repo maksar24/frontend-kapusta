@@ -25,12 +25,11 @@ ChartJS.register(
 );
 
 const ReportChartMobile = () => {
-  const [axis, setAxis] = useState('y');
-
   const options = {
     barThickness: 15,
     maxBarThickness: 50,
     minBarLength: 90,
+    indexAxis: 'y',
     plugins: {
       legend: {
         display: false,
@@ -138,11 +137,7 @@ const ReportChartMobile = () => {
   return (
     <>
       <div className={s.chartSection}>
-        <Bar
-          height={437}
-          options={{ ...options, indexAxis: axis }}
-          data={data}
-        />
+        <Bar height={437} options={options} data={data} />
       </div>
     </>
   );

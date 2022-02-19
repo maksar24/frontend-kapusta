@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-axios.defaults.baseURL = 'https://lit-headland-14010.herokuapp.com/api/';
+// axios.defaults.baseURL = 'https://lit-headland-14010.herokuapp.com/api/';
+axios.defaults.baseURL = 'https://kapusta-backend-node-js.herokuapp.com/api/';
 
 const token = {
   set(token) {
@@ -36,6 +37,7 @@ export const logIn = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     try {
       const { data } = await axios.post('auth/login', credentials);
+      console.log(data);
       token.set(data.token);
       return data;
     } catch (error) {
@@ -48,7 +50,7 @@ export const logOut = createAsyncThunk(
   'auth/logout',
   async (_, { rejectWithValue }) => {
     try {
-      await axios.post('auth/logout');
+      await axios.get('auth/logout');
       token.unset();
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -57,10 +59,12 @@ export const logOut = createAsyncThunk(
 );
 
 export const setUserBalance = createAsyncThunk(
-  '/users/setUserBalance',
-  async (newBalance, { rejectWithValue }) => {
+  'api/transaction/balance',
+  async (userBalance, { rejectWithValue }) => {
     try {
-      const { data } = await axios.post('/users/', newBalance);
+      const { data } = await axios.put('/transaction/balance', {
+        balance: userBalance,
+      });
       return data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -69,10 +73,10 @@ export const setUserBalance = createAsyncThunk(
 );
 
 export const getUserBalance = createAsyncThunk(
-  '/users/getUserBalance',
+  '/transaction/getBalance',
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await axios.get('/users/');
+      const { data } = await axios.get('/transaction/getBalance');
       return data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -85,7 +89,6 @@ export const fetchCurrentUser = createAsyncThunk(
   async (_, { getState, rejectWithValue }) => {
     const state = getState();
     const persistedToken = state.auth.token;
-    console.log(state.auth.user.data);
     if (persistedToken === null) {
       return rejectWithValue();
     }
