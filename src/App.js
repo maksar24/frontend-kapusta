@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import AppBar from './components/AppBar/AppBar';
 import { PrivetRoute, RedirectRoute } from './helpers/Routes';
 import { authSelectors, authOperations } from './redux/auth';
+import CustomLoader from './components/Loader';
 
 const AuthView = lazy(() =>
   import('./pages/HomePage' /* webpackChunkName: "authentication-page" */),
@@ -22,6 +23,7 @@ function App() {
   const dispatch = useDispatch();
 
   const token = useSelector(authSelectors.getToken);
+  const isFetchCurrentUser = useSelector(authSelectors.getIsFetchingCurrent);
 
   useEffect(() => {
     if (token) {
@@ -32,26 +34,30 @@ function App() {
   return (
     <>
       <AppBar />
-      <Suspense fallback={'Loading...'}>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <PrivetRoute>
-                <MainView />
-              </PrivetRoute>
-            }
-          />
-          <Route
-            path="/auth"
-            element={
-              <RedirectRoute>
-                <AuthView />
-              </RedirectRoute>
-            }
-          />
-          <Route path="/report" element={<ReportView />} />
-        </Routes>
+      <Suspense fallback={<CustomLoader />}>
+        {isFetchCurrentUser ? (
+          <CustomLoader />
+        ) : (
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <PrivetRoute>
+                  <MainView />
+                </PrivetRoute>
+              }
+            />
+            <Route
+              path="/auth"
+              element={
+                <RedirectRoute>
+                  <AuthView />
+                </RedirectRoute>
+              }
+            />
+            <Route path="/report" element={<ReportView />} />
+          </Routes>
+        )}
       </Suspense>
     </>
   );
