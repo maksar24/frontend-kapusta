@@ -13,7 +13,6 @@ const Notification = ({ onClose }) => {
       <p className={s.bubbleText}>
         Ты не можешь тратить деньги пока их у тебя нет :)
       </p>
-      <h6 className={s.prompt}>Кликни на меня, что бы закрыть</h6>
     </div>
   );
 };
