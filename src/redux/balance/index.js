@@ -31,7 +31,7 @@ const balanceSlice = createSlice({
     sumByCategoryConsumption(state, { payload }) {
       state.sumByCategoryConsumption = payload;
     },
-    setCategity(state, { payload }) {
+    setCategory(state, { payload }) {
       state.category = payload;
     },
     sumDescriptionIncome(state, { payload }) {
@@ -58,7 +58,7 @@ export const {
   fetchError,
   sumByCategoryIncome,
   sumByCategoryConsumption,
-  setCategity,
+  setCategory,
   sumDescriptionIncome,
   sumDescriptionConsumption,
   summary,
