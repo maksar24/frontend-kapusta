@@ -1,8 +1,10 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import AppBar from './components/AppBar/AppBar';
 import { PrivetRoute, RedirectRoute } from './helpers/Routes';
+import { authSelectors, authOperations } from './redux/auth';
 
 const AuthView = lazy(() =>
   import('./pages/HomePage' /* webpackChunkName: "authentication-page" */),
@@ -17,6 +19,16 @@ const ReportView = lazy(() =>
 );
 
 function App() {
+  const dispatch = useDispatch();
+
+  const token = useSelector(authSelectors.getToken);
+
+  useEffect(() => {
+    if (token) {
+      dispatch(authOperations.fetchCurrentUser());
+    }
+  }, [dispatch, token]);
+
   return (
     <>
       <AppBar />
@@ -38,12 +50,7 @@ function App() {
               </RedirectRoute>
             }
           />
-          <Route
-            path="/report"
-            element={
-              <ReportView />
-            }
-          />
+          <Route path="/report" element={<ReportView />} />
         </Routes>
       </Suspense>
     </>

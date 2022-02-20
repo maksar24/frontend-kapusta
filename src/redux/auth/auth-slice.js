@@ -5,10 +5,11 @@ const initialState = {
   user: {
     name: null,
     email: null,
-    balance: null,
   },
+  balance: 0,
   token: null,
   isLoggedIn: false,
+  isLoading: false,
   isFetchingCurrentUser: false,
   error: null,
 };
@@ -29,26 +30,34 @@ const authSlice = createSlice({
   extraReducers: {
     [operations.register.fulfilled](state, action) {
       state.isLoggedIn = false;
+      state.isLoading = false;
       state.error = null;
     },
     [operations.register.pending](state) {
+      state.isLoading = true;
       state.error = null;
     },
     [operations.register.rejected](state, action) {
+      state.isLoading = false;
       state.error = action.error.message;
     },
 
     [operations.logIn.fulfilled](state, action) {
-      state.user = action.payload;
+      state.user.name = action.payload.data.name;
+      state.user.email = action.payload.data.email;
+      state.balance = action.payload.data.balance;
       state.token = action.payload.token;
       state.isLoggedIn = true;
+      state.isLoading = false;
       state.error = null;
     },
     [operations.logIn.pending](state) {
       state.error = null;
       state.isLoggedIn = false;
+      state.isLoading = true;
     },
     [operations.logIn.rejected](state, action) {
+      state.isLoading = false;
       if (action.payload) {
         state.error = action.payload.message;
       } else {
@@ -58,33 +67,42 @@ const authSlice = createSlice({
 
     [operations.logOut.fulfilled](state) {
       state.user = { name: null, email: null };
+      state.balance = 0;
       state.token = null;
       state.isLoggedIn = false;
+      state.isLoading = false;
       state.error = null;
     },
     [operations.logOut.pending](state) {
+      state.isLoading = true;
       state.error = null;
     },
     [operations.logOut.rejected](state, action) {
+      state.isLoading = false;
       state.error = action.error.message;
     },
 
     [operations.fetchCurrentUser.fulfilled](state, action) {
-      state.user = action.payload;
+      state.user.name = action.payload.data.name;
+      state.user.email = action.payload.data.email;
+      state.balance = action.payload.data.balance;
       state.isLoggedIn = true;
+      state.isLoading = false;
       state.isFetchingCurrentUser = false;
     },
     [operations.fetchCurrentUser.pending](state) {
       state.isLoggedIn = false;
+      state.isLoading = true;
       state.isFetchingCurrentUser = true;
     },
     [operations.fetchCurrentUser.rejected](state) {
       state.isLoggedIn = false;
+      state.isLoading = false;
       state.isFetchingCurrentUser = false;
     },
 
     [operations.setUserBalance.fulfilled](state, action) {
-      state.user.balance = action.payload.balance;
+      state.balance = action.payload.balance;
       state.error = null;
     },
     [operations.setUserBalance.pending](state) {
@@ -95,7 +113,7 @@ const authSlice = createSlice({
     },
 
     [operations.getUserBalance.fulfilled](state, action) {
-      state.user.balance = action.payload.balance;
+      state.balance = action.payload.balance;
       state.error = null;
     },
     [operations.getUserBalance.pending](state) {
