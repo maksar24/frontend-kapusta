@@ -3,7 +3,8 @@ import { createReducer, combineReducers } from '@reduxjs/toolkit';
 import transactionsActions from './transactionsActions';
 
 const transactionsReducer = createReducer([], {
-  [transactionsActions.getTransactionsSuccess]: (_, { payload }) => payload,
+  [transactionsActions.getTransactionsSuccess]: (_, { payload }) =>
+    payload.data.result,
   [transactionsActions.addTransactionSuccess]: (state, { payload }) => [
     ...state,
     payload,

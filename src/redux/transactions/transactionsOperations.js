@@ -8,7 +8,7 @@ const getTransactions = () => async dispatch => {
   dispatch(transactionsActions.getTransactionsRequest());
   try {
     const { data } = await axios.get(`/transaction`);
-    dispatch(transactionsActions.getTransactionsSuccess(data.result));
+    dispatch(transactionsActions.getTransactionsSuccess(data));
   } catch (error) {
     dispatch(transactionsActions.getTransactionsError(error.message));
   }
