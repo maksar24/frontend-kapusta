@@ -12,15 +12,18 @@ import transactionsOperations from '../../redux/transactions/transactionsOperati
 import styles from './IncomeOutcomeForm.module.css';
 
 const IncomeOutcomeForm = ({ transactionType, showMobileAddView }) => {
-  const [day] = useState(+new Date().getDate());
+  const [day, setDay] = useState(+new Date().getDate());
   const [month, setMonth] = useState(+new Date().getMonth() + 1);
-  const [year, setYear] = useState(+new Date().getFullYear());
+  const [year] = useState(+new Date().getFullYear());
 
   useEffect(() => {
+    if (day < 10) {
+      setDay(`0${day}`);
+    }
     if (month < 10) {
       setMonth(`0${month}`);
     }
-  }, []);
+  }, [day, month]);
 
   const type = transactionType;
   const dispatch = useDispatch();
@@ -80,8 +83,6 @@ const IncomeOutcomeForm = ({ transactionType, showMobileAddView }) => {
   };
 
   const options = type === 'outcome' ? optionsIncome : optionsOutcome;
-
-  // const options = optionsIncome;
 
   const setSelect = selectedOption => {
     setCategory(selectedOption);

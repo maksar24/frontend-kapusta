@@ -71,18 +71,15 @@ const TransactionsTable = () => {
                     {`${transaction.day}.${transaction.month}.${transaction.year}`}
                   </td>
                   <td className={styles.tdDesc}>
-                    <EllipsisText text={transaction.description} length={5} />
+                    <EllipsisText text={transaction.description} length={20} />
                   </td>
                   <td className={styles.thCateg}>{transaction.category}</td>
                   <td
-                    className={
-                      // `${styles.tdSum}`
-                      `${
-                        transaction.type !== 'income'
-                          ? styles.tdSumExpense
-                          : styles.tdSum
-                      }`
-                    }
+                    className={`${
+                      transaction.type !== 'income'
+                        ? styles.tdSumExpense
+                        : styles.tdSum
+                    }`}
                   >
                     <EllipsisText
                       text={
@@ -92,7 +89,7 @@ const TransactionsTable = () => {
                               'ru',
                             )}.00 грн.`
                       }
-                      length={10}
+                      length={14}
                     />
                   </td>
                   <td
