@@ -8,6 +8,7 @@ import * as selectors from '../../redux/transactions/transactionsSelectors';
 import styles from './TransactionsTable.module.css';
 
 import Modal from '../../components/Modal';
+import transactionCategory from './transactionCategory';
 
 const TransactionsTable = () => {
   const dispatch = useDispatch();
@@ -73,7 +74,9 @@ const TransactionsTable = () => {
                   <td className={styles.tdDesc}>
                     <EllipsisText text={transaction.description} length={20} />
                   </td>
-                  <td className={styles.thCateg}>{transaction.category}</td>
+                  <td className={styles.thCateg}>
+                    {transactionCategory[transaction.category]}
+                  </td>
                   <td
                     className={`${
                       transaction.type !== 'income'

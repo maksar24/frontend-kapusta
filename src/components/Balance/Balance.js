@@ -3,14 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import s from './Balance.module.css';
 import Notification from '../Notification';
-import { getUserBalance } from '../../redux/auth/auth-selectors';
-import { authOperations } from '../../redux/auth';
+import { authOperations, authSelectors } from '../../redux/auth';
 
 export default function Balance({ style, hide }) {
   const dispatch = useDispatch();
   const location = useLocation();
   const [userBalance, setUserBalance] = useState(0);
-  const balance = useSelector(getUserBalance);
+  const balance = useSelector(authSelectors.getUserBalance);
   const [showingModal, setShowingModal] = useState(true);
 
   const toggleModal = () => {

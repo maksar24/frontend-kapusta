@@ -10,11 +10,12 @@ import { useDispatch } from 'react-redux';
 import transactionsOperations from '../../redux/transactions/transactionsOperations';
 
 import styles from './IncomeOutcomeForm.module.css';
+import transactionCategory from './transactionCategory';
 
 const IncomeOutcomeForm = ({ transactionType, showMobileAddView }) => {
-  const [day, setDay] = useState(+new Date().getDate());
-  const [month, setMonth] = useState(+new Date().getMonth() + 1);
-  const [year] = useState(+new Date().getFullYear());
+  const [day, setDay] = useState(new Date().getDate());
+  const [month, setMonth] = useState(new Date().getMonth() + 1);
+  const [year, setYear] = useState(new Date().getFullYear());
 
   // useEffect(() => {
   //   if (day < 10) {
@@ -56,15 +57,15 @@ const IncomeOutcomeForm = ({ transactionType, showMobileAddView }) => {
     const transaction = {
       type: type,
       description,
-      category,
-      amount,
+      category: transactionCategory[category.value],
+      amount: Number(amount),
       day,
       month,
       year,
     };
+    console.log(transaction);
 
     dispatch(transactionsOperations.addTransaction(transaction));
-
     setDescription('');
     setCategory('');
     setAmount('');
@@ -82,7 +83,7 @@ const IncomeOutcomeForm = ({ transactionType, showMobileAddView }) => {
     textInput.current.focus();
   };
 
-  const options = type === 'outcome' ? optionsIncome : optionsOutcome;
+  const options = type === 'consumption' ? optionsIncome : optionsOutcome;
 
   const setSelect = selectedOption => {
     setCategory(selectedOption);
