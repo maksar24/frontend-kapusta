@@ -7,7 +7,7 @@ import monthData from '../../data/month.json';
 const Summary = type => {
   const { summary } = useSelector(data => data.balanceReducer);
 
-  console.log(summary.filter(item => item.value > 0));
+  // console.log(summary.filter(item => item.value > 0));
 
   return (
     <div className={styles.summaryContainer}>
