@@ -61,8 +61,6 @@ const ReportPage = () => {
     if (data) {
       dispatch(sumByCategoryIncome(data.sumByCategoryIncome));
       dispatch(sumByCategoryConsumption(data.sumByCategoryConsumption));
-      dispatch(sumDescriptionIncome(data.sumDescriptionIncome));
-      dispatch(sumDescriptionConsumption(data.sumDescriptionConsumption));
     }
   }, [isLoading]);
 
@@ -167,12 +165,20 @@ const ReportPage = () => {
           <Fragment>
             {matches.small && (
               <ReportWrapper>
-                <ReportChartMobile category={category} />
+                <ReportChartMobile
+                  category={category}
+                  year={thisYear}
+                  month={thisMonth}
+                />
               </ReportWrapper>
             )}
             {matches.medium && (
               <ReportWrapper>
-                <ReportChart category={category} />
+                <ReportChart
+                  category={category}
+                  year={thisYear}
+                  month={thisMonth}
+                />
               </ReportWrapper>
             )}
           </Fragment>

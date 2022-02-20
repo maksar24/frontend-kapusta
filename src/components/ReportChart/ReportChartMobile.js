@@ -25,6 +25,12 @@ ChartJS.register(
 );
 
 const ReportChartMobile = () => {
+  const { sumDescriptionIncome, sumDescriptionConsumption } = useSelector(
+    data => data.balanceReducer,
+  );
+
+  console.log('sumDescriptionConsumption', sumDescriptionConsumption);
+
   const options = {
     barThickness: 15,
     maxBarThickness: 50,
