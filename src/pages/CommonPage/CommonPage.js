@@ -39,16 +39,16 @@ const CommonPage = () => {
 
   const [transactionType, setTransactionType] = useLocalStorage(
     'type',
-    'outcome',
+    'consumption',
   );
 
   const toggleTransactionType = () => {
-    if (transactionType === 'outcome') {
+    if (transactionType === 'consumption') {
       setTransactionType('income');
       return;
     }
 
-    setTransactionType('outcome');
+    setTransactionType('consumption');
   };
 
   return (

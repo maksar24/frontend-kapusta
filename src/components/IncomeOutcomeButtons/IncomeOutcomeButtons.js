@@ -1,6 +1,9 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import Media from 'react-media';
-
+import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { getToken } from '../../redux/auth/auth-selectors';
+import { fetchSuccess, fetchError, summary } from '../../redux/balance/index';
 import styles from './IncomeOutcomeButtons.module.css';
 
 const IncomeOutcomeButtons = ({
@@ -12,6 +15,11 @@ const IncomeOutcomeButtons = ({
 
   const [outcomeActive, setOutcomeActive] = useState(true);
   const [incomeActive, setIncomeActive] = useState(false);
+  const dispatch = useDispatch();
+  const token = useSelector(getToken);
+  const [thisYear, setThisYear] = useState(2022);
+  const { data } = useSelector(data => data.balanceReducer);
+  const [isLoading, setLoading] = useState(false);
 
   const toggleActive = () => {
     if (incomeActive) {
@@ -38,6 +46,36 @@ const IncomeOutcomeButtons = ({
     changeType();
     showMobile();
   };
+
+  const fetchSummary = async type => {
+    let config = {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    };
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `/transaction/summary/${type}/${thisYear}`,
+        config,
+      );
+      dispatch(fetchSuccess(response.data));
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      dispatch(fetchError(error.message));
+    }
+  };
+
+  useEffect(() => {
+    fetchSummary(type);
+  }, [thisYear, type, dispatch]);
+
+  useEffect(() => {
+    if (data) {
+      dispatch(summary(data.summary));
+    }
+  }, [isLoading]);
 
   return (
     <Media
@@ -71,7 +109,7 @@ const IncomeOutcomeButtons = ({
             <Fragment>
               <button
                 className={`${styles.typeButton}
-               ${type === 'outcome' && styles.isActive}`}
+               ${type === 'consumption' && styles.isActive}`}
                 type="button"
                 onClick={(toggleActive, changeType)}
               >
