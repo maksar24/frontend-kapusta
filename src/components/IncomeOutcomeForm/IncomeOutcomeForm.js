@@ -1,20 +1,29 @@
-import { useState, useRef, Fragment } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useState, useEffect, useRef, Fragment } from 'react';
 import Media from 'react-media';
 import optionsIncome from '../../data/incomeCategories.json';
-// import optionsOutcome from '../../data/outcomeCategories.json';
+import optionsOutcome from '../../data/outcomeCategories.json';
 
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 
-// import { useSelector, useDispatch} from 'react-redux'
-// import { incomeOutcomeOperations, incomeOutcomeSelectors } from 'Redux/incomeOutcome'
+import { useDispatch } from 'react-redux';
+import transactionsOperations from '../../redux/transactions/transactionsOperations';
 
 import styles from './IncomeOutcomeForm.module.css';
 
-const IncomeOutcomeForm = ({ showMobileAddView }) => {
-  // const transactions = useSelector(incomeOutcomeSelectors.getTransaction)
-  // const dispatch = useDispatch()
+const IncomeOutcomeForm = ({ transactionType, showMobileAddView }) => {
+  const [day] = useState(+new Date().getDate());
+  const [month, setMonth] = useState(+new Date().getMonth() + 1);
+  const [year, setYear] = useState(+new Date().getFullYear());
+
+  useEffect(() => {
+    if (month < 10) {
+      setMonth(`0${month}`);
+    }
+  }, []);
+
+  const type = transactionType;
+  const dispatch = useDispatch();
 
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
@@ -41,7 +50,17 @@ const IncomeOutcomeForm = ({ showMobileAddView }) => {
   const onSubmit = evt => {
     evt.preventDefault();
 
-    // dispatch(incomeOutcomeOperations.addTransaction({type, description, category, amount, day, month, year}))
+    const transaction = {
+      type: type,
+      description,
+      category,
+      amount,
+      day,
+      month,
+      year,
+    };
+
+    dispatch(transactionsOperations.addTransaction(transaction));
 
     setDescription('');
     setCategory('');
@@ -60,9 +79,9 @@ const IncomeOutcomeForm = ({ showMobileAddView }) => {
     textInput.current.focus();
   };
 
-  // const options = type === 'outcome' ? optionsIncome : optionsOutcome;
+  const options = type === 'outcome' ? optionsIncome : optionsOutcome;
 
-  const options = optionsIncome;
+  // const options = optionsIncome;
 
   const setSelect = selectedOption => {
     setCategory(selectedOption);
