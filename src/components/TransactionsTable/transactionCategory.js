@@ -1,4 +1,4 @@
-const coast = {
+const transactionCategory = {
   food: 'Продукты',
   alcohol: 'Алкоголь',
   activities: 'Развлечение',
@@ -10,9 +10,8 @@ const coast = {
   hobbies: 'Спорт, Хобби',
   education: 'Образование',
   others: 'Прочее',
+  'additional-income': 'Доп. доход',
+  salary: 'Заработная плата',
 };
 
-const income = { 'additional-income': 'Доп. доход', salary: 'ЗП' };
-
-const svg = { coast, income };
-export default svg;
+export default transactionCategory;

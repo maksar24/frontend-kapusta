@@ -19,6 +19,7 @@ export default function ReportCoast() {
   const { sumByCategoryConsumption, sumByCategoryIncome } = useSelector(
     data => data.balanceReducer,
   );
+
   const dispatch = useDispatch();
   const checkCategory = (e, i) => {
     setActive(i);
