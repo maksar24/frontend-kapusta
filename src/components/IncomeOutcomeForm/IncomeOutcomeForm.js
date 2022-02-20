@@ -16,14 +16,14 @@ const IncomeOutcomeForm = ({ transactionType, showMobileAddView }) => {
   const [month, setMonth] = useState(+new Date().getMonth() + 1);
   const [year] = useState(+new Date().getFullYear());
 
-  useEffect(() => {
-    if (day < 10) {
-      setDay(`0${day}`);
-    }
-    if (month < 10) {
-      setMonth(`0${month}`);
-    }
-  }, [day, month]);
+  // useEffect(() => {
+  //   if (day < 10) {
+  //     setDay(`0${day}`);
+  //   }
+  //   if (month < 10) {
+  //     setMonth(`0${month}`);
+  //   }
+  // }, [day, month]);
 
   const type = transactionType;
   const dispatch = useDispatch();
