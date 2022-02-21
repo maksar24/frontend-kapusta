@@ -60,6 +60,8 @@ export const {
   setCategory,
   sumDescription,
   summary,
+  incomeData,
+  consumptionData,
 } = balanceSlice.actions;
 
 export default balanceSlice.reducer;
