@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, Fragment } from 'react';
+import { useState, useRef, Fragment } from 'react';
 import Media from 'react-media';
 import optionsIncome from '../../data/incomeCategories.json';
 import optionsOutcome from '../../data/outcomeCategories.json';
@@ -13,18 +13,9 @@ import styles from './IncomeOutcomeForm.module.css';
 import transactionCategory from './transactionCategory';
 
 const IncomeOutcomeForm = ({ transactionType, showMobileAddView }) => {
-  const [day, setDay] = useState(new Date().getDate());
-  const [month, setMonth] = useState(new Date().getMonth() + 1);
-  const [year, setYear] = useState(new Date().getFullYear());
-
-  // useEffect(() => {
-  //   if (day < 10) {
-  //     setDay(`0${day}`);
-  //   }
-  //   if (month < 10) {
-  //     setMonth(`0${month}`);
-  //   }
-  // }, [day, month]);
+  const [day] = useState(new Date().getDate());
+  const [month] = useState(new Date().getMonth() + 1);
+  const [year] = useState(new Date().getFullYear());
 
   const type = transactionType;
   const dispatch = useDispatch();
@@ -63,6 +54,7 @@ const IncomeOutcomeForm = ({ transactionType, showMobileAddView }) => {
       month: month.toString(),
       year: year.toString(),
     };
+    console.log(transaction);
 
     dispatch(transactionsOperations.addTransaction(transaction));
     dispatch(transactionsOperations.getTransactions());

@@ -10,12 +10,20 @@ import Modal from '../../../components/Modal';
 const MobileTable = () => {
   const dispatch = useDispatch();
   const transactions = useSelector(selectors.getTransactions);
+  const isLoading = useSelector(selectors.getIsLoading);
   const [modalDel, setModalDel] = useState(false);
   const [transaction, setTransaction] = useState('');
 
   useEffect(() => {
     dispatch(transactionsOperations.getTransactions());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (isLoading) {
+      dispatch(transactionsOperations.getTransactions());
+      return;
+    }
+  }, [isLoading, dispatch]);
 
   const handleDeleteClick = transaction => {
     setModalDel(true);
@@ -51,7 +59,7 @@ const MobileTable = () => {
             <li className={s.listItem} key={transaction._id}>
               <div className={s.listItem__wrapper}>
                 <p className={s.listItem__subCategory}>
-                  <EllipsisText text={transaction.description} length={'15'} />
+                  <EllipsisText text={transaction.description} length={15} />
                 </p>
                 <div className={s.dateCategory__wrapper}>
                   <p className={s.listItem__date}>
