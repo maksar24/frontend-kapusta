@@ -103,7 +103,7 @@ const CommonPage = () => {
                     <ShowDate />
                     <IncomeOutcomeForm transactionType={transactionType} />
                   </div>
-                  <TransactionsTable />
+                  <TransactionsTable transactionType={transactionType} />
                 </div>
                 <Summary />
               </CommonPageWrapper>
@@ -126,7 +126,7 @@ const CommonPage = () => {
                     <IncomeOutcomeForm transactionType={transactionType} />
                   </div>
                   <div className={s.tableSummaryWrapper}>
-                    <TransactionsTable />
+                    <TransactionsTable transactionType={transactionType} />
                     <Summary />
                   </div>
                 </div>

@@ -10,7 +10,7 @@ const transactionCategory = {
   hobbies: 'Спорт, Хобби',
   education: 'Образование',
   others: 'Прочее',
-  'additional-income': 'Доп. доход',
+  additional_income: 'Доп. доход',
   salary: 'Заработная плата',
 };
 
