@@ -51,11 +51,11 @@ function useWindowDimensions() {
   return windowDimensions;
 }
 
-const BarChart = () => {
-  const [categoryActiveIndex, setCategoryActiveIndex] = useState(0);
+const BarChart = ({ data }) => {
+  // const [categoryActiveIndex, setCategoryActiveIndex] = useState(0);
   const { width } = useWindowDimensions();
 
-  const sumDescription = useSelector(data => data.balanceReducer);
+  const { sumDescription } = useSelector(data => data.balanceReducer);
 
   const optionsVertical = {
     maxBarThickness: 38,
@@ -190,12 +190,11 @@ const BarChart = () => {
   const labels = [];
   const amounts = [];
 
-  {
-    sumDescription.data.length > 0 &&
-      sumDescription.data.forEach(item => {
-        labels.push(item.group);
-        amounts.push(item.totalDescription);
-      });
+  if (sumDescription) {
+    sumDescription.forEach(item => {
+      labels.push(item.group);
+      amounts.push(item.totalDescription);
+    });
   }
 
   const chartData = {

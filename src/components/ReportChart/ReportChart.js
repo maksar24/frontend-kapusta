@@ -19,8 +19,6 @@ const ReportChart = ({ category, month, year }) => {
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
 
-  console.log(`category`, category);
-
   const fetchDescription = async () => {
     let config = {
       headers: {
@@ -33,7 +31,7 @@ const ReportChart = ({ category, month, year }) => {
         `/transaction/category/${month + 1}/${year}/${category}`,
         config,
       );
-      dispatch(fetchSuccess(response.data.sumByCategory));
+      dispatch(fetchSuccess(response.data));
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -42,12 +40,12 @@ const ReportChart = ({ category, month, year }) => {
   };
 
   useEffect(() => {
-    fetchDescription();
+    fetchDescription(category);
   }, [category, dispatch]);
 
   useEffect(() => {
     if (data) {
-      dispatch(sumDescription(data.sumDescription));
+      dispatch(sumDescription(data.sumByCategory));
     }
   }, [isLoading]);
 
