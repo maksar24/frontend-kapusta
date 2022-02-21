@@ -1,172 +1,59 @@
 import s from './ReportChart.module.css';
-import React from 'react';
-import { Bar } from 'react-chartjs-2';
-import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { useSelector } from 'react-redux';
+import React, { Fragment } from 'react';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
+import { useSelector, useDispatch } from 'react-redux';
+
+import { getToken } from '../../redux/auth/auth-selectors';
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
+  fetchSuccess,
+  fetchError,
+  sumDescription,
+} from '../../redux/balance/index.js';
+import BarChart from './BarChart';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  ChartDataLabels,
-  Legend,
-);
+const ReportChart = ({ category, month, year }) => {
+  const { data } = useSelector(data => data.balanceReducer);
+  const token = useSelector(getToken);
+  const dispatch = useDispatch();
+  const [isLoading, setLoading] = useState(false);
 
-const ReportChart = ({ category }) => {
   console.log(`category`, category);
-  const { sumDescriptionIncome, sumDescriptionConsumption } = useSelector(
-    data => data.balanceReducer,
-  );
-  // const dispatch = useDispatch();
-  console.log(`sumDescriptionIncome`, sumDescriptionIncome);
-  console.log(`sumDescriptionConsumption`, sumDescriptionConsumption);
 
-  const options = {
-    maxBarThickness: 38,
-    indexAxis: 'x',
-    plugins: {
-      legend: {
-        display: false,
+  const fetchDescription = async () => {
+    let config = {
+      headers: {
+        Authorization: 'Bearer ' + token,
       },
-      tooltip: {
-        enabled: false,
-      },
-      datalabels: {
-        align: function (context) {
-          var value = context.dataset.data[context.dataIndex];
-          return value > 0 ? 'end' : 'start';
-        },
-        anchor: function (context) {
-          var value = context.dataset.data[context.dataIndex];
-          return value > 0 ? 'end' : 'start';
-        },
-        borderRadius: 4,
-        color: '#52555F',
-        formatter: function (value) {
-          return Math.round(value) + ' грн';
-        },
-        padding: 10,
-      },
-    },
-    scales: {
-      x: {
-        grid: {
-          display: false,
-          lineWidth: 2,
-          drawBorder: false,
-          color: '#F5F6FB',
-        },
-        ticks: {
-          display: false,
-          stepSize: 100,
-        },
-      },
-      y: {
-        grid: {
-          lineWidth: 2,
-          drawBorder: false,
-          drawTicks: false,
-          color: '#F5F6FB',
-        },
-        display: true,
-        ticks: {
-          display: false,
-          stepSize: 635,
-        },
-      },
-    },
-    layout: {
-      padding: {
-        top: 35,
-        bottom: 0,
-      },
-    },
-    elements: {
-      bar: {
-        barWidth: 605,
-        borderRadius: 10,
-      },
-    },
+    };
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `/transaction/category/${month + 1}/${year}/${category}`,
+        config,
+      );
+      dispatch(fetchSuccess(response.data.sumByCategory));
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      dispatch(fetchError(error.message));
+    }
   };
-  // const transactions = useSelector(
-  //   transactionsSelectors.getTransactionsByCategoryId(category),
-  // );
-  const labels = [];
-  const amounts = [];
 
-  // sumDescriptionConsumption.forEach(item => {
-  //   const labelIdx = labels.indexOf(item.group);
-  //   if (labelIdx !== -1) {
-  //     amounts[labelIdx] += item.totalDescription;
-  //   } else {
-  //     labels.push(item.group);
-  //     amounts.push(item.amount);
-  //   }
-  // });
+  useEffect(() => {
+    fetchDescription();
+  }, [category, dispatch]);
 
-  // const labels = [
-  //   'Свинина',
-  //   'Говядина',
-  //   'Курица',
-  //   'Рыба',
-  //   'Панини',
-  //   'Кофе',
-  //   'Спагетти',
-  //   'Шоколад',
-  //   'Маслины',
-  //   'Зелень',
-  // ];
+  useEffect(() => {
+    if (data) {
+      dispatch(sumDescription(data.sumDescription));
+    }
+  }, [isLoading]);
 
-  // const data = {
-  //   labels,
-  //   datasets: [
-  //     {
-  //       data: [
-  //         '5000',
-  //         '4500',
-  //         '3200',
-  //         '2100',
-  //         '1800',
-  //         '1700',
-  //         '1500',
-  //         '800',
-  //         '500',
-  //         '300',
-  //       ],
-
-  //       backgroundColor: ['#FF751D', '#FFDAC0', '#FFDAC0'],
-  //       borderWidth: 0,
-  //     },
-  //   ],
-  // };
-  const data = {
-    labels: [...labels],
-    datasets: [
-      {
-        data: [...amounts],
-        backgroundColor: ['#FF751D', '#FFDAC0', '#FFDAC0'],
-        borderWidth: 0,
-      },
-    ],
-  };
   return (
     <>
-      <div className={s.chartSection}>
-        <Bar options={options} data={data} />
-      </div>
+      <BarChart />
     </>
   );
 };

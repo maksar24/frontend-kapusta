@@ -18,10 +18,7 @@ import {
   fetchError,
   sumByCategoryIncome,
   sumByCategoryConsumption,
-  sumDescriptionConsumption,
-  sumDescriptionIncome,
 } from '../../redux/balance/index';
-import ReportChartMobile from '../../components/ReportChart/ReportChartMobile';
 
 const ReportPage = () => {
   let navigate = useNavigate();
@@ -61,8 +58,6 @@ const ReportPage = () => {
     if (data) {
       dispatch(sumByCategoryIncome(data.sumByCategoryIncome));
       dispatch(sumByCategoryConsumption(data.sumByCategoryConsumption));
-      dispatch(sumDescriptionIncome(data.sumDescriptionIncome));
-      dispatch(sumDescriptionConsumption(data.sumDescriptionConsumption));
     }
   }, [isLoading]);
 
@@ -157,27 +152,11 @@ const ReportPage = () => {
       <ReportWrapper>
         <ReportCoast />
       </ReportWrapper>
-      <Media
-        queries={{
-          small: '(max-width: 767px)',
-          medium: '(min-width: 768px)',
-        }}
-      >
-        {matches => (
-          <Fragment>
-            {matches.small && (
-              <ReportWrapper>
-                <ReportChartMobile category={category} />
-              </ReportWrapper>
-            )}
-            {matches.medium && (
-              <ReportWrapper>
-                <ReportChart category={category} />
-              </ReportWrapper>
-            )}
-          </Fragment>
-        )}
-      </Media>
+      {category && (
+        <ReportWrapper>
+          <ReportChart category={category} year={thisYear} month={thisMonth} />
+        </ReportWrapper>
+      )}
     </BackgroundReport>
   );
 };

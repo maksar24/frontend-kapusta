@@ -6,6 +6,7 @@ const initialState = {
   error: null,
   sumByCategoryIncome: null,
   sumByCategoryConsumption: null,
+  sumDescription: null,
   category: null,
   summary: [],
 };
@@ -34,12 +35,10 @@ const balanceSlice = createSlice({
     setCategory(state, { payload }) {
       state.category = payload;
     },
-    sumDescriptionIncome(state, { payload }) {
-      state.sumDescriptionIncome = payload;
+    sumDescription(state, { payload }) {
+      state.sumDescription = payload;
     },
-    sumDescriptionConsumption(state, { payload }) {
-      state.sumDescriptionConsumption = payload;
-    },
+
     incomeData(state, { payload }) {
       state.income = payload;
     },
@@ -59,8 +58,7 @@ export const {
   sumByCategoryIncome,
   sumByCategoryConsumption,
   setCategory,
-  sumDescriptionIncome,
-  sumDescriptionConsumption,
+  sumDescription,
   summary,
 } = balanceSlice.actions;
 
