@@ -59,13 +59,14 @@ const IncomeOutcomeForm = ({ transactionType, showMobileAddView }) => {
       description,
       category: transactionCategory[category.value],
       amount: Number(amount),
-      day,
-      month,
-      year,
+      day: day.toString(),
+      month: month.toString(),
+      year: year.toString(),
     };
     console.log(transaction);
 
     dispatch(transactionsOperations.addTransaction(transaction));
+    dispatch(transactionsOperations.getTransactions());
     setDescription('');
     setCategory('');
     setAmount('');

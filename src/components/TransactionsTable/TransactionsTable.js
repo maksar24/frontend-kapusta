@@ -10,10 +10,14 @@ import styles from './TransactionsTable.module.css';
 import Modal from '../../components/Modal';
 import transactionCategory from './transactionCategory';
 
-const TransactionsTable = () => {
+const TransactionsTable = transactionType => {
+  const type = transactionType;
   const dispatch = useDispatch();
 
   const transactions = useSelector(selectors.getTransactions);
+  const filteredTransactions = transactions.filter(
+    transaction => transaction.type === type.transactionType,
+  );
   const [modalDel, setModalDel] = useState(false);
   const [transaction, setTransaction] = useState('');
 
@@ -55,7 +59,9 @@ const TransactionsTable = () => {
         <table className={styles.main}>
           <thead className={styles.theadTable}>
             <tr>
-              <th className={`${styles.th} ${styles.thData}`}>Дата</th>
+              <th className={`${styles.th} ${styles.thData}`}>
+                <span>Дата</span>
+              </th>
               <th className={`${styles.th} ${styles.thDesc}`}>Описание</th>
               <th className={`${styles.th} ${styles.thCateg}`}>Категория</th>
               <th className={`${styles.th} ${styles.thSum}`}>Сумма</th>
@@ -66,43 +72,50 @@ const TransactionsTable = () => {
         <div className={styles.bodyTableScroll}>
           <table className={`${styles.main} ${styles.mainTbody}`}>
             <tbody className={styles.tbodyTable}>
-              {transactions.map(transaction => (
-                <tr key={transaction._id} className={styles.td}>
-                  <td className={styles.thData}>
-                    {`${transaction.day}.${transaction.month}.${transaction.year}`}
-                  </td>
-                  <td className={styles.tdDesc}>
-                    <EllipsisText text={transaction.description} length={20} />
-                  </td>
-                  <td className={styles.thCateg}>
-                    {transactionCategory[transaction.category]}
-                  </td>
-                  <td
-                    className={`${
-                      transaction.type !== 'income'
-                        ? styles.tdSumExpense
-                        : styles.tdSum
-                    }`}
-                  >
-                    <EllipsisText
-                      text={
-                        transaction.type === 'income'
-                          ? `${transaction.amount.toLocaleString('ru')}.00 грн.`
-                          : `-${transaction.amount.toLocaleString(
-                              'ru',
-                            )}.00 грн.`
-                      }
-                      length={14}
-                    />
-                  </td>
-                  <td
-                    className={styles.thIcon}
-                    onClick={() => handleDeleteClick(transaction)}
-                  >
-                    <button className={styles.deleteBtn}></button>
-                  </td>
-                </tr>
-              ))}
+              {filteredTransactions
+                .map(transaction => (
+                  <tr key={transaction._id} className={styles.td}>
+                    <td className={styles.thData}>
+                      {`${transaction.day}.${transaction.month}.${transaction.year}`}
+                    </td>
+                    <td className={styles.tdDesc}>
+                      <EllipsisText
+                        text={transaction.description}
+                        length={15}
+                      />
+                    </td>
+                    <td className={styles.thCateg}>
+                      {transactionCategory[transaction.category]}
+                    </td>
+                    <td
+                      className={`${
+                        transaction.type !== 'income'
+                          ? styles.tdSumExpense
+                          : styles.tdSum
+                      }`}
+                    >
+                      <EllipsisText
+                        text={
+                          transaction.type === 'income'
+                            ? `${transaction.amount.toLocaleString(
+                                'ru',
+                              )}.00 грн.`
+                            : `-${transaction.amount.toLocaleString(
+                                'ru',
+                              )}.00 грн.`
+                        }
+                        length={14}
+                      />
+                    </td>
+                    <td
+                      className={styles.thIcon}
+                      onClick={() => handleDeleteClick(transaction)}
+                    >
+                      <button className={styles.deleteBtn}></button>
+                    </td>
+                  </tr>
+                ))
+                .reverse()}
             </tbody>
           </table>
         </div>

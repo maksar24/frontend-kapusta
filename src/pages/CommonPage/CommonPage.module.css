@@ -30,6 +30,9 @@
   .section {
     padding-bottom: 83px;
   }
+  .bigWrapper {
+    padding: 28px 30px 48px 31px;
+  }
 }
 
 .wrapper {
@@ -47,7 +50,7 @@
 .bigWrapper {
   /* display: flex; */
   width: 100%;
-  padding: 28px 30px 48px 31px;
+  padding: 28px 30px 48px 30px;
   background: #ffffff;
 
   box-shadow: 0px 10px 60px rgba(170, 178, 197, 0.2);
