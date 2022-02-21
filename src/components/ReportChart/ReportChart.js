@@ -2,8 +2,7 @@ import s from './ReportChart.module.css';
 import React, { Fragment } from 'react';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Bar } from 'react-chartjs-2';
-import ChartDataLabels from 'chartjs-plugin-datalabels';
+
 import { useSelector, useDispatch } from 'react-redux';
 
 import { getToken } from '../../redux/auth/auth-selectors';
@@ -12,27 +11,7 @@ import {
   fetchError,
   sumDescription,
 } from '../../redux/balance/index.js';
-
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
 import BarChart from './BarChart';
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  ChartDataLabels,
-  Legend,
-);
 
 const ReportChart = ({ category, month, year }) => {
   const { data } = useSelector(data => data.balanceReducer);

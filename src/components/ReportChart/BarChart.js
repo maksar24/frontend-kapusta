@@ -1,18 +1,10 @@
 import s from './ReportChart.module.css';
-// import React, { Fragment } from 'react';
+
 import { useEffect, useState } from 'react';
-// import axios from 'axios';
+
 import { Bar } from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { useSelector, useDispatch } from 'react-redux';
-
-// import { getToken } from '../../redux/auth/auth-selectors';
-// import {
-//   fetchSuccess,
-//   fetchError,
-//   sumDescriptionConsumption,
-//   sumDescriptionIncome,
-// } from '../../redux/balance/index';
 
 import {
   Chart as ChartJS,
@@ -34,13 +26,38 @@ ChartJS.register(
   Legend,
 );
 
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height,
+  };
+}
+
+function useWindowDimensions() {
+  const [windowDimensions, setWindowDimensions] = useState(
+    getWindowDimensions(),
+  );
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return windowDimensions;
+}
+
 const BarChart = () => {
   const [categoryActiveIndex, setCategoryActiveIndex] = useState(0);
+  const { width } = useWindowDimensions();
 
   const sumDescription = useSelector(data => data.balanceReducer);
-  console.log('sumDescription', sumDescription);
 
-  const options = {
+  const optionsVertical = {
     maxBarThickness: 38,
     indexAxis: 'x',
     plugins: {
@@ -75,10 +92,6 @@ const BarChart = () => {
           drawBorder: false,
           color: '#F5F6FB',
         },
-        ticks: {
-          display: false,
-          stepSize: 100,
-        },
       },
       y: {
         grid: {
@@ -90,7 +103,7 @@ const BarChart = () => {
         display: true,
         ticks: {
           display: false,
-          stepSize: 635,
+          // stepSize: 635,
         },
       },
     },
@@ -108,21 +121,82 @@ const BarChart = () => {
     },
   };
 
+  const optionsHorizontal = {
+    barThickness: 15,
+    maxBarThickness: 50,
+    minBarLength: 90,
+    indexAxis: 'y',
+    plugins: {
+      legend: {
+        display: false,
+      },
+      tooltip: {
+        enabled: false,
+      },
+      datalabels: {
+        anchor: 'end',
+        align: 'top',
+        offset: 12,
+        borderRadius: 4,
+        color: '#52555F',
+        formatter: function (value) {
+          return Math.round(value) + ' грн';
+        },
+        padding: 0,
+      },
+    },
+    scales: {
+      x: {
+        grid: {
+          display: false,
+          drawBorder: false,
+          drawTicks: false,
+        },
+        ticks: {
+          display: false,
+        },
+      },
+      y: {
+        grid: {
+          display: false,
+          drawBorder: false,
+          drawTicks: false,
+        },
+        display: true,
+        ticks: {
+          mirror: true,
+          labelOffset: -20,
+        },
+      },
+    },
+    layout: {
+      padding: {
+        top: 5,
+        bottom: 10,
+        left: -5,
+        right: 38,
+      },
+    },
+
+    elements: {
+      bar: {
+        borderRadius: 10,
+      },
+    },
+  };
+
+  const options = width < 425 ? optionsHorizontal : optionsVertical;
+
   const labels = [];
   const amounts = [];
 
-  sumDescription?.forEach(item => {
-    const labelIdx = labels.indexOf(item.group);
-    if (labelIdx !== -1) {
-      amounts[labelIdx] += item.totalDescription;
-    } else {
-      labels.push(item.group);
-      amounts.push(item.totalDescription);
-    }
-  });
-
-  console.log('labels', labels);
-  console.log('amounts', amounts);
+  {
+    sumDescription.data.length > 0 &&
+      sumDescription.data.forEach(item => {
+        labels.push(item.group);
+        amounts.push(item.totalDescription);
+      });
+  }
 
   const chartData = {
     labels: [...labels],

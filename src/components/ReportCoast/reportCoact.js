@@ -11,12 +11,11 @@ import s from './reportCoact.module.css';
 export default function ReportCoast() {
   const [coast, setCoast] = useState(true);
   const [active, setActive] = useState(0);
-  console.log('active', active);
+
   const coastOrIncome = () => {
     setCoast(coast => !coast);
     setActive(0);
   };
-
   const { sumByCategoryConsumption, sumByCategoryIncome } = useSelector(
     data => data.balanceReducer,
   );
@@ -54,7 +53,7 @@ export default function ReportCoast() {
                     <svg className={i === active ? (s.svg, s.active) : s.svg}>
                       <use href={sprite + '#' + category?.group} />
                     </svg>
-                    <p className={s.cardTitle}>{svg.income[category?.group]}</p>
+                    <p className={s.cardTitle}>{svg.coast[category?.group]}</p>
                   </button>
                 </li>
               );
