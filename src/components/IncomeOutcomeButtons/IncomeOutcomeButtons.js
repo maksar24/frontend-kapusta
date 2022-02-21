@@ -53,18 +53,21 @@ const IncomeOutcomeButtons = ({
         Authorization: 'Bearer ' + token,
       },
     };
-    try {
-      setLoading(true);
-      const response = await axios.get(
-        `/transaction/summary/${type}/${thisYear}`,
-        config,
-      );
-      dispatch(fetchSuccess(response.data));
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      dispatch(fetchError(error.message));
+    if (type) {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          `/transaction/summary/${type}/${thisYear}`,
+          config,
+        );
+        dispatch(fetchSuccess(response.data));
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        dispatch(fetchError(error.message));
+      }
     }
+    return
   };
 
   useEffect(() => {
