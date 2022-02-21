@@ -63,7 +63,6 @@ const IncomeOutcomeForm = ({ transactionType, showMobileAddView }) => {
       month: month.toString(),
       year: year.toString(),
     };
-    console.log(transaction);
 
     dispatch(transactionsOperations.addTransaction(transaction));
     dispatch(transactionsOperations.getTransactions());

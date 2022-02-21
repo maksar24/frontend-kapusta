@@ -12,7 +12,7 @@ const coast = {
   others: 'Прочее',
 };
 
-const income = { 'additional-income': 'Доп. доход', salary: 'ЗП' };
+const income = { additional_income: 'Доп.доход', salary: 'ЗП' };
 
 const svg = { coast, income };
 export default svg;

@@ -11,7 +11,7 @@ const transactionCategory = {
   'Спорт, хобби': 'hobbies',
   Прочее: 'others',
   'Заработная плата': 'salary',
-  'Доп. доход': 'additional-income',
+  'Доп.доход': 'additional_income',
 };
 
 export default transactionCategory;
