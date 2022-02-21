@@ -15,6 +15,7 @@ const TransactionsTable = transactionType => {
   const dispatch = useDispatch();
 
   const transactions = useSelector(selectors.getTransactions);
+  const isLoading = useSelector(selectors.getIsLoading);
   const filteredTransactions = transactions.filter(
     transaction => transaction.type === type.transactionType,
   );
@@ -24,6 +25,13 @@ const TransactionsTable = transactionType => {
   useEffect(() => {
     dispatch(transactionsOperations.getTransactions());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (isLoading) {
+      dispatch(transactionsOperations.getTransactions());
+      return;
+    }
+  }, [isLoading, dispatch]);
 
   const handleDeleteClick = transaction => {
     setModalDel(true);
