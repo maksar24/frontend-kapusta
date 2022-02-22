@@ -45,9 +45,14 @@
   border: none;
   border-radius: 30px;
   background-color: #f6f7fb;
-  padding: 20px 17px;
+  padding: 17px 20px;
 }
-
+::placeholder {
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.04em;
+  color: #a6abb9;
+}
 .containerButton {
   display: flex;
   justify-content: space-between;
