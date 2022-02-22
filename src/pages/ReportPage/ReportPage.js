@@ -67,9 +67,9 @@ const ReportPage = () => {
     }
   }, [isLoading]);
 
-  function handleClick() {
+  const handleClick = () => {
     navigate('/');
-  }
+  };
 
   const nextMonth = () => {
     setThisMonth(thisMonth + 1);
@@ -94,10 +94,15 @@ const ReportPage = () => {
     dispatch(clearChartData());
     nextMonth();
   };
+  const goHomeDataClear = () => {
+    dispatch(clearChartData());
+    handleClick();
+  };
+
   return (
     <BackgroundReport>
       <div className={s.container}>
-        <button className={s.button__back} onClick={handleClick}>
+        <button className={s.button__back} onClick={goHomeDataClear}>
           <Icons iconName="goArrow" />
           <span className={s.button__name}>Вернуться на главную</span>
         </button>
