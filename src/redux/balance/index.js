@@ -9,6 +9,7 @@ const initialState = {
   sumDescription: null,
   category: null,
   summary: [],
+  active: 0,
 };
 
 const balanceSlice = createSlice({
@@ -51,6 +52,9 @@ const balanceSlice = createSlice({
     clearChartData(state) {
       state.sumDescription = null;
     },
+    changeActive(state, { payload }) {
+      state.active = payload;
+    },
   },
 });
 
@@ -66,6 +70,7 @@ export const {
   summary,
   incomeData,
   consumptionData,
+  changeActive,
 } = balanceSlice.actions;
 
 export default balanceSlice.reducer;

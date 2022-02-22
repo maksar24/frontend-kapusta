@@ -22,6 +22,7 @@ import {
   clearChartData,
   incomeData,
   consumptionData,
+  changeActive,
 } from '../../redux/balance/index';
 
 const ReportPage = () => {
@@ -73,6 +74,7 @@ const ReportPage = () => {
 
   const nextMonth = () => {
     setThisMonth(thisMonth + 1);
+    dispatch(changeActive(0));
     if (thisMonth === 11) {
       setThisMonth(0);
       setThisYear(thisYear + 1);
@@ -81,6 +83,7 @@ const ReportPage = () => {
 
   const prevMonth = () => {
     setThisMonth(thisMonth - 1);
+    dispatch(changeActive(0));
     if (thisMonth === 0) {
       setThisMonth(11);
       setThisYear(thisYear - 1);
