@@ -1,5 +1,12 @@
 .chartSection {
   width: 100%;
+  min-height: 290px;
+
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
 }
 
 @media screen and (min-width: 768px) {

@@ -1,5 +1,4 @@
-import s from './ReportChart.module.css';
-import React, { Fragment } from 'react';
+import React from 'react';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
