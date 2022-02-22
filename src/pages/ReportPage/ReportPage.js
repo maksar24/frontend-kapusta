@@ -16,6 +16,7 @@ import ReportBalance from '../../components/ReportBalance/ReportBalance';
 
 import {
   fetchSuccess,
+  setIsLoading,
   fetchError,
   sumByCategoryIncome,
   sumByCategoryConsumption,
@@ -32,8 +33,8 @@ const ReportPage = () => {
   const { data } = useSelector(data => data.balanceReducer);
   const token = useSelector(getToken);
   const dispatch = useDispatch();
-  const [isLoading, setLoading] = useState(false);
-  const { category } = useSelector(data => data.balanceReducer);
+  // const [isLoading, setLoading] = useState(false);
+  const { category, isLoading } = useSelector(data => data.balanceReducer);
 
   const fetchData = async () => {
     let config = {
@@ -42,15 +43,15 @@ const ReportPage = () => {
       },
     };
     try {
-      setLoading(true);
+      dispatch(setIsLoading(true));
       const response = await axios.get(
         `/transaction/report/${thisYear}/${thisMonth + 1}`,
         config,
       );
       dispatch(fetchSuccess(response.data));
-      setLoading(false);
+      dispatch(setIsLoading(false));
     } catch (error) {
-      setLoading(false);
+      dispatch(setIsLoading(false));
       dispatch(fetchError(error.message));
     }
   };
