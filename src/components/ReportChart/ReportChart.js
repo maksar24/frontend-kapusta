@@ -18,7 +18,7 @@ const ReportChart = ({ category, month, year }) => {
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState(false);
 
-  const fetchDescription = async () => {
+  const fetchDescription = async (category, month, year) => {
     let config = {
       headers: {
         Authorization: 'Bearer ' + token,
@@ -39,7 +39,7 @@ const ReportChart = ({ category, month, year }) => {
   };
 
   useEffect(() => {
-    fetchDescription();
+    fetchDescription(category, month, year);
   }, [category, month, year]);
 
   useEffect(() => {
