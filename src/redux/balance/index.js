@@ -65,6 +65,8 @@ export const {
   sumDescription,
   clearChartData,
   summary,
+  incomeData,
+  consumptionData,
 } = balanceSlice.actions;
 
 export default balanceSlice.reducer;

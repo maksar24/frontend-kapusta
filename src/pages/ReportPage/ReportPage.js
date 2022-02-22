@@ -21,6 +21,8 @@ import {
   sumByCategoryIncome,
   sumByCategoryConsumption,
   clearChartData,
+  incomeData,
+  consumptionData,
 } from '../../redux/balance/index';
 
 const ReportPage = () => {
@@ -61,6 +63,8 @@ const ReportPage = () => {
     if (data) {
       dispatch(sumByCategoryIncome(data.sumByCategoryIncome));
       dispatch(sumByCategoryConsumption(data.sumByCategoryConsumption));
+      dispatch(incomeData(data.income));
+      dispatch(consumptionData(data.consumption));
     }
   }, [isLoading]);
 
