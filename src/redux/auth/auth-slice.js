@@ -5,6 +5,7 @@ const initialState = {
   user: {
     name: null,
     email: null,
+    avatar: null,
   },
   balance: 0,
   token: null,
@@ -45,6 +46,7 @@ const authSlice = createSlice({
     [operations.logIn.fulfilled](state, action) {
       state.user.name = action.payload.data.name;
       state.user.email = action.payload.data.email;
+      state.user.avatar = action.payload.data.avatarURL;
       state.balance = action.payload.data.balance;
       state.token = action.payload.token;
       state.isLoggedIn = true;
@@ -66,7 +68,7 @@ const authSlice = createSlice({
     },
 
     [operations.logOut.fulfilled](state) {
-      state.user = { name: null, email: null };
+      state.user = { name: null, email: null, avatar: null };
       state.balance = 0;
       state.token = null;
       state.isLoggedIn = false;
@@ -85,6 +87,7 @@ const authSlice = createSlice({
     [operations.fetchCurrentUser.fulfilled](state, action) {
       state.user.name = action.payload.data.name;
       state.user.email = action.payload.data.email;
+      state.user.avatar = action.payload.data.avatarURL;
       state.balance = action.payload.data.balance;
       state.isLoggedIn = true;
       state.isLoading = false;

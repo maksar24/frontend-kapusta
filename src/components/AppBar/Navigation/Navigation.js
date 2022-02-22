@@ -1,23 +1,25 @@
 import React, { Fragment, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Media from 'react-media';
 import { useNavigate } from 'react-router-dom';
 import s from './Navigation.module.css';
 import Icons from '../../Icon';
 import Modal from '../../Modal';
-import { logOut } from '../../../redux/auth/auth-operations';
+import { authOperations, authSelectors } from '../../../redux/auth';
 
 export default function Navigation() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userName = useSelector(authSelectors.getUserName);
+  const avatar = useSelector(authSelectors.getAvatar);
   const [showModal, setShowModal] = useState(false);
 
   const toggleModal = () => {
     setShowModal(prevShowModal => !prevShowModal);
   };
-
+  console.log(avatar);
   const logoutModal = () => {
-    dispatch(logOut());
+    dispatch(authOperations.logOut());
     toggleModal();
     navigate('/auth');
   };
@@ -26,7 +28,7 @@ export default function Navigation() {
     <>
       <div className={s.header__control_wrapper}>
         <div className={s.header__user_wrapper}>
-          <span className={s.header_avatar}></span>
+          <img src={avatar} className={s.header_avatar} alt="User avatar" />
           <Media
             queries={{
               small: '(max-width: 767px)',
@@ -36,7 +38,7 @@ export default function Navigation() {
             {matches => (
               <Fragment>
                 {matches.medium && (
-                  <p className={s.header__login_name}>User Name</p>
+                  <p className={s.header__login_name}>{userName}</p>
                 )}
               </Fragment>
             )}
