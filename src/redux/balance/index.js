@@ -48,6 +48,10 @@ const balanceSlice = createSlice({
     summary(state, { payload }) {
       state.summary = payload;
     },
+    clearChartData(state) {
+      state.isLoading = false;
+      state.sumDescription = null;
+    },
   },
 });
 
@@ -59,6 +63,7 @@ export const {
   sumByCategoryConsumption,
   setCategory,
   sumDescription,
+  clearChartData,
   summary,
 } = balanceSlice.actions;
 

@@ -13,11 +13,14 @@ import ReportWrapper from '../../components/ReportWrapper';
 import { getToken } from '../../redux/auth/auth-selectors';
 import Balance from '../../components/Balance';
 import ReportBalance from '../../components/ReportBalance/ReportBalance';
+import NoDataChartSection from '../../components/NoDataChartSection/NoDataChartSection';
+
 import {
   fetchSuccess,
   fetchError,
   sumByCategoryIncome,
   sumByCategoryConsumption,
+  clearChartData,
 } from '../../redux/balance/index';
 
 const ReportPage = () => {
@@ -80,7 +83,14 @@ const ReportPage = () => {
       setThisYear(thisYear - 1);
     }
   };
-
+  const clearPrevDataMonth = () => {
+    dispatch(clearChartData());
+    prevMonth();
+  };
+  const clearNextDataMonth = () => {
+    dispatch(clearChartData());
+    nextMonth();
+  };
   return (
     <BackgroundReport>
       <div className={s.container}>
@@ -103,14 +113,14 @@ const ReportPage = () => {
                     <div className={s.datePicker__container}>
                       <button
                         className={s.datePicker__button}
-                        onClick={prevMonth}
+                        onClick={clearPrevDataMonth}
                       >
                         <Icons iconName="leftArrow" />
                       </button>
                       <DateField thisYear={thisYear} thisMonth={thisMonth} />
                       <button
                         className={s.datePicker__button}
-                        onClick={nextMonth}
+                        onClick={clearNextDataMonth}
                       >
                         <Icons iconName="rightArrow" />
                       </button>
@@ -127,14 +137,14 @@ const ReportPage = () => {
                     <div className={s.datePicker__container}>
                       <button
                         className={s.datePicker__button}
-                        onClick={prevMonth}
+                        onClick={clearPrevDataMonth}
                       >
                         <Icons iconName="leftArrow" />
                       </button>
                       <DateField thisYear={thisYear} thisMonth={thisMonth} />
                       <button
                         className={s.datePicker__button}
-                        onClick={nextMonth}
+                        onClick={clearNextDataMonth}
                       >
                         <Icons iconName="rightArrow" />
                       </button>
@@ -152,11 +162,9 @@ const ReportPage = () => {
       <ReportWrapper>
         <ReportCoast />
       </ReportWrapper>
-      {category && (
-        <ReportWrapper>
-          <ReportChart category={category} year={thisYear} month={thisMonth} />
-        </ReportWrapper>
-      )}
+      <ReportWrapper>
+        <ReportChart category={category} year={thisYear} month={thisMonth} />
+      </ReportWrapper>
     </BackgroundReport>
   );
 };

@@ -2,6 +2,8 @@ import s from './ReportChart.module.css';
 
 import { useEffect, useState } from 'react';
 
+import NoDataChartSection from '../NoDataChartSection';
+
 import { Bar } from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { useSelector, useDispatch } from 'react-redux';
@@ -51,10 +53,9 @@ function useWindowDimensions() {
   return windowDimensions;
 }
 
-const BarChart = ({ data }) => {
+const BarChart = () => {
   // const [categoryActiveIndex, setCategoryActiveIndex] = useState(0);
   const { width } = useWindowDimensions();
-
   const { sumDescription } = useSelector(data => data.balanceReducer);
 
   const optionsVertical = {
@@ -103,7 +104,6 @@ const BarChart = ({ data }) => {
         display: true,
         ticks: {
           display: false,
-          // stepSize: 635,
         },
       },
     },
@@ -124,7 +124,8 @@ const BarChart = ({ data }) => {
   const optionsHorizontal = {
     barThickness: 15,
     maxBarThickness: 50,
-    minBarLength: 90,
+    minBarLength: 40,
+    maintainAspectRatio: false,
     indexAxis: 'y',
     plugins: {
       legend: {
@@ -135,8 +136,9 @@ const BarChart = ({ data }) => {
       },
       datalabels: {
         anchor: 'end',
-        align: 'top',
-        offset: 12,
+        align: 'right',
+        offset: 10,
+
         borderRadius: 4,
         color: '#52555F',
         formatter: function (value) {
@@ -145,6 +147,7 @@ const BarChart = ({ data }) => {
         padding: 0,
       },
     },
+
     scales: {
       x: {
         grid: {
@@ -174,7 +177,7 @@ const BarChart = ({ data }) => {
         top: 5,
         bottom: 10,
         left: -5,
-        right: 38,
+        right: 20,
       },
     },
 
@@ -185,18 +188,22 @@ const BarChart = ({ data }) => {
     },
   };
 
-  const options = width < 425 ? optionsHorizontal : optionsVertical;
+  const options = width < 650 ? optionsHorizontal : optionsVertical;
 
   const labels = [];
   const amounts = [];
 
   if (sumDescription) {
-    sumDescription.forEach(item => {
-      labels.push(item.group);
-      amounts.push(item.totalDescription);
-    });
+    sumDescription
+      .slice()
+      .sort((a, b) => b.totalDescription - a.totalDescription)
+      .forEach(item => {
+        labels.push(item.group);
+        amounts.push(item.totalDescription);
+      });
   }
 
+  console.log('sumDescription', sumDescription);
   const chartData = {
     labels: [...labels],
     datasets: [
@@ -210,7 +217,13 @@ const BarChart = ({ data }) => {
   return (
     <>
       <div className={s.chartSection}>
-        <Bar options={options} data={chartData} />
+        {sumDescription === null ? (
+          <NoDataChartSection
+            title={'Выберите категорию для отображения актуальных данных'}
+          />
+        ) : (
+          <Bar options={options} data={chartData} />
+        )}
       </div>
     </>
   );
