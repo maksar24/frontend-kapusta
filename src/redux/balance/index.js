@@ -16,16 +16,14 @@ const balanceSlice = createSlice({
   name: 'balance',
   initialState,
   reducers: {
-    fetchBalanse(state) {
-      state.isLoading = true;
+    setIsLoading(state, { payload }) {
+      state.isLoading = payload;
     },
     fetchSuccess(state, { payload }) {
       state.data = payload;
-      state.isLoading = false;
     },
     fetchError(state, { payload }) {
       state.error = payload;
-      state.isLoading = false;
     },
     sumByCategoryIncome(state, { payload }) {
       state.sumByCategoryIncome = payload;
@@ -59,7 +57,7 @@ const balanceSlice = createSlice({
 });
 
 export const {
-  fetchBalanse,
+  setIsLoading,
   fetchSuccess,
   fetchError,
   sumByCategoryIncome,

@@ -39,8 +39,8 @@ const ReportChart = ({ category, month, year }) => {
   };
 
   useEffect(() => {
-    fetchDescription(category);
-  }, [category, dispatch]);
+    fetchDescription();
+  }, [category, month, year]);
 
   useEffect(() => {
     if (data) {
