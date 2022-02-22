@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import sprite from './sprite.svg';
 import Icons from '../Icon';
 import { useSelector, useDispatch } from 'react-redux';
-import { setCategory } from '../../redux/balance/index';
+import { setCategory, changeActive } from '../../redux/balance/index';
 
 import svg from './svg';
 
@@ -10,31 +10,27 @@ import s from './reportCoact.module.css';
 
 export default function ReportCoast() {
   const [coast, setCoast] = useState(true);
-  const [active, setActive] = useState(0);
   const dispatch = useDispatch();
-  const { sumByCategoryConsumption, sumByCategoryIncome } = useSelector(
+  const { sumByCategoryConsumption, sumByCategoryIncome, active } = useSelector(
     data => data.balanceReducer,
   );
 
-  const activeCategory = () => {
-    if (!coast && sumByCategoryConsumption !== []) {
-      const { group } = sumByCategoryConsumption[0];
-      dispatch(setCategory(group));
+  useEffect(() => {
+    if (coast && sumByCategoryConsumption) {
+      dispatch(setCategory(sumByCategoryConsumption[0]?.group));
     }
-    if (coast && sumByCategoryIncome !== []) {
-      const { group } = sumByCategoryIncome[0];
-      dispatch(setCategory(group));
+    if (!coast && sumByCategoryIncome) {
+      dispatch(setCategory(sumByCategoryIncome[0]?.group));
     }
-  };
+  }, [coast, sumByCategoryConsumption, sumByCategoryIncome]);
 
   const coastOrIncome = () => {
     setCoast(coast => !coast);
-    setActive(0);
-    activeCategory();
+    dispatch(changeActive(0));
   };
 
   const checkCategory = (e, i) => {
-    setActive(i);
+    dispatch(changeActive(i));
     dispatch(setCategory(e.currentTarget.value));
   };
 
