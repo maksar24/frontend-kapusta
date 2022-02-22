@@ -111,6 +111,10 @@
     border-radius: 16px;
   }
 
+  .balance_button_active {
+    border-radius: 16px;
+  }
+
   .balance_input {
     margin-right: 15px;
     border-radius: 16px;

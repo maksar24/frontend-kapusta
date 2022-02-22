@@ -11,16 +11,28 @@ import s from './reportCoact.module.css';
 export default function ReportCoast() {
   const [coast, setCoast] = useState(true);
   const [active, setActive] = useState(0);
-
-  const coastOrIncome = () => {
-    setCoast(coast => !coast);
-    setActive(0);
-  };
+  const dispatch = useDispatch();
   const { sumByCategoryConsumption, sumByCategoryIncome } = useSelector(
     data => data.balanceReducer,
   );
 
-  const dispatch = useDispatch();
+  const activeCategory = () => {
+    if (!coast && sumByCategoryConsumption !== []) {
+      const { group } = sumByCategoryConsumption[0];
+      dispatch(setCategory(group));
+    }
+    if (coast && sumByCategoryIncome !== []) {
+      const { group } = sumByCategoryIncome[0];
+      dispatch(setCategory(group));
+    }
+  };
+
+  const coastOrIncome = () => {
+    setCoast(coast => !coast);
+    setActive(0);
+    activeCategory();
+  };
+
   const checkCategory = (e, i) => {
     setActive(i);
     dispatch(setCategory(e.currentTarget.value));

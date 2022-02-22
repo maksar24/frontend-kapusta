@@ -52,7 +52,7 @@ export default function Balance({ style, hide }) {
           type="submit"
           onClick={handleBalance}
           className={`${
-            balance === 0 ? s.balance_button : s.balance_button
+            balance === 0 ? s.balance_button_active : s.balance_button
           } ${hide}`}
           disabled={balance !== 0 && 'disabled'}
         >

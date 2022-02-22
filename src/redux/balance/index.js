@@ -49,7 +49,6 @@ const balanceSlice = createSlice({
       state.summary = payload;
     },
     clearChartData(state) {
-      state.isLoading = false;
       state.sumDescription = null;
     },
   },

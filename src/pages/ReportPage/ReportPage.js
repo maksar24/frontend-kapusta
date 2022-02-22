@@ -13,7 +13,6 @@ import ReportWrapper from '../../components/ReportWrapper';
 import { getToken } from '../../redux/auth/auth-selectors';
 import Balance from '../../components/Balance';
 import ReportBalance from '../../components/ReportBalance/ReportBalance';
-import NoDataChartSection from '../../components/NoDataChartSection/NoDataChartSection';
 
 import {
   fetchSuccess,

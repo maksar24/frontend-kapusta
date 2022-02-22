@@ -6,7 +6,7 @@ import NoDataChartSection from '../NoDataChartSection';
 
 import { Bar } from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import {
   Chart as ChartJS,
@@ -54,7 +54,6 @@ function useWindowDimensions() {
 }
 
 const BarChart = () => {
-  // const [categoryActiveIndex, setCategoryActiveIndex] = useState(0);
   const { width } = useWindowDimensions();
   const { sumDescription } = useSelector(data => data.balanceReducer);
 
@@ -203,7 +202,6 @@ const BarChart = () => {
       });
   }
 
-  console.log('sumDescription', sumDescription);
   const chartData = {
     labels: [...labels],
     datasets: [
