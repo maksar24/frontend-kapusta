@@ -1,8 +1,11 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Media from 'react-media';
 
 import s from './CommonPage.module.css';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import * as selectors from '../../redux/transactions/transactionsSelectors';
+import transactionsOperations from '../../redux/transactions/transactionsOperations';
 
 import Container from '../../components/Container';
 import SwitchToReport from '../../components/SwitchToReport';
@@ -23,10 +26,12 @@ import Summary from '../../components/Summary';
 import AddTransactionView from '../../views/AddTransactionView';
 
 const CommonPage = () => {
+  const dispatch = useDispatch();
   const [mobileAddView, setMobileAddView] = useLocalStorage(
     'mobileAddView',
     false,
   );
+  const transactions = useSelector(selectors.getTransactions);
 
   const showMobileAddView = () => {
     if (!mobileAddView) {
@@ -42,13 +47,29 @@ const CommonPage = () => {
     'consumption',
   );
 
-  const toggleTransactionType = () => {
+  useEffect(() => {
+    setTransactionType('consumption');
+    dispatch(transactionsOperations.getTransactions());
+  }, []);
+
+  const setTransactionTypeIncome = () => {
     if (transactionType === 'consumption') {
       setTransactionType('income');
       return;
     }
+    if (transactionType === 'income') {
+      return;
+    }
+  };
 
-    setTransactionType('consumption');
+  const setTransactionTypeConsumption = () => {
+    if (transactionType === 'income') {
+      setTransactionType('consumption');
+      return;
+    }
+    if (transactionType === 'consumption') {
+      return;
+    }
   };
 
   return (
@@ -63,9 +84,16 @@ const CommonPage = () => {
         <Fragment>
           {matches.small && (
             <>
-              {mobileAddView ? (
+              {mobileAddView && transactions ? (
                 <>
-                  <AddTransactionView showMobileAddView={showMobileAddView} />
+                  <AddTransactionView
+                    showMobileAddView={showMobileAddView}
+                    transactionType={transactionType}
+                    setTransactionTypeIncome={setTransactionTypeIncome}
+                    setTransactionTypeConsumption={
+                      setTransactionTypeConsumption
+                    }
+                  />
                 </>
               ) : (
                 <Fragment>
@@ -80,7 +108,10 @@ const CommonPage = () => {
                     </Container>
                   </BackgroundMobile>
                   <IncomeOutcomeButtons
-                    toggleTransactionType={toggleTransactionType}
+                    setTransactionTypeIncome={setTransactionTypeIncome}
+                    setTransactionTypeConsumption={
+                      setTransactionTypeConsumption
+                    }
                     showMobileAddView={showMobileAddView}
                   />
                 </Fragment>
@@ -95,7 +126,8 @@ const CommonPage = () => {
                   <SwitchToReport />
                 </div>
                 <IncomeOutcomeButtons
-                  toggleTransactionType={toggleTransactionType}
+                  setTransactionTypeIncome={setTransactionTypeIncome}
+                  setTransactionTypeConsumption={setTransactionTypeConsumption}
                   transactionType={transactionType}
                 />
                 <div className={s.bigWrapper}>
@@ -117,7 +149,8 @@ const CommonPage = () => {
                   <SwitchToReport />
                 </div>
                 <IncomeOutcomeButtons
-                  toggleTransactionType={toggleTransactionType}
+                  setTransactionTypeIncome={setTransactionTypeIncome}
+                  setTransactionTypeConsumption={setTransactionTypeConsumption}
                   transactionType={transactionType}
                 />
                 <div className={s.bigWrapper}>

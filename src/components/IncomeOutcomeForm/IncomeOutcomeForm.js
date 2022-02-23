@@ -54,13 +54,34 @@ const IncomeOutcomeForm = ({ transactionType, showMobileAddView }) => {
       month: month.toString(),
       year: year.toString(),
     };
-    console.log(transaction);
 
     dispatch(transactionsOperations.addTransaction(transaction));
-    dispatch(transactionsOperations.getTransactions());
+    // dispatch(transactionsOperations.getTransactions());
     setDescription('');
     setCategory('');
     setAmount('');
+  };
+
+  const onSubmitMobile = evt => {
+    evt.preventDefault();
+
+    const transaction = {
+      type: type,
+      description,
+      category: transactionCategory[category.value],
+      amount: Number(amount),
+      day: day.toString(),
+      month: month.toString(),
+      year: year.toString(),
+    };
+    console.log(transaction);
+
+    dispatch(transactionsOperations.addTransaction(transaction));
+    // dispatch(transactionsOperations.getTransactions());
+    setDescription('');
+    setCategory('');
+    setAmount('');
+    showMobileAddView();
   };
 
   const resetForm = () => {
@@ -101,7 +122,7 @@ const IncomeOutcomeForm = ({ transactionType, showMobileAddView }) => {
                 type="button"
                 onClick={goBack}
               ></button>
-              <form className={styles.form} onSubmit={onSubmit}>
+              <form className={styles.form} onSubmit={onSubmitMobile}>
                 <ul className={styles.ul}>
                   <li className={styles.nameLi}>
                     <label className={styles.nameField}>

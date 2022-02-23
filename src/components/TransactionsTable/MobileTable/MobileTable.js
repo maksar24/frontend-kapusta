@@ -54,44 +54,49 @@ const MobileTable = () => {
         />
       )}
       <div className={s.tsList__container}>
-        <ul>
-          {transactions.map(transaction => (
-            <li className={s.listItem} key={transaction._id}>
-              <div className={s.listItem__wrapper}>
-                <p className={s.listItem__subCategory}>
-                  <EllipsisText text={transaction.description} length={15} />
-                </p>
-                <div className={s.dateCategory__wrapper}>
-                  <p className={s.listItem__date}>
-                    {`${transaction.day}.${transaction.month}.${transaction.year}
-                    `}
+        <ul className={s.mobileTable}>
+          {transactions
+            .map(transaction => (
+              <li key={transaction._id} className={s.listItem}>
+                <div className={s.listItem__wrapper}>
+                  <p className={s.listItem__subCategory}>
+                    {/* <EllipsisText text={transaction.description} length={15} /> */}
+                    {transaction.description}
                   </p>
-                  <p className={s.listItem__category}>{transaction.category}</p>
+                  <div className={s.dateCategory__wrapper}>
+                    <p className={s.listItem__date}>
+                      {`${transaction.day}.${transaction.month}.${transaction.year}
+                    `}
+                    </p>
+                    <p className={s.listItem__category}>
+                      {transaction.category}
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className={s.listItem__sumWrapper}>
-                <p
-                  className={`${
-                    transaction.type !== 'income' ? s.tdSumExpense : s.tdSum
-                  }`}
-                >
-                  <EllipsisText
-                    text={
-                      transaction.type === 'income'
-                        ? `${transaction.amount.toLocaleString('ru')}.00 грн.`
-                        : `-${transaction.amount.toLocaleString('ru')}.00 грн.`
-                    }
-                    length={14}
-                  />
-                </p>
-              </div>
+                <div className={s.listItem__sumWrapper}>
+                  <p
+                    className={`${
+                      transaction.type !== 'income' ? s.tdSumExpense : s.tdSum
+                    }`}
+                  >
+                    <EllipsisText
+                      text={
+                        transaction.type === 'income'
+                          ? `${transaction.amount}.00 грн.`
+                          : `-${transaction.amount}.00 грн.`
+                      }
+                      length={10}
+                    />
+                  </p>
+                </div>
 
-              <button
-                className={s.buttonDelMobile}
-                onClick={() => handleDeleteClick(transaction)}
-              ></button>
-            </li>
-          ))}
+                <button
+                  className={s.buttonDelMobile}
+                  onClick={() => handleDeleteClick(transaction)}
+                ></button>
+              </li>
+            ))
+            .reverse()}
         </ul>
       </div>
     </>

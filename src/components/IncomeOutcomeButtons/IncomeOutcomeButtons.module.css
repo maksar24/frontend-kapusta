@@ -1,5 +1,6 @@
 .typeButton {
   border-right: 2px solid #ffffff;
+  width: 100%;
 }
 
 .typeLink {
@@ -17,11 +18,6 @@
   border: none;
 }
 
-.incomeOutcomeButton {
-  display: flex;
-  justify-content: space-between;
-}
-
 @media screen and (max-width: 767px) {
   .typeButton {
     height: 53px;
@@ -35,10 +31,8 @@
     position: fixed;
     bottom: 0;
     width: 100%;
-  }
-
-  .typeButton {
-    width: 159px;
+    display: flex;
+    /* justify-content: space-between; */
   }
 
   .typeLink:focus {
