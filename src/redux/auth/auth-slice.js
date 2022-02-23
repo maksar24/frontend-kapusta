@@ -18,18 +18,11 @@ const initialState = {
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {
-    googleLogIn: (state, action) => {
-      state.user.name = action.payload.name;
-      state.user.email = action.payload.email;
-      state.user.token = action.payload.token;
-      state.user.balance = action.payload.balance;
-      state.isLoggedIn = true;
-      state.error = null;
-    },
-  },
   extraReducers: {
     [operations.register.fulfilled](state, action) {
+      state.user.name = action.payload.data.name;
+      state.user.email = action.payload.data.email;
+      state.token = action.payload.token;
       state.isLoggedIn = false;
       state.isLoading = false;
       state.error = null;

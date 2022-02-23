@@ -14,7 +14,7 @@ export default function ReportCoast() {
   const dispatch = useDispatch();
   const { sumByCategoryConsumption, sumByCategoryIncome, active, isLoading } =
     useSelector(data => data.balanceReducer);
-  console.log(isLoading);
+
   useEffect(() => {
     if (coast && sumByCategoryConsumption) {
       dispatch(setCategory(sumByCategoryConsumption[0]?.group));

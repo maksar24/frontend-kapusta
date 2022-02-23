@@ -8,6 +8,8 @@ const initialState = {
   sumByCategoryConsumption: null,
   sumDescription: null,
   category: null,
+  income: null,
+  consumption: null,
   summary: [],
   active: 0,
 };
