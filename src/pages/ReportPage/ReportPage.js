@@ -64,8 +64,9 @@ const ReportPage = () => {
     if (data) {
       dispatch(sumByCategoryIncome(data.sumByCategoryIncome));
       dispatch(sumByCategoryConsumption(data.sumByCategoryConsumption));
-      dispatch(incomeData(data.income));
-      dispatch(consumptionData(data.consumption));
+      dispatch(incomeData(data.incomeTransaction));
+      dispatch(consumptionData(data.consumptionTransaction));
+      console.log(data);
     }
   }, [isLoading]);
 
