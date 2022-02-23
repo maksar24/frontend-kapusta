@@ -4,12 +4,14 @@ import { useLocation } from 'react-router-dom';
 import s from './Balance.module.css';
 import Notification from '../Notification';
 import { authOperations, authSelectors } from '../../redux/auth';
+import * as selectors from '../../redux/transactions/transactionsSelectors';
 
 export default function Balance({ style, hide }) {
   const dispatch = useDispatch();
   const location = useLocation();
-  const [userBalance, setUserBalance] = useState(0);
   const balance = useSelector(authSelectors.getUserBalance);
+  const [userBalance, setUserBalance] = useState(balance);
+  const isLoading = useSelector(selectors.getIsLoading);
   const [showingModal, setShowingModal] = useState(true);
 
   const toggleModal = () => {
@@ -17,8 +19,16 @@ export default function Balance({ style, hide }) {
   };
 
   useEffect(() => {
-    setUserBalance(balance);
-  }, [balance]);
+    dispatch(authOperations.getUserBalance());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (isLoading) {
+      dispatch(authOperations.getUserBalance());
+      setUserBalance(balance);
+      return;
+    }
+  }, [isLoading, balance, dispatch]);
 
   const handleChange = e => {
     const { value } = e.target;

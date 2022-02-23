@@ -49,6 +49,7 @@ const TransactionsTable = transactionType => {
       item => item._id === transaction,
     );
     dispatch(transactionsOperations.deleteTransaction(transactionToDel));
+    // dispatch(transactionsOperations.getTransactions());
     setTransaction('');
   };
 

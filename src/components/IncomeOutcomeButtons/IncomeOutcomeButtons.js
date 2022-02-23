@@ -8,7 +8,8 @@ import styles from './IncomeOutcomeButtons.module.css';
 
 const IncomeOutcomeButtons = ({
   transactionType,
-  toggleTransactionType,
+  setTransactionTypeIncome,
+  setTransactionTypeConsumption,
   showMobileAddView,
 }) => {
   const type = transactionType;
@@ -34,17 +35,14 @@ const IncomeOutcomeButtons = ({
     }
   };
 
-  const changeType = () => {
-    toggleTransactionType();
-  };
-
-  const showMobile = () => {
+  const setTransactionTypeConsumptionClick = () => {
+    setTransactionTypeConsumption();
     showMobileAddView();
   };
 
-  const changeTypeView = () => {
-    changeType();
-    showMobile();
+  const setTransactionTypeIncomeClick = () => {
+    setTransactionTypeIncome();
+    showMobileAddView();
   };
 
   const fetchSummary = async type => {
@@ -67,7 +65,7 @@ const IncomeOutcomeButtons = ({
         dispatch(fetchError(error.message));
       }
     }
-    return
+    return;
   };
 
   useEffect(() => {
@@ -94,7 +92,7 @@ const IncomeOutcomeButtons = ({
               <button
                 className={styles.typeButton}
                 type="button"
-                onClick={changeTypeView}
+                onClick={setTransactionTypeConsumptionClick}
               >
                 РАСХОД
               </button>
@@ -102,7 +100,7 @@ const IncomeOutcomeButtons = ({
               <button
                 className={styles.typeButton}
                 type="button"
-                onClick={changeTypeView}
+                onClick={setTransactionTypeIncomeClick}
               >
                 ДОХОД
               </button>
@@ -114,7 +112,7 @@ const IncomeOutcomeButtons = ({
                 className={`${styles.typeButton}
                ${type === 'consumption' && styles.isActive}`}
                 type="button"
-                onClick={(toggleActive, changeType)}
+                onClick={(toggleActive, setTransactionTypeConsumption)}
               >
                 РАСХОД
               </button>
@@ -123,7 +121,7 @@ const IncomeOutcomeButtons = ({
                 className={`${styles.typeButton}
                ${type === 'income' && styles.isActive}`}
                 type="button"
-                onClick={(toggleActive, changeType)}
+                onClick={(toggleActive, setTransactionTypeIncome)}
               >
                 ДОХОД
               </button>
