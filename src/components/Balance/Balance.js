@@ -20,15 +20,8 @@ export default function Balance({ style, hide }) {
 
   useEffect(() => {
     dispatch(authOperations.getUserBalance());
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (isLoading) {
-      dispatch(authOperations.getUserBalance());
-      setUserBalance(balance);
-      return;
-    }
-  }, [isLoading, balance, dispatch]);
+    setUserBalance(balance);
+  }, [isLoading, dispatch]);
 
   const handleChange = e => {
     const { value } = e.target;
