@@ -47,7 +47,13 @@
   background-color: #f6f7fb;
   padding: 17px 20px;
 }
-::placeholder {
+input[type='email']::placeholder {
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.04em;
+  color: #a6abb9;
+}
+input[type='password']::placeholder {
   font-size: 14px;
   line-height: 16px;
   letter-spacing: 0.04em;

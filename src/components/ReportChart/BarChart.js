@@ -56,10 +56,26 @@ function useWindowDimensions() {
 const BarChart = () => {
   const { width } = useWindowDimensions();
   const { sumDescription } = useSelector(data => data.balanceReducer);
+  let delayed;
 
   const optionsVertical = {
     maxBarThickness: 38,
+    barDatasetSpacing: 10,
+    barValueSpacing: 0,
     indexAxis: 'x',
+    animation: {
+      onComplete: () => {
+        delayed = true;
+      },
+      delay: context => {
+        let delay = 0;
+        if (context.type === 'data' && context.mode === 'default' && !delayed) {
+          delay = context.dataIndex * 300 + context.datasetIndex * 100;
+        }
+        return delay;
+      },
+    },
+
     plugins: {
       legend: {
         display: false,
@@ -123,7 +139,7 @@ const BarChart = () => {
   const optionsHorizontal = {
     barThickness: 15,
     maxBarThickness: 50,
-    minBarLength: 40,
+    minBarLength: 30,
     maintainAspectRatio: false,
     indexAxis: 'y',
     plugins: {
@@ -137,7 +153,6 @@ const BarChart = () => {
         anchor: 'end',
         align: 'right',
         offset: 10,
-
         borderRadius: 4,
         color: '#52555F',
         formatter: function (value) {
@@ -146,7 +161,6 @@ const BarChart = () => {
         padding: 0,
       },
     },
-
     scales: {
       x: {
         grid: {
@@ -176,10 +190,9 @@ const BarChart = () => {
         top: 5,
         bottom: 10,
         left: -5,
-        right: 20,
+        right: 74,
       },
     },
-
     elements: {
       bar: {
         borderRadius: 10,
@@ -215,13 +228,7 @@ const BarChart = () => {
   return (
     <>
       <div className={s.chartSection}>
-        {sumDescription === null ? (
-          <NoDataChartSection
-            title={'Выберите категорию для отображения актуальных данных'}
-          />
-        ) : (
-          <Bar options={options} data={chartData} />
-        )}
+        <Bar options={options} data={chartData} />
       </div>
     </>
   );
