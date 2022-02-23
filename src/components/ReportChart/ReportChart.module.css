@@ -11,7 +11,8 @@
 
 @media screen and (min-width: 768px) {
   .chartSection {
-    padding: 45px 30px;
+    padding: 15px;
+    min-height: 320px;
   }
 }
 
@@ -19,4 +20,8 @@
   .chartSection {
     padding: 20px 150px;
   }
+}
+
+canvas {
+  width: 90%;
 }
