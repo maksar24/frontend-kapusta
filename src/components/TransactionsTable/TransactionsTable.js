@@ -10,10 +10,12 @@ import styles from './TransactionsTable.module.css';
 import Modal from '../../components/Modal';
 import transactionCategory from './transactionCategory';
 
+import summaryOperations from '../../redux/summary/summaryOperations';
+
 const TransactionsTable = transactionType => {
   const type = transactionType;
   const dispatch = useDispatch();
-
+  const summaryType = type.transactionType;
   const transactions = useSelector(selectors.getTransactions);
   const isLoading = useSelector(selectors.getIsLoading);
   const filteredTransactions = transactions.filter(
@@ -22,16 +24,20 @@ const TransactionsTable = transactionType => {
   const [modalDel, setModalDel] = useState(false);
   const [transaction, setTransaction] = useState('');
 
+  const [thisYear, setThisYear] = useState(2022);
+
   useEffect(() => {
     dispatch(transactionsOperations.getTransactions());
-  }, [dispatch]);
+    dispatch(summaryOperations.getSummary(summaryType, thisYear));
+  }, [dispatch, summaryType]);
 
   useEffect(() => {
     if (isLoading) {
       dispatch(transactionsOperations.getTransactions());
+      dispatch(summaryOperations.getSummary(summaryType, thisYear));
       return;
     }
-  }, [isLoading, dispatch]);
+  }, [isLoading, dispatch, summaryType]);
 
   const handleDeleteClick = transaction => {
     setModalDel(true);
@@ -49,7 +55,8 @@ const TransactionsTable = transactionType => {
       item => item._id === transaction,
     );
     dispatch(transactionsOperations.deleteTransaction(transactionToDel));
-    // dispatch(transactionsOperations.getTransactions());
+    dispatch(transactionsOperations.getTransactions());
+    dispatch(summaryOperations.getSummary(summaryType, thisYear));
     setTransaction('');
   };
 

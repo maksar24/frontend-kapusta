@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Media from 'react-media';
 
@@ -24,9 +24,12 @@ import {
 import ShowDate from '../../components/Date';
 import Summary from '../../components/Summary';
 import AddTransactionView from '../../views/AddTransactionView';
+import summaryOperations from '../../redux/summary/summaryOperations';
 
 const CommonPage = () => {
   const dispatch = useDispatch();
+  const [thisYear, setThisYear] = useState(2022);
+
   const [mobileAddView, setMobileAddView] = useLocalStorage(
     'mobileAddView',
     false,
@@ -42,19 +45,16 @@ const CommonPage = () => {
     setMobileAddView(false);
   };
 
-  const [transactionType, setTransactionType] = useLocalStorage(
+  /* const [transactionType, setTransactionType] = useLocalStorage(
     'type',
     'consumption',
-  );
-
-  useEffect(() => {
-    setTransactionType('consumption');
-    dispatch(transactionsOperations.getTransactions());
-  }, []);
+  ); */
+  const [transactionType, setTransactionType] = useState('consumption');
 
   const setTransactionTypeIncome = () => {
     if (transactionType === 'consumption') {
       setTransactionType('income');
+
       return;
     }
     if (transactionType === 'income') {
@@ -65,13 +65,20 @@ const CommonPage = () => {
   const setTransactionTypeConsumption = () => {
     if (transactionType === 'income') {
       setTransactionType('consumption');
+
       return;
     }
     if (transactionType === 'consumption') {
       return;
     }
   };
+  useEffect(() => {
+    /* setTransactionType('consumption'); */
+    dispatch(transactionsOperations.getTransactions());
+    dispatch(summaryOperations.getSummary(transactionType, thisYear));
+  }, [transactionType, dispatch]);
 
+  console.log(transactionType);
   return (
     <Media
       queries={{

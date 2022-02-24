@@ -3,11 +3,10 @@ import styles from './Summary.module.css';
 
 import { useSelector } from 'react-redux';
 import monthData from '../../data/month.json';
+import * as selectors from '../../redux/summary/summarySelectors';
 
 const Summary = () => {
-  const { summary } = useSelector(data => data.balanceReducer);
-
-  // console.log(summary.filter(item => item.value > 0));
+  const summary = useSelector(selectors.getSum);
 
   return (
     <div className={styles.summaryContainer}>
@@ -21,7 +20,9 @@ const Summary = () => {
                 <p className={styles.summaryDescription}>
                   {monthData.find(monthIDd => monthIDd.id === monthIdex).name}
                 </p>
-                <p className={styles.summaryDescription}>{value}.00</p>
+                <p className={styles.summaryDescription}>
+                  {value.toLocaleString()}.00
+                </p>
               </li>
             ))}
       </ul>

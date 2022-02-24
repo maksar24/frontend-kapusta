@@ -10,14 +10,14 @@ const ReportBalance = () => {
       <div className={s.balance_item}>
         <p className={s.balance_item_title}>Расходы:</p>
         <span className={`${s.balance_item_text} ${s.balance_item_expense}`}>
-          - {income?.length > 0 ? income[0].income : 0}.00 грн.
+          - {consumption?.length > 0 ? consumption[0].consumption : 0}.00 грн.
         </span>
       </div>
       {/* <Strip className={s.amountStrip} /> */}
       <div className={s.balance_item}>
         <p className={s.balance_item_title}>Доходы:</p>
         <span className={`${s.balance_item_text} ${s.balance_item_income}`}>
-          + {consumption?.length > 0 ? consumption[0].consumption : 0}.00 грн.
+          + {income?.length > 0 ? income[0].income : 0}.00 грн.
         </span>
       </div>
     </div>
