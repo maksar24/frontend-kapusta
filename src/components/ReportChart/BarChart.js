@@ -1,12 +1,11 @@
 import s from './ReportChart.module.css';
-
+import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 
-import NoDataChartSection from '../NoDataChartSection';
+import EllipsisText from 'react-ellipsis-text';
 
 import { Bar } from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { useSelector } from 'react-redux';
 
 import {
   Chart as ChartJS,
@@ -52,6 +51,27 @@ function useWindowDimensions() {
 
   return windowDimensions;
 }
+
+const wrap = (str, limit) => {
+  const words = str.split(' ');
+  let aux = [];
+  let concat = [];
+
+  for (let i = 0; i < words.length; i++) {
+    concat.push(words[i]);
+    let join = concat.join(' ');
+    if (join.length > limit) {
+      aux.push(join);
+      concat = [];
+    }
+  }
+
+  if (concat.length) {
+    aux.push(concat.join(' ').trim());
+  }
+
+  return aux;
+};
 
 const BarChart = () => {
   const { width } = useWindowDimensions();
@@ -102,6 +122,16 @@ const BarChart = () => {
     },
     scales: {
       x: {
+        ticks: {
+          autoSkip: true,
+          autoSkip: true,
+          maxRotation: 0,
+          minRotation: 0,
+          callback: function (val, index) {
+            return wrap(this.getLabelForValue(val), 7);
+          },
+        },
+
         grid: {
           display: false,
           lineWidth: 2,
