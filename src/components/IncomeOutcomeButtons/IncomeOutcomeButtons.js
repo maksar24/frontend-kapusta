@@ -1,9 +1,7 @@
-import { Fragment, useState, useEffect } from 'react';
+import { Fragment, useState } from 'react';
 import Media from 'react-media';
-import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
-import { getToken } from '../../redux/auth/auth-selectors';
-import { fetchSuccess, fetchError, summary } from '../../redux/balance/index';
+import { useDispatch } from 'react-redux';
+import summaryOperations from '../../redux/summary/summaryOperations';
 import styles from './IncomeOutcomeButtons.module.css';
 
 const IncomeOutcomeButtons = ({
@@ -17,15 +15,14 @@ const IncomeOutcomeButtons = ({
   const [outcomeActive, setOutcomeActive] = useState(true);
   const [incomeActive, setIncomeActive] = useState(false);
   const dispatch = useDispatch();
-  const token = useSelector(getToken);
+
   const [thisYear, setThisYear] = useState(2022);
-  const { data } = useSelector(data => data.balanceReducer);
-  const [isLoading, setLoading] = useState(false);
 
   const toggleActive = () => {
     if (incomeActive) {
       setOutcomeActive(true);
       setIncomeActive(false);
+      dispatch(summaryOperations.getSummary(type, thisYear));
       return;
     }
 
@@ -44,39 +41,6 @@ const IncomeOutcomeButtons = ({
     setTransactionTypeIncome();
     showMobileAddView();
   };
-
-  const fetchSummary = async type => {
-    let config = {
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
-    };
-    if (type) {
-      try {
-        setLoading(true);
-        const response = await axios.get(
-          `/transaction/summary/${type}/${thisYear}`,
-          config,
-        );
-        dispatch(fetchSuccess(response.data));
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-        dispatch(fetchError(error.message));
-      }
-    }
-    return;
-  };
-
-  useEffect(() => {
-    fetchSummary(type);
-  }, [thisYear, type, dispatch]);
-
-  useEffect(() => {
-    if (data) {
-      dispatch(summary(data.summary));
-    }
-  }, [isLoading]);
 
   return (
     <Media

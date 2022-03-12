@@ -14,6 +14,7 @@ import {
 import authReducer from './auth/auth-slice';
 import balanceReducer from './balance';
 import transactions from './transactions';
+import summaryReducer from './summary/';
 
 const authPersistConfig = {
   key: 'auth',
@@ -35,6 +36,7 @@ export const store = configureStore({
     auth: persistReducer(authPersistConfig, authReducer),
     balanceReducer,
     transactions,
+    summaryReducer,
   },
   middleware,
   devTools: process.env.NODE_ENV === 'development',
